@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "219231340410",
+    "firebase_url": "https://air4people-76a4f.firebaseio.com",
+    "project_id": "air4people-76a4f",
+    "storage_bucket": "air4people-76a4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219231340410:android:3695aca3bb3a0e84",
+        "android_client_info": {
+          "package_name": "es.uca.air4people.air4people"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219231340410-hipl9qjuvc8d7hihjhc6l76k16n6p24a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmJkvAgX2wZUA2RTr6Magm8zz2uFW1YeM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
