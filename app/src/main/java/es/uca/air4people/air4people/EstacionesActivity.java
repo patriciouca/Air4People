@@ -97,7 +97,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
-                                fragment = new Mapa();
+                                fragment = new Fragment1();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
