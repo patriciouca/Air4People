@@ -38,8 +38,16 @@ public class EstacionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
 
+        setContentView(R.layout.activity_main);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        nav = (NavigationView)findViewById(R.id.navview);
+
+        Toolbar appbar = (Toolbar)findViewById(R.id.appbar);
+        setSupportActionBar(appbar);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,18 +77,6 @@ public class EstacionesActivity extends AppCompatActivity {
 
             }
         });
-        */
-
-        setContentView(R.layout.activity_main);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        nav = (NavigationView)findViewById(R.id.navview);
-
-        Toolbar appbar = (Toolbar)findViewById(R.id.appbar);
-        setSupportActionBar(appbar);
-
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.common_google_signin_btn_icon_dark_focused);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         nav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -92,7 +88,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
-                                fragment = new Fragment1();
+                                fragment = new Mapa();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
