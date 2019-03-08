@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,7 +22,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.Security;
+
 
 import es.uca.air4people.air4people.R;
 
@@ -55,7 +63,29 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
                 //mMap.setMyLocationEnabled(true);
                 //mMap.setOnMyLocationButtonClickListener(this);
                 //mMap.setOnMyLocationClickListener(this);
-
+                /*
+                try{
+                    URL githubEndpoint = new URL("http://airservices.uca.es/Air4People/locateAllMotes");
+                    HttpURLConnection myConnection =(HttpURLConnection) githubEndpoint.openConnection();
+                    InputStream responseBody = myConnection.getInputStream();
+                    InputStreamReader responseBodyReader =
+                            new InputStreamReader(responseBody, "UTF-8");
+                    JsonReader jsonReader = new JsonReader(responseBodyReader);
+                    jsonReader.beginObject(); // Start processing the JSON object
+                    while (jsonReader.hasNext()) { // Loop through all keys
+                        String key = jsonReader.nextName();
+                        Toast toast=Toast.makeText(getActivity(),key,Toast.LENGTH_LONG);
+                        toast.show();
+                        Thread.sleep(1000);
+                        jsonReader.skipValue();
+                    }
+                    jsonReader.close();
+                }catch (Exception e){
+                    Toast toast=Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG);
+                    Log.d("error",e.getMessage());
+                    toast.show();
+                }
+                */
                 // For dropping a marker at a point on the Map
                 LatLng espana = new LatLng(40.416775, -3.703790);
                 mMap.addMarker(new MarkerOptions().position(espana).title("Marker Title").snippet("Marker Description"));

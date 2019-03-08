@@ -40,7 +40,9 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <include layout="@layout/content_layout" />
+    <include
+        android:id="@+id/contenido"
+        layout="@layout/content_layout" />
 
     <!-- Layout del menú lateral (Navigation View) -->
     <android.support.design.widget.NavigationView
