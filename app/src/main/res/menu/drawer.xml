@@ -5,7 +5,7 @@
             android:title="@string/menu_opcion1"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:title="S2"/>
+            android:title="@string/menu_opcion2"/>
         <item
             android:id="@+id/menu_seccion_3"
             android:title="S3"/>

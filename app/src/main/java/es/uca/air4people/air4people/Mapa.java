@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -47,7 +48,6 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     public Mapa() {
-        // Required empty public constructor
     }
 
     @Override
@@ -77,31 +77,42 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
                 // For dropping a marker at a point on the Map
                 LatLng espana = new LatLng(40.416775, -3.703790);
 
+                /*
+                call.enqueue(new Callback<List<Estacion>>() {
+                    @Override
+                    public void onResponse(Call<List<Estacion>> call, Response<List<Estacion>> response) {
+                        for (Estacion a:response.body()){
+                            //LatLng nuevo = new LatLng(a.getLatitude(), a.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(a.getLatitude(), a.getLongitude())).title(a.getMote_name()).snippet("Marker Description"));
+                        }
+
+                        Log.d("Raro","Terminado");
+                    }
+                    @Override
+                    public void onFailure(Call<List<Estacion>> call, Throwable t) {
+                    }
+                });
+
                 Retrofit retrofit = new Retrofit.Builder().
                         baseUrl("http://airservices.uca.es/Air4People/").
                         addConverterFactory(GsonConverterFactory.create())
                         .build();
 
                 EstacionService estacionService = retrofit.create(EstacionService.class);
-                Call< List<Estacion> > call = estacionService.getMapa();
-                call.enqueue(new Callback<List<Estacion>>() {
-                    @Override
-                    public void onResponse(Call<List<Estacion>> call, Response<List<Estacion>> response) {
-                        Log.d("Raro",String.valueOf(response.body().size()));
-                        int b=0;
-                        for (Estacion a:response.body()){
-                            //LatLng nuevo = new LatLng(a.getLatitude(), a.getLongitude());
-                            b++;
-                            Log.d("Raro",String.valueOf(b));
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(a.getLatitude(), a.getLongitude())).title(a.getMote_name()).snippet("Marker Description"));
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<List<Estacion>> call, Throwable t) {
-                    }
-                });
-                while (!call.())
-                {}
+                Call<List<Estacion>> call = estacionService.getMapa();
+
+                Response< List<Estacion> > response=null;
+
+                try{
+
+                    Log.d("Raro",String.valueOf(call.request()));
+                    response=call.execute();
+
+                }catch(Exception e){
+
+                    Log.d("Raro",String.valueOf(response.code()));
+                }
+                */
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(espana).zoom(8).build();
                 //googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -115,10 +126,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
 
 

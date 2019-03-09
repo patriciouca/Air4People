@@ -18,5 +18,7 @@
     <string name="title_activity_estaciones">EstacionesActivity</string>
     <string name="title_activity_r">r</string>
     <string name="title_activity_estaciones_mapa">EstacionesDisponibles</string>
-    <string name="menu_opcion1">"Mapas"</string>
+
+    <string name="menu_opcion1">"Principal"</string>
+    <string name="menu_opcion2">"Mapas"</string>
 </resources>

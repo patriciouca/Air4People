@@ -1,8 +1,5 @@
 package es.uca.air4people.air4people;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,18 +11,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import es.uca.air4people.air4people.lista.AdapterEstacion;
+import es.uca.air4people.air4people.lista.EstacionLista;
 
 public class EstacionesActivity extends AppCompatActivity {
 
@@ -40,6 +35,12 @@ public class EstacionesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, new ListaMisEstaciones())
+                .commit();
+
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         nav = (NavigationView)findViewById(R.id.navview);
 
@@ -49,6 +50,7 @@ public class EstacionesActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +59,12 @@ public class EstacionesActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        final ArrayList<Estacion> estaciones = new ArrayList<Estacion>();
-        estaciones.add(new Estacion("Hola",25));
-        estaciones.add(new Estacion("Adios",45));
-        estaciones.add(new Estacion("Remedio",35));
+        */
+        /*
+        final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
+        estaciones.add(new EstacionLista("Hola",25));
+        estaciones.add(new EstacionLista("Adios",45));
+        estaciones.add(new EstacionLista("Remedio",35));
 
 
         ListView lv = (ListView) findViewById(R.id.lista);
@@ -77,7 +80,9 @@ public class EstacionesActivity extends AppCompatActivity {
 
             }
         });
+        */
 
+        //MENU LATERAL
         nav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -88,12 +93,11 @@ public class EstacionesActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
-                                fragment = new Mapa();
-                                View contenido = (View)findViewById(R.id.contenido);
+                                fragment = new ListaMisEstaciones();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
-                                fragment = new Fragment1();
+                                fragment = new Mapa();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_3:
@@ -138,96 +142,5 @@ public class EstacionesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    public class Estacion {
-
-        private String titulo;
-        private int numero;
-        //private Drawable imagen;
-
-        public Estacion(String titulo, int numero) {
-            super();
-            this.titulo = titulo;
-            this.numero = numero;
-        }
-
-        public String getTitulo() {
-            return titulo;
-        }
-
-        public void setTitulo(String titulo) {
-            this.titulo = titulo;
-        }
-
-        public int getNumero() {
-            return numero;
-        }
-
-        public void setNumero(int numero) {
-            this.numero = numero;
-        }
-    }
-
-    public class AdapterEstacion extends BaseAdapter {
-
-        protected Activity activity;
-        protected ArrayList<Estacion> items;
-
-        public AdapterEstacion (Activity activity, ArrayList<Estacion> items) {
-            this.activity = activity;
-            this.items = items;
-        }
-
-        @Override
-        public int getCount() {
-            return items.size();
-        }
-
-        public void clear() {
-            items.clear();
-        }
-
-        public void addAll(ArrayList<Estacion> estaciones) {
-            for (int i = 0; i < estaciones.size(); i++) {
-                items.add(estaciones.get(i));
-            }
-        }
-
-        @Override
-        public Object getItem(int arg0) {
-            return items.get(arg0);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View v = convertView;
-
-            if (convertView == null) {
-                LayoutInflater inf = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                v = inf.inflate(R.layout.item, null);
-            }
-
-            Estacion dir = items.get(position);
-
-            TextView title = (TextView) v.findViewById(R.id.titulo);
-            title.setText(dir.getTitulo());
-
-            TextView description = (TextView) v.findViewById(R.id.numero);
-            description.setText(String.valueOf(dir.getNumero()));
-
-            /*
-            ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
-            imagen.setImageDrawable(dir.getImage());
-            */
-            return v;
-        }
     }
 }
