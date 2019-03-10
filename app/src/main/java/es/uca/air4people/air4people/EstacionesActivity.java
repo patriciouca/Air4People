@@ -1,6 +1,8 @@
 package es.uca.air4people.air4people;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.List;
@@ -19,6 +23,7 @@ import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.fragments.Fragment1;
 import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.fragments.Mapa;
+import es.uca.air4people.air4people.fragments.MapaDetalle;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,10 +33,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EstacionesActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+
+    private ConstraintLayout constraint;
+    private ConstraintSet set;
+
+    private LinearLayout linear;
+
     private NavigationView nav;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private String[] mPlanetTitles={"Inicio","Entramos"};
+
     private boolean fuera;
 
     @Override
@@ -40,13 +49,12 @@ public class EstacionesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        fuera=false;
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new ListaMisEstaciones())
-                .commit();
+        irInicio();
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         nav = (NavigationView)findViewById(R.id.navview);
+
+        constraint = findViewById(R.id.reglasprincipal);
 
         Toolbar appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
@@ -64,10 +72,10 @@ public class EstacionesActivity extends AppCompatActivity {
             }
         });
         */
-        /*
-
-        */
-
+        set=new ConstraintSet();
+        set.clone(constraint);
+        set.clear(R.id.principal,ConstraintSet.BOTTOM);
+        set.applyTo(constraint);
         //MENU LATERAL
         nav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -114,9 +122,6 @@ public class EstacionesActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
-
-
     }
 
     @Override

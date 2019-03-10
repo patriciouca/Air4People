@@ -1,10 +1,15 @@
 package es.uca.air4people.air4people.fragments;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.JsonReader;
 import android.util.Log;
@@ -22,6 +27,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -44,8 +50,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
-public class Mapa extends Fragment implements OnMapReadyCallback {
+public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private FragmentManager general;
+    private View vgeneral;
     MapView mMapView;
     private GoogleMap mMap;
 
@@ -57,6 +65,8 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.content_mapa, container, false);
+        general=getActivity().getSupportFragmentManager();
+        vgeneral=view;
         mMapView= view.findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
@@ -68,12 +78,14 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
         }
 
         mMapView.getMapAsync(this);
+
         return view;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        googleMap.setOnMarkerClickListener(this);
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("http://airservices.uca.es/Air4People/").
                 addConverterFactory(GsonConverterFactory.create())
@@ -88,7 +100,11 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
                 CameraUpdate center=null;
                 for (Estacion a:response.body()){
                     LatLng punto = new LatLng(a.getLongitude(), a.getLatitude());
-                    mMap.addMarker(new MarkerOptions().position(punto).title(a.getMote_name()).snippet("Marker Description"));
+                    MarkerOptions marcador=new MarkerOptions();
+                    marcador.position(punto);
+                    marcador.title(a.getMote_name());
+                    marcador.snippet("Marker Description");
+                    mMap.addMarker(marcador);
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(punto));
                     center=CameraUpdateFactory.newLatLng(punto);
 
@@ -105,4 +121,15 @@ public class Mapa extends Fragment implements OnMapReadyCallback {
     }
 
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        general.beginTransaction().add(R.id.detalle, new MapaDetalle()).commit();
+
+        ConstraintLayout constraint = vgeneral.findViewById(R.id.reglasprincipal);
+        ConstraintSet set=new ConstraintSet();
+        set.clone(constraint);
+
+        set.applyTo(constraint);
+        return false;
+    }
 }

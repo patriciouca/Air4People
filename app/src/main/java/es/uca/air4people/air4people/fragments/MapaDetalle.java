@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 
 import es.uca.air4people.air4people.R;
 
-public class DetalleMapa extends Fragment {
-
-    public DetalleMapa() {
+public class MapaDetalle  extends Fragment{
+    public MapaDetalle() {
         // Required empty public constructor
     }
 
@@ -18,6 +17,6 @@ public class DetalleMapa extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment1, container, false);
+        return inflater.inflate(R.layout.content_detallemapa, container, false);
     }
 }

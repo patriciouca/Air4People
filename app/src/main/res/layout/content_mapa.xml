@@ -5,16 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="715dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
