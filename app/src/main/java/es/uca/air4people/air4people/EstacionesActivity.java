@@ -1,9 +1,7 @@
 package es.uca.air4people.air4people;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,15 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import es.uca.air4people.air4people.lista.AdapterEstacion;
-import es.uca.air4people.air4people.lista.EstacionLista;
+import es.uca.air4people.air4people.Servicio.Estacion;
+import es.uca.air4people.air4people.Servicio.EstacionService;
+import es.uca.air4people.air4people.fragments.Fragment1;
+import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
+import es.uca.air4people.air4people.fragments.Mapa;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EstacionesActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class EstacionesActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] mPlanetTitles={"Inicio","Entramos"};
+    private boolean fuera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
+        fuera=false;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
@@ -61,25 +65,7 @@ public class EstacionesActivity extends AppCompatActivity {
         });
         */
         /*
-        final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
-        estaciones.add(new EstacionLista("Hola",25));
-        estaciones.add(new EstacionLista("Adios",45));
-        estaciones.add(new EstacionLista("Remedio",35));
 
-
-        ListView lv = (ListView) findViewById(R.id.lista);
-        AdapterEstacion adapter = new AdapterEstacion(this, estaciones);
-        lv.setAdapter(adapter);
-
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final int pos = position;
-                Toast.makeText(EstacionesActivity.this,estaciones.get(position).getTitulo(), Toast.LENGTH_LONG).show();
-
-            }
-        });
         */
 
         //MENU LATERAL
@@ -94,10 +80,12 @@ public class EstacionesActivity extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
                                 fragment = new ListaMisEstaciones();
+                                fuera=false;
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
                                 fragment = new Mapa();
+                                fuera=true;
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_3:
@@ -143,4 +131,21 @@ public class EstacionesActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void irInicio(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, new ListaMisEstaciones())
+                .commit();
+        fuera=false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(fuera){
+            irInicio();
+        }else{
+            finish();
+        }
+    }
+
 }

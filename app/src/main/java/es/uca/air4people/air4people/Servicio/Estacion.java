@@ -3,7 +3,7 @@ package es.uca.air4people.air4people.Servicio;
 public class Estacion {
 
     private int mote_id;
-    private double latitud,longitud;
+    private double latitude,longitude;
     private String mote_name;
 
     public Estacion() {
@@ -11,8 +11,8 @@ public class Estacion {
 
     public Estacion(int id, float latitud, float longitud, String mote_name) {
         this.mote_id = id;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.latitude = latitud;
+        this.longitude = longitud;
         this.mote_name = mote_name;
     }
 
@@ -25,19 +25,19 @@ public class Estacion {
     }
 
     public double getLatitude() {
-        return latitud;
+        return latitude;
     }
 
     public void setLatitude(float latitud) {
-        this.latitud = latitud;
+        this.latitude = latitud;
     }
 
     public double getLongitude() {
-        return longitud;
+        return longitude;
     }
 
     public void setLongitude(float longitud) {
-        this.longitud = longitud;
+        this.longitude = longitud;
     }
 
     public String getMote_name() {
