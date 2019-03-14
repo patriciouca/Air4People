@@ -74,7 +74,7 @@ public class EstacionesActivity extends AppCompatActivity {
         */
         set=new ConstraintSet();
         set.clone(constraint);
-        set.clear(R.id.principal,ConstraintSet.BOTTOM);
+        set.setMargin(R.id.principal,ConstraintSet.BOTTOM,0);
         set.applyTo(constraint);
         //MENU LATERAL
         nav.setNavigationItemSelectedListener(

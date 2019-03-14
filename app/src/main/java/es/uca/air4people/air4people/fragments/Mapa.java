@@ -13,7 +13,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.JsonReader;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -53,7 +55,9 @@ import retrofit2.http.GET;
 public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private FragmentManager general;
+    private ConstraintLayout reglas;
     private View vgeneral;
+    private Fragment detalle;
     MapView mMapView;
     private GoogleMap mMap;
 
@@ -67,10 +71,11 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         View view = inflater.inflate(R.layout.content_mapa, container, false);
         general=getActivity().getSupportFragmentManager();
         vgeneral=view;
+        reglas=(ConstraintLayout) vgeneral.getRootView();
         mMapView= view.findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-
+        detalle=general.findFragmentById(R.id.detalle);
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -85,6 +90,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         googleMap.setOnMarkerClickListener(this);
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("http://airservices.uca.es/Air4People/").
@@ -98,6 +104,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             @Override
             public void onResponse(Call<List<Estacion>> call, Response<List<Estacion>> response) {
                 CameraUpdate center=null;
+
                 for (Estacion a:response.body()){
                     LatLng punto = new LatLng(a.getLongitude(), a.getLatitude());
                     MarkerOptions marcador=new MarkerOptions();
@@ -115,6 +122,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
             }
             @Override
             public void onFailure(Call<List<Estacion>> call, Throwable t) {
+                Log.d("Raro",t.getMessage().toString());
             }
         });
 
@@ -123,13 +131,19 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        general.beginTransaction().add(R.id.detalle, new MapaDetalle()).commit();
 
-        ConstraintLayout constraint = vgeneral.findViewById(R.id.reglasprincipal);
+        reglas=(ConstraintLayout) vgeneral.getParent().getParent().getParent();
+
         ConstraintSet set=new ConstraintSet();
-        set.clone(constraint);
 
-        set.applyTo(constraint);
+        set.clone(reglas);
+
+        set.setMargin(R.id.principal,ConstraintSet.BOTTOM,1000);
+        set.applyTo(reglas);
+        Fragment m=new MapaDetalle();
+        ((MapaDetalle) m).setReglas(reglas);
+        general.beginTransaction().add(R.id.detalle, m).commit();
+
         return false;
     }
 }
