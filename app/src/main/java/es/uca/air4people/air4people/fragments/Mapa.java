@@ -10,6 +10,7 @@ import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.JsonReader;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -60,8 +62,10 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     private Fragment detalle;
     MapView mMapView;
     private GoogleMap mMap;
+    boolean hay;
 
     public Mapa() {
+        hay=false;
     }
 
     @Override
@@ -75,7 +79,6 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         mMapView= view.findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-        detalle=general.findFragmentById(R.id.detalle);
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -140,10 +143,19 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         set.setMargin(R.id.principal,ConstraintSet.BOTTOM,1000);
         set.applyTo(reglas);
-        Fragment m=new MapaDetalle();
-        ((MapaDetalle) m).setReglas(reglas);
-        general.beginTransaction().add(R.id.detalle, m).commit();
 
+        if(hay)
+        {
+            general.beginTransaction().remove(detalle).commit();
+        }
+        detalle=new MapaDetalle();
+
+        ((MapaDetalle) detalle).setReglas(reglas);
+        Bundle argumentos=new Bundle();
+        argumentos.putString("titulo",marker.getTitle());
+        detalle.setArguments(argumentos);
+        general.beginTransaction().add(R.id.detalle, detalle).commit();
+        hay=true;
         return false;
     }
 }
