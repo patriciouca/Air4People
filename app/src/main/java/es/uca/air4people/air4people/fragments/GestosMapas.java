@@ -1,7 +1,11 @@
 package es.uca.air4people.air4people.fragments;
 
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -31,6 +35,14 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         cambiar();
     }
 
+    private void arriba(){
+        if(marca<1200)
+        {
+            marca=1200;
+            cambiar();
+        }
+
+    }
 
     private void cambiar(){
 
@@ -38,8 +50,11 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         ConstraintSet set=new ConstraintSet();
 
         set.clone(reglas);
-
         set.setMargin(R.id.principal,ConstraintSet.BOTTOM,marca);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TransitionManager.beginDelayedTransition(reglas);
+        }
         set.applyTo(reglas);
 
     }
@@ -73,6 +88,7 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         {
             if(deltaY > 0)
             {
+                arriba();
                 Log.d("RARO","Swipe to UP");
             }else
             {

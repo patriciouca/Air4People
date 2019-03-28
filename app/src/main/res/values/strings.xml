@@ -23,4 +23,23 @@
     <string name="menu_opcion2">"Mapas"</string>
     <string name="title_activity_register">RegisterActivity</string>
 
+    <string name="x1">"No hay problema."</string>
+    <string name="pm102">"Posibles síntomas respiratorios normalmente en personas sensibles,
+        posible empeoramiento de enfermedades de corazón o pulmón en personas con
+        enfermedad cardiopulmonar y personas mayores."</string>
+    <string name="pm103">"Aumenta la probabilidad de síntomas
+        respiratorios en personas sensibles, empeoramiento de enfermedades
+        del corazón o pulmón y mortalidad prematura en personas con
+        enfermedades cardiopulmonar y adultos."</string>
+    <string name="pm104">"Aumenta el empeoramiento de enfermedades de corazón o
+        pulmon y mortalidad prematura en personas
+        con enfermedades cardiopulmonar y adultos.
+        Aumenta los efectos nocivos respiratorios en la población."</string>
+    <string name="co2">"Aumenta la probabilidad de reducir la tolerancia al ejercicio debido al aumento síntomas
+cardiovasculares, tal y como dolor de pecho, en personas con enfermedades de corazón."</string>
+    <string name="co3">"Reducir el ejercicio tolerado debido a incrementación de síntomas cardiovasculares, como
+dolor de pecho en personas con enfermedades de corazón."</string>
+    <string name="co4">"Importantes empeoramiento de síntomas cardiovasculares, tal y como dolor pecho, en
+personas con enfermedades de corazón." </string>
+
 </resources>

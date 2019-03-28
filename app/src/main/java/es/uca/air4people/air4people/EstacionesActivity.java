@@ -59,7 +59,7 @@ public class EstacionesActivity extends AppCompatActivity {
         Toolbar appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /*

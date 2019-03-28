@@ -113,7 +113,6 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                     MarkerOptions marcador=new MarkerOptions();
                     marcador.position(punto);
                     marcador.title(a.getMote_name());
-                    marcador.snippet("Marker Description");
                     mMap.addMarker(marcador);
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(punto));
                     center=CameraUpdateFactory.newLatLng(punto);

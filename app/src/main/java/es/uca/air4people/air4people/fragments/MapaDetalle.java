@@ -1,6 +1,10 @@
 package es.uca.air4people.air4people.fragments;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.FontRequest;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
 
+import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Prediccion;
@@ -79,8 +86,67 @@ public class MapaDetalle  extends Fragment  {
                     TextView valor=hijo.findViewById(R.id.tvV);
                     valor.setText(String.valueOf(a.getValue()));
                     ProgressBar barra=hijo.findViewById(R.id.pB);
+                    ImageButton botoncito=hijo.findViewById(R.id.btInf);
+                    barra.setVisibility(View.INVISIBLE);
 
+                    int comprobacion=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
 
+                    switch (comprobacion){
+                        case 1:
+                            barra.setProgress(25);
+                            barra.getProgressDrawable().setColorFilter(
+                                    Color.GREEN, PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                botoncito.setTooltipText(getString(R.string.x1));
+                            }
+                            break;
+                        case 2:
+                            barra.setProgress(50);
+                            barra.getProgressDrawable().setColorFilter(
+                                    Color.YELLOW, PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(getString(R.string.pm102));
+                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(getString(R.string.co2));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                        case 3:
+                            barra.setProgress(75);
+                            barra.getProgressDrawable().setColorFilter(
+                                    Color.rgb(255,165,0), PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(getString(R.string.pm103));
+                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(getString(R.string.co3));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                        case 4:
+                            barra.getProgressDrawable().setColorFilter(
+                                    Color.RED, PorterDuff.Mode.SRC_IN);
+                            barra.setProgress(100);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(getString(R.string.pm104));
+                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(getString(R.string.co4));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                            default:
+                                botoncito.setVisibility(View.GONE);
+                                break;
+                    }
                     adjuntar.addView(hijo);
                 }
             }
