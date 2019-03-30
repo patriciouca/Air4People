@@ -95,7 +95,7 @@ public class MapaDetalle  extends Fragment  {
                         case 1:
                             barra.setProgress(25);
                             barra.getProgressDrawable().setColorFilter(
-                                    Color.GREEN, PorterDuff.Mode.SRC_IN);
+                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 botoncito.setTooltipText(getString(R.string.x1));
@@ -104,7 +104,7 @@ public class MapaDetalle  extends Fragment  {
                         case 2:
                             barra.setProgress(50);
                             barra.getProgressDrawable().setColorFilter(
-                                    Color.YELLOW, PorterDuff.Mode.SRC_IN);
+                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
@@ -118,7 +118,7 @@ public class MapaDetalle  extends Fragment  {
                         case 3:
                             barra.setProgress(75);
                             barra.getProgressDrawable().setColorFilter(
-                                    Color.rgb(255,165,0), PorterDuff.Mode.SRC_IN);
+                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
@@ -131,7 +131,7 @@ public class MapaDetalle  extends Fragment  {
                             break;
                         case 4:
                             barra.getProgressDrawable().setColorFilter(
-                                    Color.RED, PorterDuff.Mode.SRC_IN);
+                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setProgress(100);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

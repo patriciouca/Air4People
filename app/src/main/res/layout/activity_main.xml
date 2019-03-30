@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ToolBarStyle"
+                android:elevation="4dp"
                 />
 
 
@@ -61,10 +62,12 @@
         android:id="@+id/navview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         android:layout_gravity="start"
+        android:background="#344955"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_navview"
-        app:menu="@menu/drawer" >
+        app:itemTextColor="@color/common_google_signin_btn_text_dark_default"
+        app:menu="@menu/drawer">
 
     </android.support.design.widget.NavigationView>
 

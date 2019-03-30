@@ -1,4 +1,8 @@
 package es.uca.air4people.air4people;
+
+import android.graphics.Color;
+import android.util.AndroidException;
+
 public class ComprobarContaminacion {
 
     static String[] contaminantes={"DIOXIDO DE AZUFRE","OZONO","PARTICULAS EN SUSPENSION DE 10 MICRAS","DIOXIDO DE NITROGENO","MONOXIDO DE CARBONO"};
@@ -22,6 +26,43 @@ public class ComprobarContaminacion {
                 else
                     return 4;
             }
+        }
+        return 0;
+    }
+
+    public static String diminutivo(String contaminante)
+    {
+        switch(contaminante.toUpperCase())
+        {
+            case "MONOXIDO DE CARBONO":
+                return "CO";
+            case "OXIDO DE NITROGENO":
+                return "NO";
+            case "DIOXIDO DE NITROGENO":
+                return "NO2";
+            case "OXIDOS DE NITROGENO GENERICO":
+                return "NOX";
+            case "OZONO":
+                return "O3";
+            case "DIOXIDO DE AZUFRE":
+                return "SO2";
+            default:
+                return null;
+        }
+    }
+
+    public static int getColor(int nivel)
+    {
+        switch (nivel)
+        {
+            case 1:
+                return Color.GREEN;
+            case 2:
+                return Color.YELLOW;
+            case 3:
+                return Color.rgb(255,165,0);
+            case 4:
+                return Color.RED;
         }
         return 0;
     }

@@ -27,14 +27,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fuente.TypefacedTextView
+    <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Iniciar Sesión"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="30sp"
+        android:theme="@style/textoPrimario"
+        android:textSize="30dp"
+        style="@style/textoPrimario"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="16dp" />
 
