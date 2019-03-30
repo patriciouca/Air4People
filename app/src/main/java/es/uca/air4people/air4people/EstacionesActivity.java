@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class EstacionesActivity extends AppCompatActivity {
     private NavigationView nav;
 
     private boolean fuera;
+    private static boolean fuera2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +89,8 @@ public class EstacionesActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
+                                fuera=true;
                                 fragment = new ListaMisEstaciones();
-                                fuera=false;
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
@@ -144,9 +146,13 @@ public class EstacionesActivity extends AppCompatActivity {
         fuera=false;
     }
 
+    public static void setFuera2(){
+        fuera2=true;
+    }
+
     @Override
     public void onBackPressed() {
-        if(fuera){
+        if(fuera || fuera2){
             irInicio();
         }else{
             finish();

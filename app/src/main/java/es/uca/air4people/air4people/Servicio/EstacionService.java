@@ -12,4 +12,7 @@ public interface EstacionService {
         @GET("moteCurrentQAir/{name}")
         Call<List<Prediccion>> getPredicciones(@Path("name") String name);
 
+        @GET("moteDateQAir/{name}/{date}")
+        Call<List<Prediccion>> getPrediccionFecha(@Path("name") String name,@Path("date") String date);
+
 }

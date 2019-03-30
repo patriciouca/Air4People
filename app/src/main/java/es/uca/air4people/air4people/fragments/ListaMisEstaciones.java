@@ -72,7 +72,7 @@ public class ListaMisEstaciones extends Fragment {
             final String titulo=nombre;
             call.enqueue(new Callback<List<Prediccion>>() {
                 @Override
-                public void onResponse(Call<List<Prediccion>> call, Response<List<Prediccion>> response) {
+                public void onResponse(Call<List<Prediccion>> call, final Response<List<Prediccion>> response) {
 
 
                     estaciones.add(new EstacionLista(titulo, response.body()));
@@ -84,8 +84,14 @@ public class ListaMisEstaciones extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             final int pos = position;
-
-                            Toast.makeText(getActivity(),estaciones.get(position).getTitulo(), Toast.LENGTH_LONG).show();
+                            Fragment fragment = new DetalleEstacion();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("titulo",estaciones.get(position).getTitulo());
+                            ((DetalleEstacion) fragment).setLista(estaciones.get(position).getPredicciones());
+                            fragment.setArguments(bundle);
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content_frame, fragment).addToBackStack("T")
+                                    .commit();
 
                         }
                     });

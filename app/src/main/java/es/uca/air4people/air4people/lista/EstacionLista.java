@@ -11,7 +11,6 @@ public class EstacionLista {
 
     private String titulo;
     private List<Prediccion> predicciones;
-    //private Drawable imagen;
 
     public EstacionLista(String titulo, List<Prediccion> predicciones) {
         super();
