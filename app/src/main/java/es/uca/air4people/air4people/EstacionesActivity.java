@@ -51,7 +51,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        irInicio();
+
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         nav = (NavigationView)findViewById(R.id.navview);
@@ -63,7 +63,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        irInicio();
         /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +143,7 @@ public class EstacionesActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
+        getSupportActionBar().setTitle("Inicio");
         fuera=false;
     }
 
@@ -152,10 +153,14 @@ public class EstacionesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(fuera || fuera2){
-            irInicio();
-        }else{
-            finish();
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            if(fuera || fuera2){
+                irInicio();
+            }else{
+                finish();
+            }
         }
     }
 

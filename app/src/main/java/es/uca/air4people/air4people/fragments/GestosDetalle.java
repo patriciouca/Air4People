@@ -1,5 +1,6 @@
 package es.uca.air4people.air4people.fragments;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -12,8 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,37 +43,33 @@ public class GestosDetalle extends  GestureDetector.SimpleOnGestureListener{
     private static int MAX_SWIPE_DISTANCE_X = 1000;
     private static int MAX_SWIPE_DISTANCE_Y = 1000;
 
-    private Date ultimafecha;
+    private Date fecha;
+    private int dias;
     private String nombre;
+    private DetalleEstacion.EncolarEstacionDia encolarEstacionDia;
+    private ScrollView scroll;
 
-    public GestosDetalle(Date ultimafecha, String nombre) {
-        this.ultimafecha = ultimafecha;
+    public GestosDetalle(String nombre, DetalleEstacion.EncolarEstacionDia encolarEstacionDia, ScrollView scroll) {
         this.nombre = nombre;
+        this.encolarEstacionDia=encolarEstacionDia;
+        dias=DetalleEstacion.AVANCEDEFECTO;
+        this.scroll=scroll;
     }
 
     private void abajo(){
-        Retrofit retrofit = new Retrofit.Builder().
-                baseUrl("http://airservices.uca.es/Air4People/").
-                addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        EstacionService estacionService = retrofit.create(EstacionService.class);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = df.format(ultimafecha);
-        Call<List<Prediccion>> call = estacionService.getPrediccionFecha(nombre,formattedDate);
-        final String titulo=nombre;
-        call.enqueue(new Callback<List<Prediccion>>() {
-            @Override
-            public void onResponse(Call<List<Prediccion>> call, final Response<List<Prediccion>> response) {
-
-
+        for (int i=0;i<DetalleEstacion.AVANCEDEFECTO;i++)
+        {
+            dias++;
+            encolarEstacionDia.anadirPrediccion(dias);
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
 
-            @Override
-            public void onFailure(Call<List<Prediccion>> call, Throwable t) {
 
-            }
-        });
     }
 
 
@@ -101,10 +102,19 @@ public class GestosDetalle extends  GestureDetector.SimpleOnGestureListener{
         {
             if(deltaY > 0)
             {
-                Log.d("RARO","Swipe to UP");
+                View view = (View) scroll.getChildAt(scroll.getChildCount() - 1);
+                int diff = (view.getBottom() - (scroll.getHeight() + scroll.getScrollY()));
+
+                Log.d("RARO",String.valueOf(diff));
+
+                if (diff <= 21) {
+                    abajo();
+                }
+
+
             }else
             {
-                abajo();
+
             }
         }
 

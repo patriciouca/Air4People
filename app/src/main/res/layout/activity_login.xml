@@ -29,24 +29,29 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/textoPrimarioTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="Iniciar Sesión"
+        android:textSize="30sp"
         android:theme="@style/textoPrimario"
-        android:textSize="30dp"
-        style="@style/textoPrimario"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -54,6 +59,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/email"
+                style="@style/autocompletar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
@@ -69,9 +75,10 @@
 
             <EditText
                 android:id="@+id/password"
+                style="@style/autocompletar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contrasena"
+                android:hint="Contraseña"
                 android:imeActionId="6"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
@@ -85,15 +92,12 @@
 
     <Button
         android:id="@+id/entrar"
-        style="?android:textAppearanceSmall"
+        style="@style/botonPrimario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
-        android:text="Entrar"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:text="ENTRAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_conversion_absoluteHeight="48dp"
@@ -106,7 +110,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:text="Registrarse"
-        android:textColor="@color/colorPrimary"
+        style="@style/botonSecundario"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_conversion_absoluteHeight="206dp"
