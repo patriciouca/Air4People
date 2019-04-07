@@ -16,8 +16,8 @@ import java.util.List;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstaciones;
 import es.uca.air4people.air4people.Servicio.EstacionService;
-import es.uca.air4people.air4people.Servicio.Prediccion;
-import es.uca.air4people.air4people.lista.EstacionLista;
+import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +33,7 @@ public class ListaMisEstaciones extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.content_listaestacionesrec, container, false);
+        View view = inflater.inflate(R.layout.content_listaestaciones, container, false);
 
         final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
         EncolarEstacion encolarEstacion=new EncolarEstacion(estaciones);
@@ -59,11 +59,11 @@ public class ListaMisEstaciones extends Fragment {
                     .build();
 
             EstacionService estacionService = retrofit.create(EstacionService.class);
-            Call<List<Prediccion>> call = estacionService.getPredicciones(nombre);
+            Call<List<Medicion>> call = estacionService.getPredicciones(nombre);
             final String titulo=nombre;
-            call.enqueue(new Callback<List<Prediccion>>() {
+            call.enqueue(new Callback<List<Medicion>>() {
                 @Override
-                public void onResponse(Call<List<Prediccion>> call, final Response<List<Prediccion>> response) {
+                public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
                     estaciones.add(new EstacionLista(titulo, response.body()));
                     final RecyclerView rec=getView().findViewById(R.id.rec);
@@ -95,7 +95,7 @@ public class ListaMisEstaciones extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<List<Prediccion>> call, Throwable t) {
+                public void onFailure(Call<List<Medicion>> call, Throwable t) {
 
                 }
             });

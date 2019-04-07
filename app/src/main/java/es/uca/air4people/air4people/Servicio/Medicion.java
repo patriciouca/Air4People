@@ -1,6 +1,6 @@
 package es.uca.air4people.air4people.Servicio;
 
-public class Prediccion {
+public class Medicion {
 
     private String mote_name,des_kind;
     private float value;
@@ -8,7 +8,7 @@ public class Prediccion {
     private int percentage,kind;
     private String unit;
 
-    public Prediccion(String mote_name, String des_kind, float value, int percentage, int kind, int time, String unit) {
+    public Medicion(String mote_name, String des_kind, float value, int percentage, int kind, int time, String unit) {
         this.mote_name = mote_name;
         this.des_kind = des_kind;
         this.value = value;
@@ -18,7 +18,7 @@ public class Prediccion {
         this.unit = unit;
     }
 
-    public Prediccion() {
+    public Medicion() {
     }
 
     public String getMote_name() {

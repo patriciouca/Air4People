@@ -7,22 +7,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,9 +27,7 @@ import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.EstacionService;
-import es.uca.air4people.air4people.Servicio.Prediccion;
-import es.uca.air4people.air4people.lista.AdapterEstacion;
-import es.uca.air4people.air4people.lista.EstacionLista;
+import es.uca.air4people.air4people.Servicio.Medicion;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,14 +38,14 @@ public class DetalleEstacion extends Fragment {
 
     public static int AVANCEDEFECTO=2;
     private String titulo;
-    private List<Prediccion> prediccion;
+    private List<Medicion> medicion;
 
     public DetalleEstacion() {
         EstacionesActivity.setFuera2();
     }
 
-    public void setLista(List<Prediccion> prediccion){
-        this.prediccion=prediccion;
+    public void setLista(List<Medicion> medicion){
+        this.medicion = medicion;
     }
 
     @Override
@@ -92,7 +86,7 @@ public class DetalleEstacion extends Fragment {
 
         View view;
         Context contexto;
-        List<Prediccion> lista;
+        List<Medicion> lista;
         int dias;
 
         public EncolarEstacionDia(View view, Context contexto) {
@@ -115,23 +109,23 @@ public class DetalleEstacion extends Fragment {
 
             final String titulo=bundle.getString("titulo");
             final int diaParametro=-dia;
-            Call<List<Prediccion>> call = estacionService.getPrediccionFecha(titulo,formattedDate);
-            call.enqueue(new Callback<List<Prediccion>>() {
+            Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate);
+            call.enqueue(new Callback<List<Medicion>>() {
                 @Override
-                public void onResponse(Call<List<Prediccion>> call, final Response<List<Prediccion>> response) {
+                public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
                     setDias(diaParametro);
                     setLista(response.body());
                     anadirPrediccion();
                 }
 
                 @Override
-                public void onFailure(Call<List<Prediccion>> call, Throwable t) {
+                public void onFailure(Call<List<Medicion>> call, Throwable t) {
                 }
             });
         }
 
-        public void setLista(List<Prediccion> prediccion) {
-            this.lista = prediccion;
+        public void setLista(List<Medicion> medicion) {
+            this.lista = medicion;
         }
 
         public void setDias(int dias) {
@@ -156,7 +150,7 @@ public class DetalleEstacion extends Fragment {
 
             adjuntar.addView(fecha);
 
-            for (Prediccion a : lista) {
+            for (Medicion a : lista) {
                 View hijo = getLayoutInflater().inflate(R.layout.prediccionvertical, null);
                 ConstraintLayout vertical = view.findViewById(R.id.prediccionvertical);
 

@@ -1,19 +1,15 @@
 package es.uca.air4people.air4people.fragments;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.FontRequest;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -24,7 +20,7 @@ import java.util.List;
 import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.EstacionService;
-import es.uca.air4people.air4people.Servicio.Prediccion;
+import es.uca.air4people.air4people.Servicio.Medicion;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,12 +65,12 @@ public class MapaDetalle  extends Fragment  {
                 .build();
 
         EstacionService estacionService = retrofit.create(EstacionService.class);
-        Call<List<Prediccion>> call = estacionService.getPredicciones(texto);
-        call.enqueue(new Callback<List<Prediccion>>() {
+        Call<List<Medicion>> call = estacionService.getPredicciones(texto);
+        call.enqueue(new Callback<List<Medicion>>() {
             @Override
-            public void onResponse(Call<List<Prediccion>> call, Response<List<Prediccion>> response) {
+            public void onResponse(Call<List<Medicion>> call, Response<List<Medicion>> response) {
                 int i=0;
-                for (Prediccion a:response.body()){
+                for (Medicion a:response.body()){
 
                     ConstraintLayout vertical=view.findViewById(R.id.prediccionvertical);
 
@@ -151,7 +147,7 @@ public class MapaDetalle  extends Fragment  {
                 }
             }
             @Override
-            public void onFailure(Call<List<Prediccion>> call, Throwable t) {
+            public void onFailure(Call<List<Medicion>> call, Throwable t) {
 
             }
         });

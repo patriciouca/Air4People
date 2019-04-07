@@ -1,37 +1,12 @@
 package es.uca.air4people.air4people.fragments;
 
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.app.Fragment;
-import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.Servicio.EstacionService;
-import es.uca.air4people.air4people.Servicio.Prediccion;
-import es.uca.air4people.air4people.lista.AdapterEstacion;
-import es.uca.air4people.air4people.lista.EstacionLista;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GestosDetalle extends  GestureDetector.SimpleOnGestureListener{
 

@@ -1,18 +1,15 @@
-package es.uca.air4people.air4people.lista;
+package es.uca.air4people.air4people.ReciclerEstaciones;
 
-import android.util.Pair;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import es.uca.air4people.air4people.Servicio.Prediccion;
+import es.uca.air4people.air4people.Servicio.Medicion;
 
 public class EstacionLista {
 
     private String titulo;
-    private List<Prediccion> predicciones;
+    private List<Medicion> predicciones;
 
-    public EstacionLista(String titulo, List<Prediccion> predicciones) {
+    public EstacionLista(String titulo, List<Medicion> predicciones) {
         super();
         this.titulo = titulo;
         this.predicciones = predicciones;
@@ -26,11 +23,11 @@ public class EstacionLista {
         this.titulo = titulo;
     }
 
-    public List<Prediccion> getPredicciones() {
+    public List<Medicion> getPredicciones() {
         return predicciones;
     }
 
-    public void setPredicciones(List<Prediccion> predicciones) {
+    public void setPredicciones(List<Medicion> predicciones) {
         this.predicciones = predicciones;
     }
 }

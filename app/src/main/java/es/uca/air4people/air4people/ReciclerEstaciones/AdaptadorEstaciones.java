@@ -1,6 +1,5 @@
 package es.uca.air4people.air4people.ReciclerEstaciones;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,7 @@ import java.util.ArrayList;
 
 import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.Servicio.Estacion;
-import es.uca.air4people.air4people.Servicio.Prediccion;
-import es.uca.air4people.air4people.lista.EstacionLista;
+import es.uca.air4people.air4people.Servicio.Medicion;
 
 public class AdaptadorEstaciones
         extends RecyclerView.Adapter<AdaptadorEstaciones.EstacionesViewHolder>
@@ -33,7 +30,7 @@ public class AdaptadorEstaciones
     public EstacionesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.itemlista, viewGroup, false);
+                .inflate(R.layout.itemlistaestaciones, viewGroup, false);
 
         EstacionesViewHolder tvh = new EstacionesViewHolder(itemView);
         itemView.setOnClickListener(this);
@@ -84,7 +81,7 @@ public class AdaptadorEstaciones
             LinearLayout l=itemView.findViewById(R.id.anadir);
             LinearLayout horizontal=null;
             int contador=0;
-            for (Prediccion a:t.getPredicciones()){
+            for (Medicion a:t.getPredicciones()){
                 if(contador==0)
                 {
                     horizontal=new LinearLayout(v.getContext());
