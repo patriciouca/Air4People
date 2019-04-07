@@ -1,5 +1,7 @@
 package es.uca.air4people.air4people.Servicio;
 
+import java.util.Date;
+
 public class Medicion {
 
     private String mote_name,des_kind;

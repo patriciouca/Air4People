@@ -78,7 +78,7 @@ public class ListaMisEstaciones extends Fragment {
                             Fragment fragment = new DetalleEstacion();
                             Bundle bundle = new Bundle();
                             bundle.putString("titulo",estaciones.get(position).getTitulo());
-                            ((DetalleEstacion) fragment).setLista(estaciones.get(position).getPredicciones());
+                            //((DetalleEstacion) fragment).setLista(estaciones.get(position).getPredicciones());
                             fragment.setArguments(bundle);
                             getActivity().getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.content_frame, fragment).addToBackStack("T")
