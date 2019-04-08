@@ -9,6 +9,11 @@ public class EstacionLista {
     private String titulo;
     private List<Medicion> predicciones;
 
+    public EstacionLista(String titulo) {
+        super();
+        this.titulo = titulo;
+    }
+
     public EstacionLista(String titulo, List<Medicion> predicciones) {
         super();
         this.titulo = titulo;

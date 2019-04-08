@@ -1,32 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clickable="true"
     tools:context=".EstacionesActivity"
     tools:showIn="@layout/activity_main">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme">
-    <!-- Toolbar -->
-    <android.support.v7.widget.Toolbar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/appbar"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:theme="@style/ToolBarStyle"
-        app:layout_scrollFlags="scroll|enterAlways"
-      />
+    <!-- Resto de la interfaz de usuario -->
 
-    </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

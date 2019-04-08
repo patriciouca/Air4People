@@ -15,14 +15,14 @@ import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Medicion;
 
-public class AdaptadorEstaciones
-        extends RecyclerView.Adapter<AdaptadorEstaciones.EstacionesViewHolder>
+public class AdaptadorEstacionesMediciones
+        extends RecyclerView.Adapter<AdaptadorEstacionesMediciones.EstacionesViewHolder>
         implements View.OnClickListener{
 
     private ArrayList<EstacionLista> datos;
     private View.OnClickListener listener;
 
-    public AdaptadorEstaciones(ArrayList<EstacionLista> datos) {
+    public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos) {
         this.datos = datos;
     }
 

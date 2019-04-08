@@ -1,36 +1,22 @@
 package es.uca.air4people.air4people.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
@@ -59,7 +45,7 @@ public class DetalleEstacion extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.content_detallestacionrec, container, false);
+        View view=inflater.inflate(R.layout.content_detallestacioncam, container, false);
 
         TextView tituloT=view.findViewById(R.id.tituloEstacion);
         dias=0;

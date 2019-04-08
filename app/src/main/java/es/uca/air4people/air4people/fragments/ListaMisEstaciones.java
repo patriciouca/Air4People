@@ -1,7 +1,9 @@
 package es.uca.air4people.air4people.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstaciones;
+import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
@@ -41,6 +43,19 @@ public class ListaMisEstaciones extends Fragment {
         encolarEstacion.anadirEstacion("Centro");
         encolarEstacion.anadirEstacion("Mediterraneo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ");
 
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment anadir=new AddEstacion();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, anadir)
+                        .commit();
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estacion");
+            }
+        });
 
         return view;
     }
@@ -69,7 +84,7 @@ public class ListaMisEstaciones extends Fragment {
                     final RecyclerView rec=getView().findViewById(R.id.rec);
                     rec.setHasFixedSize(true);
 
-                    final AdaptadorEstaciones adaptador = new AdaptadorEstaciones(estaciones);
+                    final AdaptadorEstacionesMediciones adaptador = new AdaptadorEstacionesMediciones(estaciones);
 
                     adaptador.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -83,6 +98,8 @@ public class ListaMisEstaciones extends Fragment {
                             getActivity().getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.content_frame, fragment).addToBackStack("T")
                                     .commit();
+                            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
+
                         }
                     });
                     rec.setAdapter(adaptador);

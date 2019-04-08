@@ -3,7 +3,9 @@ package es.uca.air4people.air4people;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
+import es.uca.air4people.air4people.fragments.AddEstacion;
 import es.uca.air4people.air4people.fragments.Fragment1;
 import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.fragments.Mapa;
@@ -64,16 +67,9 @@ public class EstacionesActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         irInicio();
-        /*
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
+
+
+
         set=new ConstraintSet();
         set.clone(constraint);
         set.setMargin(R.id.principal,ConstraintSet.BOTTOM,0);
@@ -117,6 +113,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
                             menuItem.setChecked(true);
                             getSupportActionBar().setTitle(menuItem.getTitle());
+
                         }
 
                         mDrawerLayout.closeDrawers();
@@ -124,6 +121,7 @@ public class EstacionesActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
     }
 
     @Override
