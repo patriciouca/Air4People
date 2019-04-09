@@ -81,7 +81,7 @@ public class AdaptadorEstacionesMediciones
             LinearLayout l=itemView.findViewById(R.id.anadir);
             LinearLayout horizontal=null;
             int contador=0;
-            for (Medicion a:t.getMediciones().getMediciones()){
+            for (Medicion a:t.getMediciones().get(0).getMediciones()){
                 if(contador==0)
                 {
                     horizontal=new LinearLayout(v.getContext());

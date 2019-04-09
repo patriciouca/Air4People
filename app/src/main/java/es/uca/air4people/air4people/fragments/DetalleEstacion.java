@@ -19,10 +19,12 @@ import java.util.List;
 
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
 import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.Servicio.Mediciones;
+import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +35,7 @@ public class DetalleEstacion extends Fragment {
 
     public static int AVANCEDEFECTO=2;
     private String titulo;
+    private EstacionLista estacion;
     private RecyclerView recView;
     private ArrayList<Mediciones> datos;
     private AdaptadorMedicionesFecha adaptador;
@@ -48,13 +51,14 @@ public class DetalleEstacion extends Fragment {
         View view=inflater.inflate(R.layout.content_detallestacioncam, container, false);
 
         TextView tituloT=view.findViewById(R.id.tituloEstacion);
-        dias=0;
+        dias=1;
         Bundle bundle=getArguments();
         titulo=bundle.getString("titulo");
         tituloT.setText((String)bundle.getString("titulo"));
         datos=new ArrayList<Mediciones>();
         final EncolarEstacionDia encolarEstacionDia=new EncolarEstacionDia(view,view.getContext());
 
+        estacion=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(titulo);
         recView = (RecyclerView) view.findViewById(R.id.recEst);
         recView.setHasFixedSize(true);
         adaptador=new AdaptadorMedicionesFecha(datos);
@@ -68,10 +72,21 @@ public class DetalleEstacion extends Fragment {
 
         recView.setItemAnimator(new DefaultItemAnimator());
 
+
+        //encolarEstacionDia.setLista();
+
         for (int i=0;i<=AVANCEDEFECTO;i++)
         {
-            encolarEstacionDia.anadirPrediccion(dias);
-            dias++;
+            /*
+            if(estacion.getMediciones().size()<dias)
+            {*/
+                encolarEstacionDia.anadirPrediccion(dias);
+                /*
+            }
+            else{
+                encolarEstacionDia.setLista();
+            }
+            dias++;*/
         }
 
         recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -80,7 +95,17 @@ public class DetalleEstacion extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    encolarEstacionDia.anadirPrediccion(dias);
+                    /*
+                    if(estacion.getMediciones().size()<dias)
+                    {
+                    */
+                        encolarEstacionDia.anadirPrediccion(dias);
+                        /*
+                    }
+                    else{
+                        encolarEstacionDia.setLista(estacion.getMediciones().get(dias));
+                    }
+                    */
                     dias++;
                 }
             }
@@ -100,6 +125,7 @@ public class DetalleEstacion extends Fragment {
             this.view = view;
             this.contexto = contexto;
         }
+
 
         public void anadirPrediccion(int dia){
 
@@ -121,6 +147,8 @@ public class DetalleEstacion extends Fragment {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
                     setDias(diaParametro);
+                    estacion.addMedicion(new Mediciones(response.body(),formattedDate));
+                    //setLista();
                     setLista(new Mediciones(response.body(),formattedDate));
                 }
 
@@ -128,6 +156,13 @@ public class DetalleEstacion extends Fragment {
                 public void onFailure(Call<List<Medicion>> call, Throwable t) {
                 }
             });
+        }
+
+        public void setLista() {
+
+            datos.add(estacion.getMediciones().get(estacion.getMediciones().size()-dias));
+            adaptador.notifyItemInserted(datos.size());
+
         }
 
         public void setLista(Mediciones mediciones) {

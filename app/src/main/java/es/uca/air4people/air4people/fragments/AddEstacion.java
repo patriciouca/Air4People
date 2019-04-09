@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacion;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
@@ -33,6 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddEstacion extends Fragment {
 
     public AddEstacion() {
+        EstacionesActivity.setFuera2();
     }
 
     @Override

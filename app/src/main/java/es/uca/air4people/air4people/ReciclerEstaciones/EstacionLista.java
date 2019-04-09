@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people.ReciclerEstaciones;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import es.uca.air4people.air4people.Servicio.Mediciones;
 public class EstacionLista {
 
     private String titulo;
-    private Mediciones mediciones;
+    private ArrayList<Mediciones> mediciones;
 
     public EstacionLista(String titulo) {
         super();
@@ -23,7 +24,12 @@ public class EstacionLista {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         final String formattedDate = df.format(c.getTime());
-        this.mediciones = new Mediciones(mediciones,formattedDate);
+        this.mediciones=new ArrayList<>();
+        this.addMedicion(new Mediciones(mediciones,formattedDate));
+    }
+
+    public void addMedicion(Mediciones e){
+        mediciones.add(e);
     }
 
     public String getTitulo() {
@@ -34,11 +40,11 @@ public class EstacionLista {
         this.titulo = titulo;
     }
 
-    public Mediciones getMediciones() {
+    public ArrayList<Mediciones> getMediciones() {
         return mediciones;
     }
 
-    public void setMediciones(Mediciones mediciones) {
+    public void setMediciones(ArrayList<Mediciones> mediciones) {
         this.mediciones = mediciones;
     }
 }
