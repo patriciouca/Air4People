@@ -1,23 +1,29 @@
 package es.uca.air4people.air4people.ReciclerEstaciones;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.Servicio.Mediciones;
 
 public class EstacionLista {
 
     private String titulo;
-    private List<Medicion> predicciones;
+    private Mediciones mediciones;
 
     public EstacionLista(String titulo) {
         super();
         this.titulo = titulo;
     }
 
-    public EstacionLista(String titulo, List<Medicion> predicciones) {
+    public EstacionLista(String titulo, List<Medicion> mediciones) {
         super();
         this.titulo = titulo;
-        this.predicciones = predicciones;
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        final String formattedDate = df.format(c.getTime());
+        this.mediciones = new Mediciones(mediciones,formattedDate);
     }
 
     public String getTitulo() {
@@ -28,11 +34,11 @@ public class EstacionLista {
         this.titulo = titulo;
     }
 
-    public List<Medicion> getPredicciones() {
-        return predicciones;
+    public Mediciones getMediciones() {
+        return mediciones;
     }
 
-    public void setPredicciones(List<Medicion> predicciones) {
-        this.predicciones = predicciones;
+    public void setMediciones(Mediciones mediciones) {
+        this.mediciones = mediciones;
     }
 }

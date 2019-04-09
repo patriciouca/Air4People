@@ -62,6 +62,10 @@ public class AddEstacion extends Fragment {
 
                 rec.setItemAnimator(new DefaultItemAnimator());
 
+                rec.addItemDecoration(
+                        new DividerItemDecoration(vista.getContext(), DividerItemDecoration.VERTICAL));
+
+
                 rec.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

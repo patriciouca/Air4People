@@ -20,6 +20,7 @@ import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMedici
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
+import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListaMisEstaciones extends Fragment {
 
+    String misestaciones[]={"SanFernando","Centro","Mediterraneo"};
     public ListaMisEstaciones() {
     }
 
@@ -38,10 +40,18 @@ public class ListaMisEstaciones extends Fragment {
         View view = inflater.inflate(R.layout.content_listaestaciones, container, false);
 
         final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
-        EncolarEstacion encolarEstacion=new EncolarEstacion(estaciones);
-        encolarEstacion.anadirEstacion("SanFernando");
-        encolarEstacion.anadirEstacion("Centro");
-        encolarEstacion.anadirEstacion("Mediterraneo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ");
+        EncolarEstacion encolarEstacion=new EncolarEstacion(estaciones,view);
+
+        for(String estacion:misestaciones){
+            EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(estacion);
+            if(lista==null)
+                encolarEstacion.anadirEstacion(estacion);
+            else
+            {
+                estaciones.add(lista);
+                encolarEstacion.anadirEstacionVista(lista.getTitulo(),lista);
+            }
+        }
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
 
@@ -62,9 +72,43 @@ public class ListaMisEstaciones extends Fragment {
 
     class EncolarEstacion{
         private ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
+        private RecyclerView rec;
+        private View v;
 
-        public EncolarEstacion(ArrayList<EstacionLista> estaciones) {
+        public EncolarEstacion(ArrayList<EstacionLista> estaciones,View v) {
             this.estaciones = estaciones;
+            this.v=v;
+        }
+
+        public void anadirEstacionVista(String nombre,EstacionLista estacion){
+            rec=v.findViewById(R.id.rec);
+            rec.setHasFixedSize(true);
+
+            final AdaptadorEstacionesMediciones adaptador = new AdaptadorEstacionesMediciones(estaciones);
+
+            adaptador.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final int position = rec.getChildAdapterPosition(v);
+                    Fragment fragment = new DetalleEstacion();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("titulo",estaciones.get(position).getTitulo());
+                    //((DetalleEstacion) fragment).setLista(estaciones.get(position).getMediciones());
+                    fragment.setArguments(bundle);
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_frame, fragment).addToBackStack("T")
+                            .commit();
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
+
+                }
+            });
+            rec.setAdapter(adaptador);
+            rec.setLayoutManager(
+                    new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+            rec.addItemDecoration(
+                    new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+            rec.setItemAnimator(new DefaultItemAnimator());
+
         }
 
         public void anadirEstacion(final String nombre){
@@ -80,34 +124,9 @@ public class ListaMisEstaciones extends Fragment {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
+                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,new EstacionLista(titulo, response.body()));
                     estaciones.add(new EstacionLista(titulo, response.body()));
-                    final RecyclerView rec=getView().findViewById(R.id.rec);
-                    rec.setHasFixedSize(true);
-
-                    final AdaptadorEstacionesMediciones adaptador = new AdaptadorEstacionesMediciones(estaciones);
-
-                    adaptador.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            final int position = rec.getChildAdapterPosition(v);
-                            Fragment fragment = new DetalleEstacion();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("titulo",estaciones.get(position).getTitulo());
-                            //((DetalleEstacion) fragment).setLista(estaciones.get(position).getPredicciones());
-                            fragment.setArguments(bundle);
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_frame, fragment).addToBackStack("T")
-                                    .commit();
-                            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
-
-                        }
-                    });
-                    rec.setAdapter(adaptador);
-                    rec.setLayoutManager(
-                            new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
-                    rec.addItemDecoration(
-                            new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-                    rec.setItemAnimator(new DefaultItemAnimator());
+                    anadirEstacionVista(titulo,new EstacionLista(titulo,response.body()));
 
                 }
 
