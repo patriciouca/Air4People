@@ -42,4 +42,14 @@ dolor de pecho en personas con enfermedades de corazón."</string>
     <string name="co4">"Importantes empeoramiento de síntomas cardiovasculares, tal y como dolor pecho, en
 personas con enfermedades de corazón." </string>
 
+    <string-array name="patologias">
+        <item>Enfermedades pulmonares</item>
+        <item>Enfermedades del corazón</item>
+        <item>Enfermedades genéticas</item>
+        <item>Falta de Omega3 y vitaminas</item>
+        <item>Asma</item>
+        <item>Menor de 19 años</item>
+        <item>Mayor de 60 años</item>
+    </string-array>
+
 </resources>

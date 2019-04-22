@@ -13,6 +13,9 @@ public interface EstacionService {
         @GET("locateAllMotes")
         Call<List<Estacion>> getMapa();
 
+        @GET("availablePollutants")
+        Call<List<String>> getContaminantes();
+
         @GET("moteCurrentQAir/{name}")
         Call<List<Medicion>> getPredicciones(@Path("name") String name);
 

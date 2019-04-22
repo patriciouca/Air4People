@@ -6,21 +6,24 @@
         <item
             android:id="@+id/menu_seccion_2"
             android:title="@string/menu_opcion2"/>
-        <item
-            android:id="@+id/menu_seccion_3"
-            android:title="S3"/>
     </group>
 
     <item
         android:id="@+id/navigation_subheader"
-        android:title="Otras opciones">
+        android:title="Usuario">
         <menu>
             <item
                 android:id="@+id/menu_opcion_1"
-                android:title="Opcion1"/>
+                android:title="Suscripciones"/>
             <item
                 android:id="@+id/menu_opcion_2"
-                android:title="Opcion2"/>
+                android:title="Patologias"/>
+            <item
+                android:id="@+id/menu_opcion_3"
+                android:title="Notificaciones"/>
+            <item
+                android:id="@+id/menu_opcion_4"
+                android:title="Configuración"/>
         </menu>
     </item>
 </menu>
