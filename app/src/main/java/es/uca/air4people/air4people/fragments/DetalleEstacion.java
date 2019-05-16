@@ -56,9 +56,9 @@ public class DetalleEstacion extends Fragment {
         titulo=bundle.getString("titulo");
         tituloT.setText((String)bundle.getString("titulo"));
         datos=new ArrayList<Mediciones>();
+
         final EncolarEstacionDia encolarEstacionDia=new EncolarEstacionDia(view,view.getContext());
 
-        estacion=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(titulo);
         recView = (RecyclerView) view.findViewById(R.id.recEst);
         recView.setHasFixedSize(true);
         adaptador=new AdaptadorMedicionesFecha(datos);
@@ -73,20 +73,10 @@ public class DetalleEstacion extends Fragment {
         recView.setItemAnimator(new DefaultItemAnimator());
 
 
-        //encolarEstacionDia.setLista();
-
         for (int i=0;i<=AVANCEDEFECTO;i++)
         {
-            /*
-            if(estacion.getMediciones().size()<dias)
-            {*/
-                encolarEstacionDia.anadirPrediccion(dias);
-                /*
-            }
-            else{
-                encolarEstacionDia.setLista();
-            }
-            dias++;*/
+            encolarEstacionDia.anadirPrediccion(dias);
+            dias++;
         }
 
         recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -95,17 +85,7 @@ public class DetalleEstacion extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    /*
-                    if(estacion.getMediciones().size()<dias)
-                    {
-                    */
-                        encolarEstacionDia.anadirPrediccion(dias);
-                        /*
-                    }
-                    else{
-                        encolarEstacionDia.setLista(estacion.getMediciones().get(dias));
-                    }
-                    */
+                    encolarEstacionDia.anadirPrediccion(dias);
                     dias++;
                 }
             }
@@ -147,7 +127,7 @@ public class DetalleEstacion extends Fragment {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
                     setDias(diaParametro);
-                    estacion.addMedicion(new Mediciones(response.body(),formattedDate));
+                    //estacion.addMedicion(new Mediciones(response.body(),formattedDate));
                     //setLista();
                     setLista(new Mediciones(response.body(),formattedDate));
                 }
