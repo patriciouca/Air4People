@@ -84,6 +84,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
                         boolean fragmentTransaction = false;
                         Fragment fragment = null;
+                        String etiqueta="";
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
@@ -93,6 +94,7 @@ public class EstacionesActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_seccion_2:
                                 fragment = new Mapa();
+                                etiqueta="Mapa";
                                 fuera=true;
                                 fragmentTransaction = true;
                                 break;
@@ -111,9 +113,17 @@ public class EstacionesActivity extends AppCompatActivity {
                                 break;
                         }
 
+                        //ComprobarMapa
+                        Fragment mapa = getSupportFragmentManager().findFragmentByTag("Mapa");
+                        if (mapa != null && mapa.isVisible()) {
+                            Mapa mapavariable= (Mapa)mapa;
+                            ((Mapa) mapa).guardarVentana();
+
+                        }
+
                         if(fragmentTransaction) {
                             getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_frame, fragment)
+                                    .replace(R.id.content_frame, fragment,etiqueta)
                                     .commit();
 
                             menuItem.setChecked(true);

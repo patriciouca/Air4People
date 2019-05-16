@@ -34,13 +34,15 @@ public class MapaDetalle  extends Fragment  {
     String texto;
     View general;
     ConstraintLayout reglas;
+    GestosMapas mapas;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.content_detallemapa, container, false);
 
         general=view;
-        final GestureDetector gesture = new GestureDetector(getActivity(),new GestosMapas((ConstraintLayout) reglas));
+        mapas=new GestosMapas((ConstraintLayout) reglas);
+        final GestureDetector gesture = new GestureDetector(getActivity(),mapas);
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -220,17 +222,16 @@ public class MapaDetalle  extends Fragment  {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
     public ConstraintLayout getReglas() {
         return reglas;
     }
 
     public void setReglas(ConstraintLayout reglas) {
         this.reglas = reglas;
+    }
+
+    public void guardarVentana(){
+        mapas.abajo();
     }
 
 }

@@ -30,7 +30,7 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         marca=1000;
     }
 
-    private void abajo(){
+    public void abajo(){
         marca=0;
         cambiar();
     }
