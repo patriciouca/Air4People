@@ -8,9 +8,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,19 +65,50 @@ public class AddEstacion extends Fragment {
                         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
 
 
+                final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+                    @Override public boolean onSingleTapUp(MotionEvent e) {
+                        return true;
+                    }
+                });
+
+                rec.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                    @Override
+                    public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+                    }
+
+                    @Override
+                    public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                        try {
+                            View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+
+                            if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+
+                                int position = recyclerView.getChildAdapterPosition(child);
+
+                                Toast.makeText(getContext(),"Marcado: "+ response.body().get(position) ,Toast.LENGTH_SHORT).show();
+
+                                return true;
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        return false;
+                    }
+
+                    @Override
+                    public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+
+                    }
+                });
+
+
                 rec.setItemAnimator(new DefaultItemAnimator());
 
                 rec.addItemDecoration(
                         new DividerItemDecoration(vista.getContext(), DividerItemDecoration.VERTICAL));
 
-
-                rec.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-
-                    }
-                });
             }
 
             @Override
@@ -82,5 +116,10 @@ public class AddEstacion extends Fragment {
             }
         });
         return vista;
+    }
+
+    public interface RecyclerViewOnItemClickListener {
+
+        void onClick(View v, int position);
     }
 }

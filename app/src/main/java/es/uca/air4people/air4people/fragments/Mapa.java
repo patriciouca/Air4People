@@ -161,6 +161,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     public void guardarVentana()
     {
         MapaDetalle detallevariable=(MapaDetalle)detalle;
+        setHay(false);
         detallevariable.guardarVentana();
     }
 

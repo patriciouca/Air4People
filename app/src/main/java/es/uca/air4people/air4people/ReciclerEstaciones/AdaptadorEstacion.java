@@ -16,12 +16,11 @@ import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.fragments.AddEstacion;
 
-public class AdaptadorEstacion extends RecyclerView.Adapter<AdaptadorEstacion.EstacionesViewHolder>
-        implements View.OnClickListener{
+public class AdaptadorEstacion extends RecyclerView.Adapter<AdaptadorEstacion.EstacionesViewHolder>{
 
         private ArrayList<String> datos;
-        private View.OnClickListener listener;
 
         public AdaptadorEstacion(ArrayList<String> datos) {
             this.datos = datos;
@@ -34,7 +33,6 @@ public class AdaptadorEstacion extends RecyclerView.Adapter<AdaptadorEstacion.Es
                     .inflate(R.layout.itemlistaestaciones, viewGroup, false);
 
             AdaptadorEstacion.EstacionesViewHolder tvh = new AdaptadorEstacion.EstacionesViewHolder(itemView);
-            itemView.setOnClickListener(this);
             return tvh;
         }
 
@@ -51,15 +49,6 @@ public class AdaptadorEstacion extends RecyclerView.Adapter<AdaptadorEstacion.Es
             return datos.size();
         }
 
-        public void setOnClickListener(View.OnClickListener listener) {
-            this.listener = listener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            if(listener != null)
-                listener.onClick(view);
-        }
 
     public static class EstacionesViewHolder
             extends RecyclerView.ViewHolder {

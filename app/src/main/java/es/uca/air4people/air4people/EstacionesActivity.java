@@ -169,11 +169,24 @@ public class EstacionesActivity extends AppCompatActivity {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            if(fuera || fuera2){
-                irInicio();
-            }else{
-                finish();
+            Fragment mapa = getSupportFragmentManager().findFragmentByTag("Mapa");
+            boolean condicionMapa=mapa != null && mapa.isVisible();
+            if (condicionMapa) {
+                Mapa mapavariable= (Mapa)mapa;
+                if(mapavariable.isHay())
+                    ((Mapa) mapa).guardarVentana();
+                else
+                    irInicio();
             }
+            else{
+                if(fuera || fuera2){
+                    irInicio();
+                }else{
+                    finish();
+                }
+            }
+
+
         }
     }
 
