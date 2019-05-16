@@ -30,6 +30,15 @@
                 android:theme="@style/ToolBarStyle"
                  />
 
+            <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/appbar3"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ToolBarStyle"
+                android:visibility="gone" />
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.constraint.ConstraintLayout

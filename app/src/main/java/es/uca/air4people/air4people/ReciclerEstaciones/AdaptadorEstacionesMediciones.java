@@ -1,6 +1,11 @@
 package es.uca.air4people.air4people.ReciclerEstaciones;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,12 +23,14 @@ import es.uca.air4people.air4people.Servicio.Medicion;
 
 public class AdaptadorEstacionesMediciones
         extends RecyclerView.Adapter<AdaptadorEstacionesMediciones.EstacionesViewHolder>
-        implements View.OnClickListener{
+        implements View.OnClickListener,View.OnLongClickListener{
 
     private ArrayList<EstacionLista> datos;
     private View.OnClickListener listener;
+    boolean seleccionado;
 
     public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos) {
+        seleccionado=false;
         this.datos = datos;
     }
 
@@ -34,6 +42,7 @@ public class AdaptadorEstacionesMediciones
 
         EstacionesViewHolder tvh = new EstacionesViewHolder(itemView);
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
         return tvh;
     }
 
@@ -57,6 +66,27 @@ public class AdaptadorEstacionesMediciones
     public void onClick(View view) {
         if(listener != null)
             listener.onClick(view);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Activity host = (Activity) v.getContext();
+        if(seleccionado)
+        {
+            seleccionado=false;
+            v.setBackgroundColor(Color.WHITE);
+            ((AppCompatActivity) host).getSupportActionBar().setTitle("Inicio");
+        }
+        else{
+            v.setBackgroundColor(Color.GRAY);
+
+            android.support.v7.widget.Toolbar appbar = (Toolbar)v.findViewById(R.id.appbar3);
+            ((AppCompatActivity) host).getSupportActionBar().setTitle("Editar");
+            ((AppCompatActivity) host).setSupportActionBar(appbar);
+            seleccionado=true;
+        }
+
+        return true;
     }
 
     public static class EstacionesViewHolder
