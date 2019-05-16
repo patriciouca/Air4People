@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people.ReciclerPatologias;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,8 +74,11 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
             suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
             suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Toast.makeText(itemView.getContext(),
-                            "Toast por defecto", Toast.LENGTH_SHORT);
+                    if (isChecked) {
+                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" ON", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" OFF", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             v=itemView;

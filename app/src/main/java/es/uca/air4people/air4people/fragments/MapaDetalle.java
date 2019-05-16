@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class MapaDetalle  extends Fragment  {
     View general;
     ConstraintLayout reglas;
     GestosMapas mapas;
+    Switch suscrito;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +46,16 @@ public class MapaDetalle  extends Fragment  {
         general=view;
         mapas=new GestosMapas((ConstraintLayout) reglas);
         final GestureDetector gesture = new GestureDetector(getActivity(),mapas);
+        suscrito=view.findViewById(R.id.suscrito);
+        suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(buttonView.getContext(), titulo.getText()+" ON", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(buttonView.getContext(), titulo.getText()+" OFF", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override

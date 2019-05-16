@@ -73,8 +73,11 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
             suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Toast.makeText(itemView.getContext(),
-                            "Toast por defecto", Toast.LENGTH_SHORT);
+                    if (isChecked) {
+                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" ON", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" OFF", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             v=itemView;

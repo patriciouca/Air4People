@@ -8,9 +8,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +111,55 @@ public class ListaMisEstaciones extends Fragment {
             rec.addItemDecoration(
                     new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
             rec.setItemAnimator(new DefaultItemAnimator());
+            recogerGesto();
+        }
+
+        public void recogerGesto()
+        {
+            final GestureDetector mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+                @Override public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    Toast.makeText(getContext(),"LARGO" ,Toast.LENGTH_SHORT).show();
+
+                    super.onLongPress(e);
+                }
+            });
+
+            rec.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+                }
+
+                @Override
+                public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                    try {
+                        View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+
+                        if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+
+                            int position = recyclerView.getChildAdapterPosition(child);
+
+                            Toast.makeText(getContext(),"The Item Clicked is: "+ position ,Toast.LENGTH_SHORT).show();
+
+                            return true;
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    return false;
+                }
+
+                @Override
+                public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+
+                }
+            });
 
         }
 
