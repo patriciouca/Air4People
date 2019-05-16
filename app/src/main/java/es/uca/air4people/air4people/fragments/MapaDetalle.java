@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -94,7 +95,14 @@ public class MapaDetalle  extends Fragment  {
                                     ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                botoncito.setTooltipText(getString(R.string.x1));
+                                botoncito.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        Toast.makeText(view.getContext(), getString(R.string.x1), Toast.LENGTH_LONG).show();
+
+                                    }
+                                });
                             }
                             break;
                         case 2:
@@ -104,9 +112,27 @@ public class MapaDetalle  extends Fragment  {
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(getString(R.string.pm102));
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.pm102), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(getString(R.string.co2));
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.co2), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else
                                     botoncito.setVisibility(View.GONE);
                             }
@@ -117,10 +143,29 @@ public class MapaDetalle  extends Fragment  {
                                     ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(getString(R.string.pm103));
+                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS")){
+
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.pm103), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(getString(R.string.co3));
+                                {
+
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.co3), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else
                                     botoncito.setVisibility(View.GONE);
                             }
@@ -132,11 +177,32 @@ public class MapaDetalle  extends Fragment  {
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(getString(R.string.pm104));
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.pm104), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(getString(R.string.co4));
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.co4), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+
+                                }
                                 else
+                                {
                                     botoncito.setVisibility(View.GONE);
+                                }
                             }
                             break;
                             default:
@@ -152,6 +218,11 @@ public class MapaDetalle  extends Fragment  {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public ConstraintLayout getReglas() {
