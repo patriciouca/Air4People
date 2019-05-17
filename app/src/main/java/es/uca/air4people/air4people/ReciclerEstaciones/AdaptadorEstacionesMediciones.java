@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -121,8 +122,20 @@ public class AdaptadorEstacionesMediciones
                 TextView tmote=hijo.findViewById(R.id.tvT);
                 TextView valor=hijo.findViewById(R.id.tvV);
 
+                tmote.setMovementMethod(new ScrollingMovementMethod());
+                valor.setMovementMethod(new ScrollingMovementMethod());
+
                 valor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 tmote.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
+
+                ViewGroup.LayoutParams layoutParams = valor.getLayoutParams();
+                layoutParams.width = 300;
+                valor.setLayoutParams(layoutParams);
+
+                layoutParams = tmote.getLayoutParams();
+                layoutParams.width = 600;
+                tmote.setLayoutParams(layoutParams);
 
                 ProgressBar barra=hijo.findViewById(R.id.pB);
                 ImageButton botoncito=hijo.findViewById(R.id.btInf);

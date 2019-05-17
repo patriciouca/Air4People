@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/tvT"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="20dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:scrollbars = "horizontal"
         android:text="TXTO"
         android:textColor="@color/colorPrimary"
         android:visibility="visible"
@@ -22,11 +22,11 @@
 
     <TextView
         android:id="@+id/tvV"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="20dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:scrollbars = "horizontal"
         android:text="TextView"
         android:textColor="@color/colorPrimary"
         android:visibility="visible"
@@ -37,11 +37,9 @@
     <ProgressBar
         android:id="@+id/pB"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
+        android:layout_width="160dp"
         android:layout_height="20dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:max="100"
         android:visibility="visible"
@@ -52,7 +50,7 @@
 
     <ImageButton
         android:id="@+id/btInf"
-        android:layout_width="0dp"
+        android:layout_width="30dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
