@@ -46,6 +46,10 @@ public class ComprobarContaminacion {
                 return "O3";
             case "DIOXIDO DE AZUFRE":
                 return "SO2";
+            case "BENCENO":
+                return "C6H6";
+            case "TOLUENO":
+                return "C6H5CH3";
             default:
                 return null;
         }
