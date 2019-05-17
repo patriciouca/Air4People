@@ -75,14 +75,13 @@ public class AdaptadorEstacionesMediciones
         {
             seleccionado=false;
             v.setBackgroundColor(Color.WHITE);
-            ((AppCompatActivity) host).getSupportActionBar().setTitle("Inicio");
         }
         else{
             v.setBackgroundColor(Color.GRAY);
 
-            android.support.v7.widget.Toolbar appbar = (Toolbar)v.findViewById(R.id.appbar3);
+            //android.support.v7.widget.Toolbar appbar = (Toolbar)v.findViewById(R.id.appbar3);
             ((AppCompatActivity) host).getSupportActionBar().setTitle("Editar");
-            ((AppCompatActivity) host).setSupportActionBar(appbar);
+            //((AppCompatActivity) host).setSupportActionBar(appbar);
             seleccionado=true;
         }
 

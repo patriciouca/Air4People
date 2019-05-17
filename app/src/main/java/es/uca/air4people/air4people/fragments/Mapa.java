@@ -130,7 +130,6 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
     }
 
-
     @Override
     public boolean onMarkerClick(Marker marker) {
 
