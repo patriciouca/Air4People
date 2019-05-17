@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,34 +109,35 @@ public class AdaptadorEstacionesMediciones
 
             LayoutInflater inflater = LayoutInflater.from(v.getContext());
             LinearLayout l=itemView.findViewById(R.id.anadir);
-            LinearLayout horizontal=null;
-            int contador=0;
+            LinearLayout vertical=null;
+
             for (Medicion a:t.getMediciones().get(0).getMediciones()){
-                if(contador==0)
-                {
-                    horizontal=new LinearLayout(v.getContext());
-                    horizontal.setOrientation(LinearLayout.HORIZONTAL);
-                    horizontal.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                    l.addView(horizontal);
-                }
+                vertical=new LinearLayout(v.getContext());
+                vertical.setOrientation(LinearLayout.VERTICAL);
+                vertical.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                l.addView(vertical);
 
                 View hijo = inflater.inflate(R.layout.prediccionvertical, null);
                 TextView tmote=hijo.findViewById(R.id.tvT);
                 TextView valor=hijo.findViewById(R.id.tvV);
+
+                valor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+                tmote.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
                 ProgressBar barra=hijo.findViewById(R.id.pB);
                 ImageButton botoncito=hijo.findViewById(R.id.btInf);
 
-                tmote.setText(ComprobarContaminacion.diminutivo(a.getDes_kind()));
+                String diminutivo=ComprobarContaminacion.diminutivo(a.getDes_kind());
+                if(diminutivo!="")
+                    diminutivo="("+diminutivo+")";
+                tmote.setText(a.getDes_kind()+" "+diminutivo);
                 valor.setText(String.valueOf(a.getValue())+""+a.getUnit());
                 int nivel=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
                 if(nivel!=0)
                     tmote.setTextColor(ComprobarContaminacion.getColor(nivel));
                 barra.setVisibility(View.GONE);
                 botoncito.setVisibility(View.GONE);
-                horizontal.addView(hijo);
-                contador++;
-                if(contador==2)
-                    contador=0;
+                vertical.addView(hijo);
             }
         }
     }

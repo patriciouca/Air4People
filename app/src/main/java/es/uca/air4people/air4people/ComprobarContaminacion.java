@@ -51,7 +51,7 @@ public class ComprobarContaminacion {
             case "TOLUENO":
                 return "C6H5CH3";
             default:
-                return null;
+                return "";
         }
     }
 
