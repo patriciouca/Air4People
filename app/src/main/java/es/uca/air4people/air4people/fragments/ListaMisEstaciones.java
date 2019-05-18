@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +9,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +50,36 @@ public class ListaMisEstaciones extends Fragment {
 
         final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
         EncolarEstacion encolarEstacion=new EncolarEstacion(estaciones,view);
+
+        /*
+        FirebaseMessaging.getInstance().subscribeToTopic("weather_a2")
+        .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                String msg = "ok";
+                if (!task.isSuccessful()) {
+                    msg = "mal";
+                }
+                Log.d("raro", msg);
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("weather_a2")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "ok";
+                        if (!task.isSuccessful()) {
+                            msg = "mal";
+                        }
+                        Log.d("raro", msg);
+                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        */
+
 
         for(String estacion:misestaciones){
             EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(estacion);
