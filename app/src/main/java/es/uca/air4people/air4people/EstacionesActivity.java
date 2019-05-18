@@ -1,5 +1,8 @@
 package es.uca.air4people.air4people;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import es.uca.air4people.air4people.BD.EstacionBD;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.fragments.AddEstacion;
@@ -57,6 +61,37 @@ public class EstacionesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        //
+        EstacionBD usdbh =
+                new EstacionBD(this, "DBEstaciones", null, 1);
+
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM Estaciones", null);
+
+
+        if (c.moveToFirst()) {
+            do {
+                String nombre = c.getString(0);
+                Log.d("Raro",nombre);
+            } while(c.moveToNext());
+        }
+
+        //Si hemos abierto correctamente la base de datos
+        /*
+        if(db != null)
+        {
+            //Insertamos los datos en la tabla Usuarios
+            db.execSQL("INSERT INTO Estaciones (nombre) " +
+                    "VALUES ( '" + "Mediterraneo" +"')");
+
+            //Cerramos la base de datos
+            db.close();
+        }
+        */
+
+
+        //
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         nav = (NavigationView)findViewById(R.id.navview);
