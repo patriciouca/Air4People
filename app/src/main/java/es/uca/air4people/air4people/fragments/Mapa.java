@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.icu.lang.UCharacter;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -160,6 +161,11 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     public void guardarVentana()
     {
         MapaDetalle detallevariable=(MapaDetalle)detalle;
+        if(hay)
+        {
+            general.beginTransaction().remove(detallevariable);
+            general.beginTransaction().remove(this);
+        }
         setHay(false);
         detallevariable.guardarVentana();
     }
