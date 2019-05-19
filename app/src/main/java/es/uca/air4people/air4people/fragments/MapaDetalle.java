@@ -113,7 +113,7 @@ public class MapaDetalle  extends Fragment  {
                     tmote.setText(a.getDes_kind());
 
                     TextView valor=hijo.findViewById(R.id.tvV);
-                    valor.setText(String.valueOf(a.getValue()));
+                    valor.setText(String.valueOf(a.getValue())+" "+a.getUnit());
                     ProgressBar barra=hijo.findViewById(R.id.pB);
                     ImageButton botoncito=hijo.findViewById(R.id.btInf);
                     barra.setVisibility(View.INVISIBLE);
