@@ -57,7 +57,8 @@ public class MapaDetalle  extends Fragment  {
                 AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
 
                 if (isChecked) {
-                    baseDatos.addEstacion(texto);
+                    if (estacionesMias.indexOf(texto)==-1)
+                        baseDatos.addEstacion(texto);
                 } else {
                     baseDatos.deleteEstacion(texto);
                 }
