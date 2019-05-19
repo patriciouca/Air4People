@@ -108,140 +108,147 @@ public class MapaDetalle  extends Fragment  {
                     ConstraintLayout vertical=view.findViewById(R.id.prediccionvertical);
 
                     LinearLayout adjuntar=view.findViewById(R.id.adjuntar);
-                    View hijo = getLayoutInflater().inflate(R.layout.prediccionvertical, null);
-                    TextView tmote=hijo.findViewById(R.id.tvT);
-                    tmote.setText(a.getDes_kind());
+                    try{
+                        View hijo = getLayoutInflater().inflate(R.layout.prediccionvertical, null);
+                        TextView tmote=hijo.findViewById(R.id.tvT);
+                        tmote.setText(a.getDes_kind());
 
-                    TextView valor=hijo.findViewById(R.id.tvV);
-                    valor.setText(String.valueOf(a.getValue())+" "+a.getUnit());
-                    ProgressBar barra=hijo.findViewById(R.id.pB);
-                    ImageButton botoncito=hijo.findViewById(R.id.btInf);
-                    barra.setVisibility(View.INVISIBLE);
+                        TextView valor=hijo.findViewById(R.id.tvV);
+                        valor.setText(String.valueOf(a.getValue())+" "+a.getUnit());
+                        ProgressBar barra=hijo.findViewById(R.id.pB);
+                        ImageButton botoncito=hijo.findViewById(R.id.btInf);
+                        barra.setVisibility(View.INVISIBLE);
 
-                    int comprobacion=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
+                        int comprobacion=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
 
-                    switch (comprobacion){
-                        case 1:
-                            barra.setProgress(25);
-                            barra.getProgressDrawable().setColorFilter(
-                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                            barra.setVisibility(View.VISIBLE);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                botoncito.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view)
+                        switch (comprobacion){
+                            case 1:
+                                barra.setProgress(25);
+                                barra.getProgressDrawable().setColorFilter(
+                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                barra.setVisibility(View.VISIBLE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), getString(R.string.x1), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                break;
+                            case 2:
+                                barra.setProgress(50);
+                                barra.getProgressDrawable().setColorFilter(
+                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                barra.setVisibility(View.VISIBLE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
                                     {
-                                        Toast.makeText(view.getContext(), getString(R.string.x1), Toast.LENGTH_LONG).show();
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.pm102), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.co2), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else
+                                        botoncito.setVisibility(View.GONE);
+                                }
+                                break;
+                            case 3:
+                                barra.setProgress(75);
+                                barra.getProgressDrawable().setColorFilter(
+                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                barra.setVisibility(View.VISIBLE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS")){
+
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.pm103), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    {
+
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.co3), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else
+                                        botoncito.setVisibility(View.GONE);
+                                }
+                                break;
+                            case 4:
+                                barra.getProgressDrawable().setColorFilter(
+                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                barra.setProgress(100);
+                                barra.setVisibility(View.VISIBLE);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.pm104), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.co4), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
 
                                     }
-                                });
-                            }
-                            break;
-                        case 2:
-                            barra.setProgress(50);
-                            barra.getProgressDrawable().setColorFilter(
-                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                            barra.setVisibility(View.VISIBLE);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                {
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.pm102), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
+                                    else
+                                    {
+                                        botoncito.setVisibility(View.GONE);
+                                    }
                                 }
-                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                {
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.co2), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
-                                }
-                                else
-                                    botoncito.setVisibility(View.GONE);
-                            }
-                            break;
-                        case 3:
-                            barra.setProgress(75);
-                            barra.getProgressDrawable().setColorFilter(
-                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                            barra.setVisibility(View.VISIBLE);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS")){
-
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.pm103), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
-                                }
-                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                {
-
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.co3), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
-                                }
-                                else
-                                    botoncito.setVisibility(View.GONE);
-                            }
-                            break;
-                        case 4:
-                            barra.getProgressDrawable().setColorFilter(
-                                    ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                            barra.setProgress(100);
-                            barra.setVisibility(View.VISIBLE);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                {
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.pm104), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
-                                }
-                                else if(a.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                {
-                                    botoncito.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Toast.makeText(view.getContext(), getString(R.string.co4), Toast.LENGTH_LONG).show();
-
-                                        }
-                                    });
-
-                                }
-                                else
-                                {
-                                    botoncito.setVisibility(View.GONE);
-                                }
-                            }
-                            break;
+                                break;
                             default:
                                 botoncito.setVisibility(View.GONE);
                                 break;
+                        }
+                        adjuntar.addView(hijo);
+
+                    }catch (Exception e)
+                    {
+
                     }
-                    adjuntar.addView(hijo);
+
                 }
             }
             @Override
