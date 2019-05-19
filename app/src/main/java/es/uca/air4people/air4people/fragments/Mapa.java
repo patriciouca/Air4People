@@ -147,6 +147,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         {
             general.beginTransaction().remove(detalle).commit();
         }
+
         detalle=new MapaDetalle();
 
         ((MapaDetalle) detalle).setReglas(reglas);
@@ -160,14 +161,14 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
     public void guardarVentana()
     {
+
         MapaDetalle detallevariable=(MapaDetalle)detalle;
+        detallevariable.guardarVentana();
         if(hay)
         {
-            general.beginTransaction().remove(detallevariable);
-            general.beginTransaction().remove(this);
+            general.beginTransaction().remove(detalle).commit();
+            setHay(false);
         }
-        setHay(false);
-        detallevariable.guardarVentana();
     }
 
     public boolean isHay() {
