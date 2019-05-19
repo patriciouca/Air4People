@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class EstacionBD  extends SQLiteOpenHelper {
 
+public class SuscripcionBD extends SQLiteOpenHelper {
     //Sentencia SQL para crear la tabla de Estaciones
-    String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT NOT NULL UNIQUE)";
+    String sqlCreate = "CREATE TABLE Suscripciones (nombre TEXT NOT NULL UNIQUE)";
 
-    public EstacionBD(Context contexto, String nombre,
+    public SuscripcionBD(Context contexto, String nombre,
                       SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
     }
@@ -21,7 +21,7 @@ public class EstacionBD  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS Estaciones");
+        db.execSQL("DROP TABLE IF EXISTS Suscripciones");
         db.execSQL(sqlCreate);
     }
 }
