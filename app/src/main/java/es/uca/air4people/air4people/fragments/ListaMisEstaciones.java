@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
 import es.uca.air4people.air4people.Servicio.EstacionService;
@@ -81,10 +82,13 @@ public class ListaMisEstaciones extends Fragment {
         */
 
 
-        for(String estacion:misestaciones){
-            EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(estacion);
+        AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+        //baseDatos.addEstacion("Mediterraneo");
+        ArrayList<String> estacionesS=baseDatos.getEstaciones();
+        for (String nombre : estacionesS) {
+            EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(nombre);
             if(lista==null)
-                encolarEstacion.anadirEstacion(estacion);
+                encolarEstacion.anadirEstacion(nombre);
             else
             {
                 estaciones.add(lista);

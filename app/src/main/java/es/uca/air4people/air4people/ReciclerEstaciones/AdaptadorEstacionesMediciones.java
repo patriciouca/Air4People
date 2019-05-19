@@ -122,8 +122,6 @@ public class AdaptadorEstacionesMediciones
                 TextView tmote=hijo.findViewById(R.id.tvT);
                 TextView valor=hijo.findViewById(R.id.tvV);
 
-                tmote.setMovementMethod(new ScrollingMovementMethod());
-                valor.setMovementMethod(new ScrollingMovementMethod());
 
                 valor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 tmote.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);

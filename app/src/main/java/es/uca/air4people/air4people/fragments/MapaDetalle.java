@@ -5,11 +5,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -18,8 +20,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.EstacionService;
@@ -38,6 +42,7 @@ public class MapaDetalle  extends Fragment  {
     ConstraintLayout reglas;
     GestosMapas mapas;
     Switch suscrito;
+    ArrayList<String> estacionesMias;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,10 +54,12 @@ public class MapaDetalle  extends Fragment  {
         suscrito=view.findViewById(R.id.suscrito);
         suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+
                 if (isChecked) {
-                    Toast.makeText(buttonView.getContext(), titulo.getText()+" ON", Toast.LENGTH_SHORT).show();
+                    baseDatos.addEstacion(texto);
                 } else {
-                    Toast.makeText(buttonView.getContext(), titulo.getText()+" OFF", Toast.LENGTH_SHORT).show();
+                    baseDatos.deleteEstacion(texto);
                 }
             }
         });
@@ -63,6 +70,8 @@ public class MapaDetalle  extends Fragment  {
                 return gesture.onTouchEvent(event);
             }
         });
+        AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+        estacionesMias=baseDatos.getEstaciones();
         return view;
     }
 
@@ -71,16 +80,24 @@ public class MapaDetalle  extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
         titulo=view.findViewById(R.id.titulo);
+        suscrito=view.findViewById(R.id.suscrito);
+
+
+
+
         Bundle bundle = this.getArguments();
         texto=bundle.getString("titulo");
         titulo.setText(texto);
+
+        if(estacionesMias.indexOf(texto)>=0)
+            suscrito.setChecked(true);
 
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("http://airservices.uca.es/Air4People/").
                 addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        EstacionService estacionService = retrofit.create(EstacionService.class);
+        final EstacionService estacionService = retrofit.create(EstacionService.class);
         Call<List<Medicion>> call = estacionService.getPredicciones(texto);
         call.enqueue(new Callback<List<Medicion>>() {
             @Override

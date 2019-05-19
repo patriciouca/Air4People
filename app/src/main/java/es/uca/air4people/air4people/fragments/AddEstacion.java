@@ -2,6 +2,8 @@ package es.uca.air4people.air4people.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacion;
@@ -36,8 +40,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddEstacion extends Fragment {
 
+    ArrayList<String> lista;
+
     public AddEstacion() {
         EstacionesActivity.setFuera2();
+    }
+
+    public void onBackPressed()
+    {
+        Fragment anadir=new ListaMisEstaciones();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, anadir)
+                .commit();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Inicio");
     }
 
     @Override
@@ -57,8 +72,12 @@ public class AddEstacion extends Fragment {
 
                 rec.setHasFixedSize(true);
                 Collections.sort(response.body());
-
-                AdaptadorEstacion adaptador=new AdaptadorEstacion(new ArrayList<String>(response.body()));
+                lista=new ArrayList<>(response.body());
+                AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+                for(String estacion:baseDatos.getEstaciones()){
+                    lista.remove(estacion);
+                }
+                AdaptadorEstacion adaptador=new AdaptadorEstacion(lista);
                 rec.setAdapter(adaptador);
 
                 rec.setLayoutManager(
@@ -85,9 +104,9 @@ public class AddEstacion extends Fragment {
                             if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
 
                                 int position = recyclerView.getChildAdapterPosition(child);
-
-                                Toast.makeText(getContext(),"Marcado: "+ response.body().get(position) ,Toast.LENGTH_SHORT).show();
-
+                                AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+                                baseDatos.addEstacion(lista.get(position));
+                                onBackPressed();
                                 return true;
                             }
                         }catch (Exception e){
