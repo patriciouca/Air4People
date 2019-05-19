@@ -163,7 +163,8 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
     {
 
         MapaDetalle detallevariable=(MapaDetalle)detalle;
-        detallevariable.guardarVentana();
+        if(detalle!=null)
+            detallevariable.guardarVentana();
         if(hay)
         {
             general.beginTransaction().remove(detalle).commit();

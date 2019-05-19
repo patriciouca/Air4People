@@ -74,7 +74,6 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
 
         public void bindTitular(Mediciones a) {
             LinearLayout adjuntar = vista.findViewById(R.id.linear);
-            Log.d("Raro",String.valueOf(a!=null));
             txtFecha.setText(a.getFecha());
 
             for (Medicion t : a.getMediciones()) {
