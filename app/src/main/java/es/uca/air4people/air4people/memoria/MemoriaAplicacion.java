@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.Medicion;
@@ -14,6 +15,8 @@ import es.uca.air4people.air4people.Servicio.Mediciones;
 public class MemoriaAplicacion extends Application {
 
     static Hashtable<String, EstacionLista> estaciones = new Hashtable<String, EstacionLista>();
+
+    static AndroidBaseDatos base;
 
     static Hashtable<EstacionFecha, Mediciones> prediccionFechaestacion = new Hashtable<EstacionFecha,Mediciones>();
 
@@ -33,5 +36,13 @@ public class MemoriaAplicacion extends Application {
 
     public static EstacionLista getEstacion(String nombre){
         return estaciones.get(nombre);
+    }
+
+    public static AndroidBaseDatos getBase() {
+        return base;
+    }
+
+    public static void setBase(AndroidBaseDatos base) {
+        MemoriaAplicacion.base = base;
     }
 }

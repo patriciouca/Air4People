@@ -83,6 +83,7 @@ public class ListaMisEstaciones extends Fragment {
 
 
         AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+        ((MemoriaAplicacion) getActivity().getApplication()).setBase(baseDatos);
         //baseDatos.addEstacion("Mediterraneo");
         ArrayList<String> estacionesS=baseDatos.getEstaciones();
         for (String nombre : estacionesS) {

@@ -20,9 +20,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ComprobarContaminacion;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class AdaptadorEstacionesMediciones
         extends RecyclerView.Adapter<AdaptadorEstacionesMediciones.EstacionesViewHolder>
@@ -73,12 +75,29 @@ public class AdaptadorEstacionesMediciones
             listener.onClick(view);
     }
 
+    public void borrarLista(View v)
+    {
+        for (int i = 0; i < seleccionados.size(); i++) {
+
+            //AndroidBaseDatos baseDatos=((MemoriaAplicacion) v.getContext().getActivity().getApplication()).getBase();
+
+            String elementoDelalista=seleccionados.get(i);
+            seleccionados.remove(elementoDelalista);
+        }
+    }
+
     @Override
     public boolean onLongClick(View v) {
         Activity host = (Activity) v.getContext();
         AppCompatActivity t=((AppCompatActivity) host);
         TextView tb=t.findViewById(R.id.tituloTool);
         Button b=t.findViewById(R.id.btnDelete);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                borrarLista(v);
+            }
+        });
         TextView titulo=(TextView)(v.findViewById(R.id.titulo));
         String estacion=titulo.getText().toString();
         int indice=seleccionados.indexOf(estacion);
@@ -87,12 +106,11 @@ public class AdaptadorEstacionesMediciones
         {
             seleccionados.remove(indice);
             v.setBackgroundColor(Color.WHITE);
-            Log.d("Raro","Si");
+
         }
         else{
             seleccionados.add(estacion);
             v.setBackgroundColor(Color.GRAY);
-            Log.d("Raro","No");
         }
 
         if(seleccionado && seleccionados.size()==0)
@@ -105,7 +123,6 @@ public class AdaptadorEstacionesMediciones
 
             tb.setText("Editar");
             b.setVisibility(View.VISIBLE);
-            Log.d("Raro",b.toString());
 
             //((AppCompatActivity) host).setSupportActionBar(appbar);
             seleccionado=true;
