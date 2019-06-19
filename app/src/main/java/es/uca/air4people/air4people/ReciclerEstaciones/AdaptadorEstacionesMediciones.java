@@ -31,10 +31,12 @@ public class AdaptadorEstacionesMediciones
     private ArrayList<EstacionLista> datos;
     private View.OnClickListener listener;
     boolean seleccionado;
+    ArrayList<String> seleccionados;
 
     public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos) {
         seleccionado=false;
         this.datos = datos;
+        seleccionados=new ArrayList<>();
     }
 
     @Override
@@ -77,16 +79,30 @@ public class AdaptadorEstacionesMediciones
         AppCompatActivity t=((AppCompatActivity) host);
         TextView tb=t.findViewById(R.id.tituloTool);
         Button b=t.findViewById(R.id.btnDelete);
+        TextView titulo=(TextView)(v.findViewById(R.id.titulo));
+        String estacion=titulo.getText().toString();
+        int indice=seleccionados.indexOf(estacion);
+        Log.d("Raro",String.valueOf(indice));
+        if(indice!=-1)
+        {
+            seleccionados.remove(indice);
+            v.setBackgroundColor(Color.WHITE);
+            Log.d("Raro","Si");
+        }
+        else{
+            seleccionados.add(estacion);
+            v.setBackgroundColor(Color.GRAY);
+            Log.d("Raro","No");
+        }
 
-        if(seleccionado)
+        if(seleccionado && seleccionados.size()==0)
         {
             seleccionado=false;
-            v.setBackgroundColor(Color.WHITE);
             tb.setText("Inicio");
             b.setVisibility(View.GONE);
         }
         else{
-            v.setBackgroundColor(Color.GRAY);
+
             tb.setText("Editar");
             b.setVisibility(View.VISIBLE);
             Log.d("Raro",b.toString());
