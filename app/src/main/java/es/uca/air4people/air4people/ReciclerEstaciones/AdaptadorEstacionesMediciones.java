@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -73,16 +74,23 @@ public class AdaptadorEstacionesMediciones
     @Override
     public boolean onLongClick(View v) {
         Activity host = (Activity) v.getContext();
+        AppCompatActivity t=((AppCompatActivity) host);
+        TextView tb=t.findViewById(R.id.tituloTool);
+        Button b=t.findViewById(R.id.btnDelete);
+
         if(seleccionado)
         {
             seleccionado=false;
             v.setBackgroundColor(Color.WHITE);
+            tb.setText("Inicio");
+            b.setVisibility(View.GONE);
         }
         else{
             v.setBackgroundColor(Color.GRAY);
+            tb.setText("Editar");
+            b.setVisibility(View.VISIBLE);
+            Log.d("Raro",b.toString());
 
-            //android.support.v7.widget.Toolbar appbar = (Toolbar)v.findViewById(R.id.appbar3);
-            ((AppCompatActivity) host).getSupportActionBar().setTitle("Editar");
             //((AppCompatActivity) host).setSupportActionBar(appbar);
             seleccionado=true;
         }
