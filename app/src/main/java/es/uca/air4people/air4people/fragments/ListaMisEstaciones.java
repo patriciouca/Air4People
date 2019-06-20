@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
+import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
 import es.uca.air4people.air4people.Servicio.EstacionService;
@@ -128,7 +130,7 @@ public class ListaMisEstaciones extends Fragment {
             rec=v.findViewById(R.id.rec);
             rec.setHasFixedSize(true);
 
-            final AdaptadorEstacionesMediciones adaptador = new AdaptadorEstacionesMediciones(estaciones);
+            final AdaptadorEstacionesMediciones adaptador = new AdaptadorEstacionesMediciones(estaciones,getActivity());
 
             adaptador.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,7 +139,6 @@ public class ListaMisEstaciones extends Fragment {
                     Fragment fragment = new DetalleEstacion();
                     Bundle bundle = new Bundle();
                     bundle.putString("titulo",estaciones.get(position).getTitulo());
-                    //((DetalleEstacion) fragment).setLista(estaciones.get(position).getMediciones());
                     fragment.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_frame, fragment).addToBackStack("T")

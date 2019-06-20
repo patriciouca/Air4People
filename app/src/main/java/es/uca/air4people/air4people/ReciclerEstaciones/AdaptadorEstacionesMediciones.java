@@ -34,11 +34,13 @@ public class AdaptadorEstacionesMediciones
     private View.OnClickListener listener;
     boolean seleccionado;
     ArrayList<String> seleccionados;
+    Activity c;
 
-    public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos) {
+    public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos,Activity act) {
         seleccionado=false;
         this.datos = datos;
         seleccionados=new ArrayList<>();
+        this.c=act;
     }
 
     @Override
@@ -77,13 +79,27 @@ public class AdaptadorEstacionesMediciones
 
     public void borrarLista(View v)
     {
+
+        AndroidBaseDatos baseDatos=((MemoriaAplicacion) c.getApplication()).getBase();
         for (int i = 0; i < seleccionados.size(); i++) {
+            String elementoDelalista=seleccionados.get(0);
 
-            //AndroidBaseDatos baseDatos=((MemoriaAplicacion) v.getContext().getActivity().getApplication()).getBase();
+            int indice=-1;
+            for (int j=0;j<datos.size();j++)
+            {
+                if(datos.get(j).getTitulo().equals(elementoDelalista))
+                    indice=j;
 
-            String elementoDelalista=seleccionados.get(i);
+            }
+            if(indice!=-1)
+            {
+                datos.remove(indice);
+                this.notifyItemRemoved(indice);
+            }
             seleccionados.remove(elementoDelalista);
+            baseDatos.deleteEstacion(elementoDelalista);
         }
+
     }
 
     @Override
@@ -110,6 +126,7 @@ public class AdaptadorEstacionesMediciones
         }
         else{
             seleccionados.add(estacion);
+
             v.setBackgroundColor(Color.GRAY);
         }
 
