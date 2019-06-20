@@ -186,7 +186,6 @@ public class EstacionesActivity extends AppCompatActivity {
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
         getSupportActionBar().setTitle("Inicio");
-        EstacionesActivity.setTitulo("Inicio");
         fuera=false;
     }
 
@@ -206,11 +205,15 @@ public class EstacionesActivity extends AppCompatActivity {
                 if(mapavariable.isHay())
                     ((Mapa) mapa).guardarVentana();
                 else
+                {
                     irInicio();
+                    EstacionesActivity.setTitulo("Inicio");
+                }
             }
             else{
                 if(fuera || fuera2){
                     irInicio();
+                    EstacionesActivity.setTitulo("Inicio");
                 }else{
                     finish();
                 }
