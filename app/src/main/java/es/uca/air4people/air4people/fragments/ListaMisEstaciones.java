@@ -1,5 +1,6 @@
 package es.uca.air4people.air4people.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,7 +85,7 @@ public class ListaMisEstaciones extends Fragment {
                 });
         */
 
-
+        EstacionesActivity.setContexto(view.getContext());
         AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
         ((MemoriaAplicacion) getActivity().getApplication()).setBase(baseDatos);
         //baseDatos.addEstacion("Mediterraneo");
@@ -110,6 +112,7 @@ public class ListaMisEstaciones extends Fragment {
                         .replace(R.id.content_frame, anadir)
                         .commit();
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estacion");
+                EstacionesActivity.setTitulo("Añadir estacion");
             }
         });
 
@@ -144,6 +147,9 @@ public class ListaMisEstaciones extends Fragment {
                             .replace(R.id.content_frame, fragment).addToBackStack("T")
                             .commit();
                     ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
+                    EstacionesActivity.setTitulo(estaciones.get(position).getTitulo());
+
+
 
                 }
             });

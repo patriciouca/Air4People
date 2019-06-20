@@ -1,5 +1,7 @@
 package es.uca.air4people.air4people;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.UnicodeSetSpanner;
@@ -22,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,6 +61,8 @@ public class EstacionesActivity extends AppCompatActivity {
     private boolean fuera;
     private static boolean fuera2;
 
+    private static Context contexto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,18 +75,20 @@ public class EstacionesActivity extends AppCompatActivity {
         constraint = findViewById(R.id.reglasprincipal);
 
         Toolbar appbar = (Toolbar)findViewById(R.id.appbar);
+
         setSupportActionBar(appbar);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         irInicio();
 
-
+        contexto=getApplicationContext();
 
         set=new ConstraintSet();
         set.clone(constraint);
         set.setMargin(R.id.principal,ConstraintSet.BOTTOM,0);
         set.applyTo(constraint);
+
         //MENU LATERAL
         nav.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -135,6 +142,7 @@ public class EstacionesActivity extends AppCompatActivity {
 
                             menuItem.setChecked(true);
                             getSupportActionBar().setTitle(menuItem.getTitle());
+                            EstacionesActivity.setTitulo(menuItem.getTitle().toString());
 
                         }
 
@@ -144,6 +152,19 @@ public class EstacionesActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    public static void setContexto(Context c){
+
+        contexto=c;
+    }
+
+    public static void setTitulo(String titulo){
+
+        Activity host = (Activity) contexto;
+        AppCompatActivity t=((AppCompatActivity) host);
+        TextView tb=t.findViewById(R.id.tituloTool);
+        tb.setText(titulo);
     }
 
     @Override
@@ -164,6 +185,7 @@ public class EstacionesActivity extends AppCompatActivity {
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
         getSupportActionBar().setTitle("Inicio");
+        EstacionesActivity.setTitulo("Inicio");
         fuera=false;
     }
 

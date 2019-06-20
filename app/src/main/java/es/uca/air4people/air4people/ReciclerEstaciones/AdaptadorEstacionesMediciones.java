@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ComprobarContaminacion;
+import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
@@ -138,15 +139,13 @@ public class AdaptadorEstacionesMediciones
         if(seleccionado && seleccionados.size()==0)
         {
             seleccionado=false;
-            tb.setText("Inicio");
+            EstacionesActivity.setTitulo("Inicio");
             b.setVisibility(View.GONE);
         }
         else{
 
-            tb.setText("Editar");
+            EstacionesActivity.setTitulo("Editar");
             b.setVisibility(View.VISIBLE);
-
-            //((AppCompatActivity) host).setSupportActionBar(appbar);
             seleccionado=true;
         }
 

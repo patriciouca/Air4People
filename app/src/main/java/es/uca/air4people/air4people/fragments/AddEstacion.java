@@ -53,6 +53,7 @@ public class AddEstacion extends Fragment {
                 .replace(R.id.content_frame, anadir)
                 .commit();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Inicio");
+        EstacionesActivity.setTitulo("Inicio");
     }
 
     @Override
