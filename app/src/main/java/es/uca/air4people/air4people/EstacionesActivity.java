@@ -80,9 +80,10 @@ public class EstacionesActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        contexto=getApplicationContext();
         irInicio();
 
-        contexto=getApplicationContext();
+
 
         set=new ConstraintSet();
         set.clone(constraint);
