@@ -81,9 +81,10 @@ public class AdaptadorEstacionesMediciones
     {
 
         AndroidBaseDatos baseDatos=((MemoriaAplicacion) c.getApplication()).getBase();
-        for (int i = 0; i < seleccionados.size(); i++) {
+        int tam=seleccionados.size();
+        for (int i = 0; i < tam; i++) {
             String elementoDelalista=seleccionados.get(0);
-
+            Log.d("RARO",elementoDelalista);
             int indice=-1;
             for (int j=0;j<datos.size();j++)
             {
@@ -98,6 +99,7 @@ public class AdaptadorEstacionesMediciones
             }
             seleccionados.remove(elementoDelalista);
             baseDatos.deleteEstacion(elementoDelalista);
+
         }
 
     }
@@ -106,12 +108,15 @@ public class AdaptadorEstacionesMediciones
     public boolean onLongClick(View v) {
         Activity host = (Activity) v.getContext();
         AppCompatActivity t=((AppCompatActivity) host);
-        TextView tb=t.findViewById(R.id.tituloTool);
-        Button b=t.findViewById(R.id.btnDelete);
+        final TextView tb=t.findViewById(R.id.tituloTool);
+        final Button b=t.findViewById(R.id.btnDelete);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 borrarLista(v);
+                seleccionado=false;
+                tb.setText("Inicio");
+                b.setVisibility(View.GONE);
             }
         });
         TextView titulo=(TextView)(v.findViewById(R.id.titulo));
