@@ -91,7 +91,7 @@ public class AdaptadorEstacionesMediciones
         }
         Activity host = (Activity) v1.getContext();
         AppCompatActivity t=((AppCompatActivity) host);
-        final Button b=t.findViewById(R.id.btnDelete);
+        final ImageButton b=t.findViewById(R.id.btnDelete);
         b.setVisibility(View.GONE);
     }
 
@@ -128,7 +128,7 @@ public class AdaptadorEstacionesMediciones
         Activity host = (Activity) v.getContext();
         AppCompatActivity t=((AppCompatActivity) host);
         final TextView tb=t.findViewById(R.id.tituloTool);
-        final Button b=t.findViewById(R.id.btnDelete);
+        final ImageButton b=t.findViewById(R.id.btnDelete);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
