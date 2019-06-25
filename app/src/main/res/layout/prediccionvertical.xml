@@ -6,23 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <ScrollView
         android:id="@+id/tvT"
         android:layout_width="150dp"
         android:layout_height="20dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TXTO"
-        android:textColor="@color/colorPrimary"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvT2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:text="TXTO"
+            android:textColor="@color/colorPrimary"
+            android:visibility="visible" />
+
+    </ScrollView>
+
 
     <TextView
         android:id="@+id/tvV"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="20dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
@@ -35,7 +46,7 @@
     <ProgressBar
         android:id="@+id/pB"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="160dp"
+        android:layout_width="140dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -50,6 +61,7 @@
         android:id="@+id/btInf"
         android:layout_width="30dp"
         android:layout_height="20dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -57,5 +69,6 @@
         android:src="@drawable/ic_help_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pB"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

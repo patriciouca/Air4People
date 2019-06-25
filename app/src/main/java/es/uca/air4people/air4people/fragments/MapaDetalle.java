@@ -83,9 +83,6 @@ public class MapaDetalle  extends Fragment  {
         titulo=view.findViewById(R.id.titulo);
         suscrito=view.findViewById(R.id.suscrito);
 
-
-
-
         Bundle bundle = this.getArguments();
         texto=bundle.getString("titulo");
         titulo.setText(texto);
@@ -111,7 +108,7 @@ public class MapaDetalle  extends Fragment  {
                     LinearLayout adjuntar=view.findViewById(R.id.adjuntar);
                     try{
                         View hijo = getLayoutInflater().inflate(R.layout.prediccionvertical, null);
-                        TextView tmote=hijo.findViewById(R.id.tvT);
+                        TextView tmote=hijo.findViewById(R.id.tvT2);
                         tmote.setText(a.getDes_kind());
 
                         TextView valor=hijo.findViewById(R.id.tvV);
