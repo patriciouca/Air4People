@@ -3,7 +3,7 @@ package es.uca.air4people.air4people;
 import android.graphics.Color;
 import android.util.AndroidException;
 
-public class ComprobarContaminacion {
+public class ContaminacionHelper {
 
     static String[] contaminantes={"DIOXIDO DE AZUFRE","OZONO","PARTICULAS EN SUSPENSION DE 10 MICRAS","DIOXIDO DE NITROGENO","MONOXIDO DE CARBONO"};
     static float[] valor1={0,63,125,188};

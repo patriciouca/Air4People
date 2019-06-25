@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
-import es.uca.air4people.air4people.ComprobarContaminacion;
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Medicion;
@@ -29,8 +29,9 @@ public class AdaptadorEstacionesMediciones
 
     private ArrayList<EstacionLista> datos;
     private View.OnClickListener listener;
-    boolean seleccionado;
-    ArrayList<String> seleccionados;
+    static View v1;
+    static boolean seleccionado;
+    static ArrayList<String> seleccionados;
     Activity c;
 
     public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos,Activity act) {
@@ -74,6 +75,26 @@ public class AdaptadorEstacionesMediciones
             listener.onClick(view);
     }
 
+    public static boolean esSeleccionado(){
+        return seleccionado;
+    }
+
+    public static void pulsarAtras(){
+        EstacionesActivity.setTitulo("Inicio");
+        seleccionado=false;
+        seleccionados.clear();
+        RecyclerView recycler= (RecyclerView) v1.getParent();
+        for (int i=0;i<recycler.getChildCount();i++)
+        {
+            View v=recycler.getChildAt(i);
+            v.setBackgroundColor(Color.WHITE);
+        }
+        Activity host = (Activity) v1.getContext();
+        AppCompatActivity t=((AppCompatActivity) host);
+        final Button b=t.findViewById(R.id.btnDelete);
+        b.setVisibility(View.GONE);
+    }
+
     public void borrarLista(View v)
     {
 
@@ -103,6 +124,7 @@ public class AdaptadorEstacionesMediciones
 
     @Override
     public boolean onLongClick(View v) {
+        v1=v;
         Activity host = (Activity) v.getContext();
         AppCompatActivity t=((AppCompatActivity) host);
         final TextView tb=t.findViewById(R.id.tituloTool);
@@ -183,14 +205,14 @@ public class AdaptadorEstacionesMediciones
                 ProgressBar barra=hijo.findViewById(R.id.pB);
                 ImageButton botoncito=hijo.findViewById(R.id.btInf);
 
-                String diminutivo=ComprobarContaminacion.diminutivo(a.getDes_kind());
+                String diminutivo= ContaminacionHelper.diminutivo(a.getDes_kind());
                 if(diminutivo!="")
                     diminutivo="("+diminutivo+")";
                 tmote.setText(a.getDes_kind()+" "+diminutivo);
                 valor.setText(String.valueOf(a.getValue())+""+a.getUnit());
-                int nivel=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
+                int nivel= ContaminacionHelper.comprobar(a.getDes_kind(),a.getValue());
                 if(nivel!=0)
-                    tmote.setTextColor(ComprobarContaminacion.getColor(nivel));
+                    tmote.setTextColor(ContaminacionHelper.getColor(nivel));
                 //barra.setVisibility(View.GONE);
                 //botoncito.setVisibility(View.GONE);
                 vertical.addView(hijo);

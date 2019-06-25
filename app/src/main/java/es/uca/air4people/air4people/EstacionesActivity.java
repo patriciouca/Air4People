@@ -32,6 +32,8 @@ import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.BD.EstacionBD;
+import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
+import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.fragments.AddEstacion;
@@ -197,7 +199,8 @@ public class EstacionesActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             Fragment mapa = getSupportFragmentManager().findFragmentByTag("Mapa");
             boolean condicionMapa=mapa != null && mapa.isVisible();
             if (condicionMapa) {
@@ -209,6 +212,9 @@ public class EstacionesActivity extends AppCompatActivity {
                     irInicio();
                     EstacionesActivity.setTitulo("Inicio");
                 }
+            }
+            else if(AdaptadorEstacionesMediciones.esSeleccionado()){
+                AdaptadorEstacionesMediciones.pulsarAtras();
             }
             else{
                 if(fuera || fuera2){

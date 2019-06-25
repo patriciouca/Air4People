@@ -5,13 +5,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
-import es.uca.air4people.air4people.ComprobarContaminacion;
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
@@ -117,13 +115,13 @@ public class MapaDetalle  extends Fragment  {
                         ImageButton botoncito=hijo.findViewById(R.id.btInf);
                         barra.setVisibility(View.INVISIBLE);
 
-                        int comprobacion=ComprobarContaminacion.comprobar(a.getDes_kind(),a.getValue());
+                        int comprobacion= ContaminacionHelper.comprobar(a.getDes_kind(),a.getValue());
 
                         switch (comprobacion){
                             case 1:
                                 barra.setProgress(25);
                                 barra.getProgressDrawable().setColorFilter(
-                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                        ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                                 barra.setVisibility(View.VISIBLE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     botoncito.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +137,7 @@ public class MapaDetalle  extends Fragment  {
                             case 2:
                                 barra.setProgress(50);
                                 barra.getProgressDrawable().setColorFilter(
-                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                        ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                                 barra.setVisibility(View.VISIBLE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
@@ -171,7 +169,7 @@ public class MapaDetalle  extends Fragment  {
                             case 3:
                                 barra.setProgress(75);
                                 barra.getProgressDrawable().setColorFilter(
-                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                        ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                                 barra.setVisibility(View.VISIBLE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     if(a.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS")){
@@ -203,7 +201,7 @@ public class MapaDetalle  extends Fragment  {
                                 break;
                             case 4:
                                 barra.getProgressDrawable().setColorFilter(
-                                        ComprobarContaminacion.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                                        ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                                 barra.setProgress(100);
                                 barra.setVisibility(View.VISIBLE);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
