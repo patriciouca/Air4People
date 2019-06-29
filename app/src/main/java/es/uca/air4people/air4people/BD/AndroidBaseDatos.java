@@ -8,15 +8,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Estacion;
 
 public class AndroidBaseDatos extends Activity{
 
     Context contexto;
+    final static int LIMITE=30;
 
     public AndroidBaseDatos(Context contexto) {
         this.contexto = contexto;
@@ -44,8 +48,8 @@ public class AndroidBaseDatos extends Activity{
     }
 
     public ArrayList<String> getSuscripciones(){
-        SuscripcionBD usdbh =
-                new SuscripcionBD(contexto, "DBEstaciones", null, 1);
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
 
         SQLiteDatabase db = usdbh.getWritableDatabase();
         ArrayList<String> suscripciones=new ArrayList<>();
@@ -73,6 +77,14 @@ public class AndroidBaseDatos extends Activity{
         if(db != null) {
             db.execSQL("DELETE FROM Estaciones WHERE nombre='" + nombre + "' ");
             db.close();
+            ArrayList<String> suscripciones=getSuscripciones();
+            for (int i=0;i<suscripciones.size();i++)
+            {
+                String suscripcion=suscripciones.get(i);
+                suscripcion=suscripcion.replace(" ","_");
+                suscripcion=suscripcion.substring(0,LIMITE);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+suscripcion);
+            }
         }
     }
 
@@ -87,6 +99,15 @@ public class AndroidBaseDatos extends Activity{
                     "VALUES ( '" + nombre +"')");
 
             db.close();
+
+            ArrayList<String> suscripciones=getSuscripciones();
+            for (int i=0;i<suscripciones.size();i++)
+            {
+                String suscripcion=suscripciones.get(i);
+                suscripcion=suscripcion.replace(" ","_");
+                suscripcion=suscripcion.substring(0,LIMITE);
+                FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
+            }
         }
     }
 
@@ -99,6 +120,14 @@ public class AndroidBaseDatos extends Activity{
         if(db != null) {
             db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' ");
             db.close();
+            ArrayList<String> estaciones=getEstaciones();
+            nombre=nombre.replace(" ","_");
+            nombre=nombre.substring(0,LIMITE);
+            for (int i=0;i<estaciones.size();i++)
+            {
+                String estacion=estaciones.get(i);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
+            }
         }
     }
 
@@ -114,7 +143,16 @@ public class AndroidBaseDatos extends Activity{
 
             db.close();
         }
-    }
 
+        ArrayList<String> estaciones=getEstaciones();
+        nombre=nombre.replace(" ","_");
+        nombre=nombre.substring(0,LIMITE);
+        for (int i=0;i<estaciones.size();i++)
+        {
+            String estacion=estaciones.get(i);
+            FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
+        }
+
+    }
 
 }

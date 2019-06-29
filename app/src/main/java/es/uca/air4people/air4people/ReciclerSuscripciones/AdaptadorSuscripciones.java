@@ -1,6 +1,8 @@
 package es.uca.air4people.air4people.ReciclerSuscripciones;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscripciones.ContaminantesViewHolder>
         implements View.OnClickListener{
@@ -65,21 +69,16 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         private TextView txtTitulo;
         private Switch suscrito;
         private View v;
+        AndroidBaseDatos baseDatos;
 
         public ContaminantesViewHolder(final View itemView) {
             super(itemView);
-
+            Activity host = (Activity) itemView.getContext();
+            baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
             txtTitulo = (TextView)itemView.findViewById(R.id.txtContaminante);
             suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
-            suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" ON", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(buttonView.getContext(), txtTitulo.getText()+" OFF", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+
+
             v=itemView;
 
 
@@ -95,6 +94,23 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
         public void bindTitular(String t) {
             txtTitulo.setText(t);
+            ArrayList<String> suscripciones=baseDatos.getSuscripciones();
+            if(suscripciones.contains(t))
+            {
+                suscrito.setChecked(true);
+            }
+
+            suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String titulo= (String) txtTitulo.getText();
+                    if (isChecked) {
+
+                        baseDatos.addSuscripcion(titulo);
+                    } else {
+                        baseDatos.deleteSuscripcion(titulo);
+                    }
+                }
+            });
 
         }}
 }

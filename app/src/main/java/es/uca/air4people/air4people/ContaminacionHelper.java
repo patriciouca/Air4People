@@ -1,7 +1,14 @@
 package es.uca.air4people.air4people;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.util.AndroidException;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+import es.uca.air4people.air4people.BD.AndroidBaseDatos;
+import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class ContaminacionHelper {
 
