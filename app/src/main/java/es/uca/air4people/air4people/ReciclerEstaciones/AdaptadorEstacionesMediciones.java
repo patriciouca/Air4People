@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -201,6 +202,10 @@ public class AdaptadorEstacionesMediciones
                 View hijo = inflater.inflate(R.layout.prediccionverticalprinci, null);
                 TextView tmote=hijo.findViewById(R.id.tvT);
                 TextView valor=hijo.findViewById(R.id.tvV);
+                ImageView uno=hijo.findViewById(R.id.i1);
+                ImageView dos=hijo.findViewById(R.id.i2);
+                ImageView tres=hijo.findViewById(R.id.i3);
+                ImageView cuatro=hijo.findViewById(R.id.i4);
 
                 ProgressBar barra=hijo.findViewById(R.id.pB);
                 ImageButton botoncito=hijo.findViewById(R.id.btInf);
@@ -211,10 +216,33 @@ public class AdaptadorEstacionesMediciones
                 tmote.setText(a.getDes_kind()+" "+diminutivo);
                 valor.setText(String.valueOf(a.getValue())+""+a.getUnit());
                 int nivel= ContaminacionHelper.comprobar(a.getDes_kind(),a.getValue());
-                /*
+                uno.setVisibility(View.INVISIBLE);
+                dos.setVisibility(View.INVISIBLE);
+                tres.setVisibility(View.INVISIBLE);
+                cuatro.setVisibility(View.INVISIBLE);
                 if(nivel!=0)
-                    tmote.setTextColor(ContaminacionHelper.getColor(nivel));
-                    */
+                {
+                    if(nivel>=1)
+                    {
+                        uno.setVisibility(View.VISIBLE);
+                    }
+
+                    if(nivel>=2)
+                    {
+                        dos.setVisibility(View.VISIBLE);
+                    }
+
+                    if(nivel>=3)
+                    {
+                        tres.setVisibility(View.VISIBLE);
+                    }
+
+                    if(nivel>=4)
+                    {
+                        cuatro.setVisibility(View.VISIBLE);
+                    }
+                }
+
                 tmote.setTextColor(R.color.colorPrimary);
                 //barra.setVisibility(View.GONE);
                 //botoncito.setVisibility(View.GONE);

@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/tvV"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -35,43 +35,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/i4"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toEndOf="@+id/i3"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cuatro"
         tools:srcCompat="@drawable/cuatro" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/i2"
         android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/i1"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dos"
         tools:srcCompat="@drawable/dos" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/i3"
         android:layout_width="20dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/i2"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tres"
         tools:srcCompat="@drawable/tres" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/i1"
         android:layout_width="20dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvV"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/uno"
         tools:srcCompat="@drawable/uno" />
 
 
