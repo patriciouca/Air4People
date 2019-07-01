@@ -24,6 +24,9 @@
             <item
                 android:id="@+id/menu_opcion_4"
                 android:title="Configuración"/>
+            <item
+                android:id="@+id/menu_opcion_5"
+                android:title="Más información"/>
         </menu>
     </item>
 </menu>

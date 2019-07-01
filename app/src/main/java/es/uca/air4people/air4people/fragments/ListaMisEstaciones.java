@@ -56,7 +56,7 @@ public class ListaMisEstaciones extends Fragment {
         final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
         EncolarEstacion encolarEstacion=new EncolarEstacion(estaciones,view);
 
-        /*
+/*
         FirebaseMessaging.getInstance().subscribeToTopic("weather_a2")
         .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -88,7 +88,7 @@ public class ListaMisEstaciones extends Fragment {
         EstacionesActivity.setContexto(view.getContext());
         AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
         ((MemoriaAplicacion) getActivity().getApplication()).setBase(baseDatos);
-        //baseDatos.addEstacion("Mediterraneo");
+        baseDatos.getNotificaciones();
         ArrayList<String> estacionesS=baseDatos.getEstaciones();
         for (String nombre : estacionesS) {
             EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(nombre);

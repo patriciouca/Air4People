@@ -11,6 +11,8 @@ public class EstacionBD  extends SQLiteOpenHelper {
 
     String sqlCreate2 = "CREATE TABLE Suscripciones (nombre TEXT NOT NULL UNIQUE)";
 
+    String sqlCreate3 = "CREATE TABLE Notificaciones (titulo TEXT NOT NULL UNIQUE,cuerpo TEXT NOT NULL UNIQUE)";
+
     public EstacionBD(Context contexto, String nombre,
                       SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version);
@@ -20,6 +22,7 @@ public class EstacionBD  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(sqlCreate);
         db.execSQL(sqlCreate2);
+        db.execSQL(sqlCreate3);
     }
 
     @Override
@@ -28,5 +31,7 @@ public class EstacionBD  extends SQLiteOpenHelper {
         db.execSQL(sqlCreate);
         db.execSQL("DROP TABLE IF EXISTS Suscripciones");
         db.execSQL(sqlCreate2);
+        db.execSQL("DROP TABLE IF EXISTS Notificaciones");
+        db.execSQL(sqlCreate3);
     }
 }

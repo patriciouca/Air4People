@@ -45,6 +45,7 @@ import es.uca.air4people.air4people.fragments.Fragment1;
 import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.fragments.Mapa;
 import es.uca.air4people.air4people.fragments.MapaDetalle;
+import es.uca.air4people.air4people.fragments.MasInformacion;
 import es.uca.air4people.air4people.fragments.Patologias;
 import es.uca.air4people.air4people.fragments.Suscripciones;
 import retrofit2.Call;
@@ -128,6 +129,11 @@ public class EstacionesActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_opcion_3:
                                 Log.i("NavigationView", "Pulsada opción 2");
+                                break;
+                            case R.id.menu_opcion_5:
+                                fragment = new MasInformacion();
+                                fuera=true;
+                                fragmentTransaction = true;
                                 break;
                         }
 

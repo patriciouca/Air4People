@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -68,6 +69,33 @@ public class AndroidBaseDatos extends Activity{
         return suscripciones;
     }
 
+    public ArrayList<String[]> getNotificaciones(){
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        ArrayList<String[]> notificaciones=new ArrayList<>();
+        if(db != null) {
+            Cursor c = db.rawQuery("SELECT * FROM Notificaciones", null);
+
+            if (c.moveToFirst()) {
+                do {
+                    String vector[]=new String[2];
+                    String titulo = c.getString(0);
+                    String cuerpo = c.getString(1);
+                    vector[0]=titulo;
+                    vector[1]=cuerpo;
+                    Log.d("Raro",titulo);
+                    Log.d("Raro",cuerpo);
+                    notificaciones.add(vector);
+                } while (c.moveToNext());
+            }
+            db.close();
+        }
+
+        return notificaciones;
+    }
+
     public void deleteEstacion(String nombre)
     {
         EstacionBD usdbh =
@@ -106,6 +134,20 @@ public class AndroidBaseDatos extends Activity{
                 suscripcion=procesarNombre(suscripcion);
                 FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
             }
+        }
+    }
+
+    public void addNotificacion(String titulo,String cuerpo)
+    {
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        if(db != null)
+        {
+            db.execSQL("INSERT INTO Notificaciones (titulo,cuerpo) " +
+                    "VALUES ( '" + titulo +"'"+","+"'"+cuerpo+"')");
+
+            db.close();
         }
     }
 

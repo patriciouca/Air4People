@@ -23,6 +23,9 @@
     <string name="menu_opcion2">"Mapas"</string>
     <string name="title_activity_register">RegisterActivity</string>
 
+    <string name="masinformacion">La aplicación Air4People tiene un caracter meramente
+        informativo. No nos hacemos responsable si un sensor deja de funcionar correctamente</string>
+
     <string name="x1">"No hay riesgo."</string>
     <string name="pm102">"Posibles síntomas respiratorios normalmente en personas sensibles,
         posible empeoramiento de enfermedades de corazón o pulmón en personas con
