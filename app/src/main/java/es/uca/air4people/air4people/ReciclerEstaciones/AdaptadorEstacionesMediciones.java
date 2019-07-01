@@ -211,8 +211,11 @@ public class AdaptadorEstacionesMediciones
                 tmote.setText(a.getDes_kind()+" "+diminutivo);
                 valor.setText(String.valueOf(a.getValue())+""+a.getUnit());
                 int nivel= ContaminacionHelper.comprobar(a.getDes_kind(),a.getValue());
+                /*
                 if(nivel!=0)
                     tmote.setTextColor(ContaminacionHelper.getColor(nivel));
+                    */
+                tmote.setTextColor(R.color.colorPrimary);
                 //barra.setVisibility(View.GONE);
                 //botoncito.setVisibility(View.GONE);
                 vertical.addView(hijo);
