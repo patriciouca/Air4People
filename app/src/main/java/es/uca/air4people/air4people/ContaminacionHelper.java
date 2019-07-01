@@ -37,6 +37,29 @@ public class ContaminacionHelper {
         return 0;
     }
 
+    public static String diminutivoS(String suscripcion)
+    {
+        switch(suscripcion)
+        {
+            case "Enfermedades pulmonares":
+                return "ep";
+            case "Enfermedades del corazón":
+                return "ec";
+            case "Enfermedades genéticas":
+                return "eg";
+            case "Falta de Omega3 y vitaminas":
+                return "fov";
+            case "Asma":
+                return "a";
+            case "Menor de 19 años":
+                return "m1";
+            case "Mayor de 60 años":
+                return "m6";
+            default:
+                return null;
+        }
+    }
+
     public static String diminutivo(String contaminante)
     {
         switch(contaminante.toUpperCase())
@@ -58,7 +81,7 @@ public class ContaminacionHelper {
             case "TOLUENO":
                 return "C6H5CH3";
             default:
-                return "";
+                return null;
         }
     }
 

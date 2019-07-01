@@ -81,8 +81,7 @@ public class AndroidBaseDatos extends Activity{
             for (int i=0;i<suscripciones.size();i++)
             {
                 String suscripcion=suscripciones.get(i);
-                suscripcion=suscripcion.replace(" ","_");
-                suscripcion=suscripcion.substring(0,LIMITE);
+                suscripcion=procesarNombre(suscripcion);
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+suscripcion);
             }
         }
@@ -104,8 +103,7 @@ public class AndroidBaseDatos extends Activity{
             for (int i=0;i<suscripciones.size();i++)
             {
                 String suscripcion=suscripciones.get(i);
-                suscripcion=suscripcion.replace(" ","_");
-                suscripcion=suscripcion.substring(0,LIMITE);
+                suscripcion=procesarNombre(suscripcion);
                 FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
             }
         }
@@ -121,8 +119,8 @@ public class AndroidBaseDatos extends Activity{
             db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' ");
             db.close();
             ArrayList<String> estaciones=getEstaciones();
-            nombre=nombre.replace(" ","_");
-            nombre=nombre.substring(0,LIMITE);
+
+            nombre=procesarNombre(nombre);
             for (int i=0;i<estaciones.size();i++)
             {
                 String estacion=estaciones.get(i);
@@ -145,14 +143,22 @@ public class AndroidBaseDatos extends Activity{
         }
 
         ArrayList<String> estaciones=getEstaciones();
-        nombre=nombre.replace(" ","_");
-        nombre=nombre.substring(0,LIMITE);
+        nombre=procesarNombre(nombre);
         for (int i=0;i<estaciones.size();i++)
         {
             String estacion=estaciones.get(i);
             FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
         }
 
+    }
+
+    public static String procesarNombre(String n)
+    {
+        String nombre=ContaminacionHelper.diminutivoS(n);
+        if(nombre==null)
+            return ContaminacionHelper.diminutivo(n);
+        else
+            return nombre;
     }
 
 }
