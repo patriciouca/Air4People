@@ -103,7 +103,6 @@ public class AdaptadorEstacionesMediciones
         int tam=seleccionados.size();
         for (int i = 0; i < tam; i++) {
             String elementoDelalista=seleccionados.get(0);
-            Log.d("RARO",elementoDelalista);
             int indice=-1;
             for (int j=0;j<datos.size();j++)
             {

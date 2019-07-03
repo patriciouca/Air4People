@@ -63,8 +63,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
                 listener.onClick(view);
         }
 
-    public static class ContaminantesViewHolder
-            extends RecyclerView.ViewHolder {
+    public static class ContaminantesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtTitulo;
         private Switch suscrito;
