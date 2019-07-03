@@ -46,6 +46,7 @@ public class Suscripciones extends Fragment {
                 final AdaptadorSuscripciones adaptador = new AdaptadorSuscripciones((ArrayList<String>) response.body());
                 RecyclerView rec=view.findViewById(R.id.recCon);
                 rec.setAdapter(adaptador);
+                rec.setHasFixedSize(true);
                 rec.setLayoutManager(
                         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
                 rec.addItemDecoration(
