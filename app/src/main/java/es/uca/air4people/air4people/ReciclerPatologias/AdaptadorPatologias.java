@@ -80,41 +80,38 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
             v=itemView;
         }
 
-        /*
+
         public Switch getSuscrito() {
             return suscrito;
         }
-        */
 
-        /*
+
         public void setSuscrito(Switch suscrito) {
             this.suscrito = suscrito;
         }
-        */
+
 
         public void bindTitular(String t) {
             txtTitulo.setText(t);
-            ArrayList<String> suscripciones=baseDatos.getSuscripciones();
-            /*
+            ArrayList<String> suscripciones=baseDatos.getPatologias();
+
             if(suscripciones.contains(t))
             {
                 suscrito.setChecked(true);
             }
-            */
-            /*
+
+
             suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
                     if (isChecked) {
 
-                        baseDatos.addSuscripcion(titulo);
+                        baseDatos.addPatologia(titulo);
                     } else {
-                        baseDatos.deleteSuscripcion(titulo);
+                        baseDatos.deletePatologia(titulo);
                     }
                 }
             });
-            */
-
 
         }}
 }
