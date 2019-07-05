@@ -64,13 +64,13 @@ public class ContaminacionHelper {
     {
         switch(nivel)
         {
-            case 0:
-                return "B";
             case 1:
-                return "M";
+                return "B";
             case 2:
-                return "A";
+                return "M";
             case 3:
+                return "A";
+            case 4:
                 return "MA";
             default:
                 return null;

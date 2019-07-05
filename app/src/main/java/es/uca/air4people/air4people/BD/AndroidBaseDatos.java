@@ -125,15 +125,15 @@ public class AndroidBaseDatos extends Activity{
         if(db != null) {
             db.execSQL("DELETE FROM Estaciones WHERE nombre='" + nombre + "' ");
             db.close();
-            /*
-            ArrayList<String> suscripciones=getSuscripciones();
+
+            ArrayList<Suscripcion> suscripciones=getSuscripciones();
             for (int i=0;i<suscripciones.size();i++)
             {
-                String suscripcion=suscripciones.get(i);
-                suscripcion=procesarNombre(suscripcion);
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+suscripcion);
+                Suscripcion suscripcion=suscripciones.get(i);
+                String cadena=procesarNombre(suscripcion.nombre,suscripcion.nivel);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+cadena);
             }
-            */
+
         }
     }
 
@@ -186,15 +186,15 @@ public class AndroidBaseDatos extends Activity{
             db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' AND " +
                     "nivel="+nivel);
             db.close();
-            /*
+
             ArrayList<String> estaciones=getEstaciones();
-            nombre=procesarNombre(nombre);
+            nombre=procesarNombre(nombre,nivel);
             for (int i=0;i<estaciones.size();i++)
             {
                 String estacion=estaciones.get(i);
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
             }
-            */
+
         }
     }
 
@@ -211,15 +211,14 @@ public class AndroidBaseDatos extends Activity{
             db.close();
         }
 
-        /*
         ArrayList<String> estaciones=getEstaciones();
-        nombre=procesarNombre(nombre);
+        nombre=procesarNombre(nombre,nivel);
         for (int i=0;i<estaciones.size();i++)
         {
             String estacion=estaciones.get(i);
             FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
         }
-        */
+
 
     }
 
