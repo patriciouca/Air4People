@@ -31,7 +31,7 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
         public AdaptadorPatologias.ContaminantesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
             View itemView = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.itemlistacontaminantes, viewGroup, false);
+                    .inflate(R.layout.itemlistapatologias, viewGroup, false);
 
             AdaptadorPatologias.ContaminantesViewHolder tvh = new AdaptadorPatologias.ContaminantesViewHolder(itemView);
             itemView.setOnClickListener(this);
@@ -67,7 +67,7 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
             extends RecyclerView.ViewHolder {
 
         private TextView txtTitulo;
-        private Switch suscrito;
+        //private Switch suscrito;
         private View v;
         AndroidBaseDatos baseDatos;
 
@@ -76,26 +76,32 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
             Activity host = (Activity) itemView.getContext();
             baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
             txtTitulo = (TextView)itemView.findViewById(R.id.txtContaminante);
-            suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
+            //suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
             v=itemView;
         }
 
+        /*
         public Switch getSuscrito() {
             return suscrito;
         }
+        */
 
+        /*
         public void setSuscrito(Switch suscrito) {
             this.suscrito = suscrito;
         }
+        */
 
         public void bindTitular(String t) {
             txtTitulo.setText(t);
             ArrayList<String> suscripciones=baseDatos.getSuscripciones();
+            /*
             if(suscripciones.contains(t))
             {
                 suscrito.setChecked(true);
             }
-
+            */
+            /*
             suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
@@ -107,6 +113,7 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
                     }
                 }
             });
+            */
 
 
         }}

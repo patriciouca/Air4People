@@ -66,7 +66,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
     public static class ContaminantesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtTitulo;
-        private Switch suscrito;
+        //private Switch suscrito;
         private View v;
         AndroidBaseDatos baseDatos;
 
@@ -75,7 +75,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             Activity host = (Activity) itemView.getContext();
             baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
             txtTitulo = (TextView)itemView.findViewById(R.id.txtContaminante);
-            suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
+            //suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
 
 
             v=itemView;
@@ -83,6 +83,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
         }
 
+        /*
         public Switch getSuscrito() {
             return suscrito;
         }
@@ -90,10 +91,12 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         public void setSuscrito(Switch suscrito) {
             this.suscrito = suscrito;
         }
+        */
 
         public void bindTitular(String t) {
             txtTitulo.setText(t);
             ArrayList<String> suscripciones=baseDatos.getSuscripciones();
+            /*
             if(suscripciones.contains(t))
             {
                 suscrito.setChecked(true);
@@ -109,7 +112,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
                         baseDatos.deleteSuscripcion(titulo);
                     }
                 }
-            });
+            });*/
 
         }}
 }
