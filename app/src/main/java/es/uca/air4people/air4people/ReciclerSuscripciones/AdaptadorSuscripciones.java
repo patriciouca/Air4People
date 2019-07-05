@@ -66,7 +66,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
     public static class ContaminantesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtTitulo;
-        //private Switch suscrito;
+        private Switch suscrito1,suscrito2,suscrito3,suscrito4;
         private View v;
         AndroidBaseDatos baseDatos;
 
@@ -75,44 +75,72 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             Activity host = (Activity) itemView.getContext();
             baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
             txtTitulo = (TextView)itemView.findViewById(R.id.txtContaminante);
-            //suscrito = (Switch)itemView.findViewById(R.id.isSuscrito);
-
-
+            suscrito1 = (Switch)itemView.findViewById(R.id.suscrito);
+            suscrito2 = (Switch)itemView.findViewById(R.id.suscrito2);
+            suscrito3 = (Switch)itemView.findViewById(R.id.suscrito3);
+            suscrito4 = (Switch)itemView.findViewById(R.id.suscrito4);
             v=itemView;
-
-
         }
-
-        /*
-        public Switch getSuscrito() {
-            return suscrito;
-        }
-
-        public void setSuscrito(Switch suscrito) {
-            this.suscrito = suscrito;
-        }
-        */
 
         public void bindTitular(String t) {
             txtTitulo.setText(t);
-            ArrayList<String> suscripciones=baseDatos.getSuscripciones();
-            /*
-            if(suscripciones.contains(t))
+            ArrayList<Suscripcion> suscripciones=baseDatos.getSuscripciones();
+
+            for (int i=0;i<suscripciones.size();i++)
             {
-                suscrito.setChecked(true);
+                if(suscripciones.get(i).nombre.equals(t))
+                {
+                    if(suscripciones.get(i).nivel==1)
+                        suscrito1.setChecked(true);
+                    else if(suscripciones.get(i).nivel==2)
+                        suscrito2.setChecked(true);
+                    else if(suscripciones.get(i).nivel==3)
+                        suscrito3.setChecked(true);
+                    else if(suscripciones.get(i).nivel==4)
+                        suscrito4.setChecked(true);
+                }
             }
 
-            suscrito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            suscrito1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
                     if (isChecked) {
-
-                        baseDatos.addSuscripcion(titulo);
+                        baseDatos.addSuscripcion(titulo,1);
                     } else {
-                        baseDatos.deleteSuscripcion(titulo);
+                        baseDatos.deleteSuscripcion(titulo,1);
                     }
                 }
-            });*/
+            });
+            suscrito2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String titulo= (String) txtTitulo.getText();
+                    if (isChecked) {
+                        baseDatos.addSuscripcion(titulo,2);
+                    } else {
+                        baseDatos.deleteSuscripcion(titulo,2);
+                    }
+                }
+            });
+            suscrito3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String titulo= (String) txtTitulo.getText();
+                    if (isChecked) {
+                        baseDatos.addSuscripcion(titulo,3);
+                    } else {
+                        baseDatos.deleteSuscripcion(titulo,3);
+                    }
+                }
+            });
+            suscrito4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    String titulo= (String) txtTitulo.getText();
+                    if (isChecked) {
+                        baseDatos.addSuscripcion(titulo,4);
+                    } else {
+                        baseDatos.deleteSuscripcion(titulo,4);
+                    }
+                }
+            });
 
         }}
 }

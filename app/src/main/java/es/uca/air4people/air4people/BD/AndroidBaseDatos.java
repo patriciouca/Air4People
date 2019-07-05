@@ -16,12 +16,12 @@ import java.util.List;
 
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.ReciclerSuscripciones.Suscripcion;
 import es.uca.air4people.air4people.Servicio.Estacion;
 
 public class AndroidBaseDatos extends Activity{
 
     Context contexto;
-    final static int LIMITE=30;
 
     public AndroidBaseDatos(Context contexto) {
         this.contexto = contexto;
@@ -48,19 +48,20 @@ public class AndroidBaseDatos extends Activity{
         return estaciones;
     }
 
-    public ArrayList<String> getSuscripciones(){
+    public ArrayList<Suscripcion> getSuscripciones(){
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
 
         SQLiteDatabase db = usdbh.getWritableDatabase();
-        ArrayList<String> suscripciones=new ArrayList<>();
+        ArrayList<Suscripcion> suscripciones=new ArrayList<>();
         if(db != null) {
             Cursor c = db.rawQuery("SELECT * FROM Suscripciones", null);
 
             if (c.moveToFirst()) {
                 do {
-                    String nombre = c.getString(0);
-                    suscripciones.add(nombre);
+                    Suscripcion s=new Suscripcion(c.getString(0),
+                            c.getInt(1));
+                    suscripciones.add(s);
                 } while (c.moveToNext());
             }
             db.close();
@@ -85,8 +86,6 @@ public class AndroidBaseDatos extends Activity{
                     String cuerpo = c.getString(1);
                     vector[0]=titulo;
                     vector[1]=cuerpo;
-                    Log.d("Raro",titulo);
-                    Log.d("Raro",cuerpo);
                     notificaciones.add(vector);
                 } while (c.moveToNext());
             }
@@ -126,6 +125,7 @@ public class AndroidBaseDatos extends Activity{
         if(db != null) {
             db.execSQL("DELETE FROM Estaciones WHERE nombre='" + nombre + "' ");
             db.close();
+            /*
             ArrayList<String> suscripciones=getSuscripciones();
             for (int i=0;i<suscripciones.size();i++)
             {
@@ -133,6 +133,7 @@ public class AndroidBaseDatos extends Activity{
                 suscripcion=procesarNombre(suscripcion);
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+suscripcion);
             }
+            */
         }
     }
 
@@ -148,6 +149,7 @@ public class AndroidBaseDatos extends Activity{
 
             db.close();
 
+            /*
             ArrayList<String> suscripciones=getSuscripciones();
             for (int i=0;i<suscripciones.size();i++)
             {
@@ -155,6 +157,7 @@ public class AndroidBaseDatos extends Activity{
                 suscripcion=procesarNombre(suscripcion);
                 FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
             }
+            */
         }
     }
 
@@ -172,39 +175,42 @@ public class AndroidBaseDatos extends Activity{
         }
     }
 
-    public void deleteSuscripcion(String nombre)
+    public void deleteSuscripcion(String nombre,int nivel)
     {
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
 
         SQLiteDatabase db = usdbh.getWritableDatabase();
         if(db != null) {
-            db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' ");
+            db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' AND " +
+                    "nivel="+nivel);
             db.close();
+            /*
             ArrayList<String> estaciones=getEstaciones();
-
             nombre=procesarNombre(nombre);
             for (int i=0;i<estaciones.size();i++)
             {
                 String estacion=estaciones.get(i);
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
             }
+            */
         }
     }
 
-    public void addSuscripcion(String nombre)
+    public void addSuscripcion(String nombre,int nivel)
     {
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
         if(db != null)
         {
-            db.execSQL("INSERT INTO Suscripciones (nombre) " +
-                    "VALUES ( '" + nombre +"')");
+            db.execSQL("INSERT INTO Suscripciones (nombre,nivel) " +
+                    "VALUES ( '" + nombre +"',"+nivel+")");
 
             db.close();
         }
 
+        /*
         ArrayList<String> estaciones=getEstaciones();
         nombre=procesarNombre(nombre);
         for (int i=0;i<estaciones.size();i++)
@@ -212,6 +218,7 @@ public class AndroidBaseDatos extends Activity{
             String estacion=estaciones.get(i);
             FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
         }
+        */
 
     }
 

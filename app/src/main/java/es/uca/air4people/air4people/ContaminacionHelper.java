@@ -60,6 +60,23 @@ public class ContaminacionHelper {
         }
     }
 
+    public static String diminutivoNivel(String suscripcion)
+    {
+        switch(suscripcion)
+        {
+            case "Bajo":
+                return "B";
+            case "Medio":
+                return "M";
+            case "Alto":
+                return "A";
+            case "Muy Alto":
+                return "MA";
+            default:
+                return null;
+        }
+    }
+
     public static String diminutivo(String contaminante)
     {
         switch(contaminante.toUpperCase())
