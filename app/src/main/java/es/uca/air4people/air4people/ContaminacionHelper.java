@@ -60,17 +60,17 @@ public class ContaminacionHelper {
         }
     }
 
-    public static String diminutivoNivel(String suscripcion)
+    public static String diminutivoNivel(int nivel)
     {
-        switch(suscripcion)
+        switch(nivel)
         {
-            case "Bajo":
+            case 0:
                 return "B";
-            case "Medio":
+            case 1:
                 return "M";
-            case "Alto":
+            case 2:
                 return "A";
-            case "Muy Alto":
+            case 3:
                 return "MA";
             default:
                 return null;

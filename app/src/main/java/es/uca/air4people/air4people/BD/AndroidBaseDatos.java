@@ -149,15 +149,16 @@ public class AndroidBaseDatos extends Activity{
 
             db.close();
 
-            /*
-            ArrayList<String> suscripciones=getSuscripciones();
+
+            ArrayList<Suscripcion> suscripciones=getSuscripciones();
             for (int i=0;i<suscripciones.size();i++)
             {
-                String suscripcion=suscripciones.get(i);
-                suscripcion=procesarNombre(suscripcion);
+                String suscripcion=suscripciones.get(i).nombre;
+                int nivel=suscripciones.get(i).nivel;
+                suscripcion=procesarNombre(suscripcion,nivel);
                 FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
             }
-            */
+
         }
     }
 
@@ -249,13 +250,9 @@ public class AndroidBaseDatos extends Activity{
 
     }
 
-    public static String procesarNombre(String n)
+    public static String procesarNombre(String n,int nivel)
     {
-        String nombre=ContaminacionHelper.diminutivoS(n);
-        if(nombre==null)
-            return ContaminacionHelper.diminutivo(n);
-        else
-            return nombre;
+        return ContaminacionHelper.diminutivo(n)+"_"+ContaminacionHelper.diminutivoNivel(nivel);
     }
 
 }
