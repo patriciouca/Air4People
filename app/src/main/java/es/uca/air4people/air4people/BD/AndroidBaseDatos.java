@@ -96,6 +96,27 @@ public class AndroidBaseDatos extends Activity{
         return notificaciones;
     }
 
+    public ArrayList<String> getPatologias(){
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        ArrayList<String> suscripciones=new ArrayList<>();
+        if(db != null) {
+            Cursor c = db.rawQuery("SELECT * FROM Patologias", null);
+
+            if (c.moveToFirst()) {
+                do {
+                    String nombre = c.getString(0);
+                    suscripciones.add(nombre);
+                } while (c.moveToNext());
+            }
+            db.close();
+        }
+
+        return suscripciones;
+    }
+
     public void deleteEstacion(String nombre)
     {
         EstacionBD usdbh =
@@ -190,6 +211,33 @@ public class AndroidBaseDatos extends Activity{
         {
             String estacion=estaciones.get(i);
             FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
+        }
+
+    }
+
+    public void deletePatologia(String nombre)
+    {
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        if(db != null) {
+            db.execSQL("DELETE FROM Patologias WHERE nombre='" + nombre + "' ");
+            db.close();
+        }
+    }
+
+    public void addPatologia(String nombre)
+    {
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        if(db != null)
+        {
+            db.execSQL("INSERT INTO Patologias (nombre) " +
+                    "VALUES ( '" + nombre +"')");
+
+            db.close();
         }
 
     }
