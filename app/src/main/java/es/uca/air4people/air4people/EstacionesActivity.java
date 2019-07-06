@@ -41,6 +41,7 @@ import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFec
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.fragments.AddEstacion;
+import es.uca.air4people.air4people.fragments.Configuracion;
 import es.uca.air4people.air4people.fragments.Fragment1;
 import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.fragments.Mapa;
@@ -129,6 +130,12 @@ public class EstacionesActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_opcion_3:
                                 Log.i("NavigationView", "Pulsada opción 2");
+                                break;
+                            case R.id.menu_opcion_4:
+                                fragment = new Configuracion();
+                                etiqueta="Configuracion";
+                                fuera=true;
+                                fragmentTransaction = true;
                                 break;
                             case R.id.menu_opcion_5:
                                 fragment = new MasInformacion();
