@@ -54,5 +54,8 @@ personas con enfermedades de corazón." </string>
         <item>Menor de 19 años</item>
         <item>Mayor de 60 años</item>
     </string-array>
+    <string name="configuraciones1">Establece tus patologias</string>
+    <string name="configuraciones2">Marca como activo</string>
+    <string name="configuraciones3">Se te irá notificando en torno a tus patologias</string>
 
 </resources>
