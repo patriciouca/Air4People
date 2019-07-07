@@ -27,7 +27,7 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
 
     public GestosMapas(ConstraintLayout reglas) {
         this.reglas = reglas;
-        marca=1000;
+        marca=1200;
     }
 
     public void abajo(){
@@ -36,9 +36,9 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
     }
 
     private void arriba(){
-        if(marca<1200)
+        if(marca<1500)
         {
-            marca=1200;
+            marca=1500;
             cambiar();
         }
 
