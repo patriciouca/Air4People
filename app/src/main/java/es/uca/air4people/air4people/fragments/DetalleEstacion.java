@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
@@ -58,6 +60,71 @@ public class DetalleEstacion extends Fragment {
         datos=new ArrayList<Mediciones>();
 
         final EncolarEstacionDia encolarEstacionDia=new EncolarEstacionDia(view,view.getContext());
+
+        ImageView icono1=view.findViewById(R.id.imageView);
+        ImageView icono2=view.findViewById(R.id.imageView2);
+        ImageView icono3=view.findViewById(R.id.imageView3);
+        ImageView icono4=view.findViewById(R.id.imageView4);
+
+        int[] niveles= ContaminacionHelper.getProblemas();
+        switch (niveles[0])
+        {
+            case 1:
+                icono1.setImageResource(R.drawable.ic_child_friendly_black_24dp_gr);
+                break;
+            case 2:
+                icono1.setImageResource(R.drawable.ic_child_friendly_black_24dp_y);
+                break;
+            case 3:
+                icono1.setImageResource(R.drawable.ic_child_friendly_black_24dp_r);
+                break;
+            default:
+                icono1.setImageResource(R.drawable.ic_child_friendly_black_24dp);
+        }
+        switch (niveles[1])
+        {
+            case 1:
+                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_gr);
+                break;
+            case 2:
+                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_y);
+                break;
+            case 3:
+                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_r);
+                break;
+            default:
+                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp);
+        }
+
+        switch (niveles[2])
+        {
+            case 1:
+                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_gr);
+                break;
+            case 2:
+                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_y);
+                break;
+            case 3:
+                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_r);
+                break;
+            default:
+                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp);
+        }
+
+        switch (niveles[3])
+        {
+            case 1:
+                icono1.setImageResource(R.drawable.ic_grandfather_gr);
+                break;
+            case 2:
+                icono1.setImageResource(R.drawable.ic_grandfather_y);
+                break;
+            case 3:
+                icono1.setImageResource(R.drawable.ic_grandfather_r);
+                break;
+            default:
+                icono1.setImageResource(R.drawable.ic_grandfather);
+        }
 
         recView = (RecyclerView) view.findViewById(R.id.recEst);
         recView.setHasFixedSize(true);

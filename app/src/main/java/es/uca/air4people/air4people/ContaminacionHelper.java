@@ -77,6 +77,15 @@ public class ContaminacionHelper {
         }
     }
 
+    public static int[] getProblemas(){
+        int[] devolver=new int[4];
+        for (int i=0;i<4;i++)
+        {
+            devolver[i]=1;
+        }
+        return devolver;
+    }
+
     public static String diminutivo(String contaminante)
     {
         switch(contaminante.toUpperCase())
