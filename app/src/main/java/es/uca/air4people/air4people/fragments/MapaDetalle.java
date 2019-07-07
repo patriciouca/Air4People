@@ -106,7 +106,7 @@ public class MapaDetalle  extends Fragment  {
                     LinearLayout adjuntar=view.findViewById(R.id.adjuntar);
                     try{
                         View hijo = getLayoutInflater().inflate(R.layout.prediccionvertical, null);
-                        TextView tmote=hijo.findViewById(R.id.tvT2);
+                        TextView tmote=hijo.findViewById(R.id.tvT);
                         tmote.setText(a.getDes_kind());
 
                         TextView valor=hijo.findViewById(R.id.tvV);
