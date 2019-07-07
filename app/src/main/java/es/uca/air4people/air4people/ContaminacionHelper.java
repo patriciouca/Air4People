@@ -85,6 +85,10 @@ public class ContaminacionHelper {
                 return "CO";
             case "OXIDO DE NITROGENO":
                 return "NO";
+            case "PARTICULAS EN SUSPENSION DE 2.5 MICRAS":
+                return "PM2.5";
+            case "PARTICULAS EN SUSPENSION DE 10 MICRAS":
+                return "PM10";
             case "DIOXIDO DE NITROGENO":
                 return "NO2";
             case "OXIDOS DE NITROGENO GENERICO":
@@ -97,6 +101,12 @@ public class ContaminacionHelper {
                 return "C6H6";
             case "TOLUENO":
                 return "C6H5CH3";
+            case "P-XILENO":
+                return "C6H4";
+            case "ACIDO SULFHIDRICO":
+                return "H2S";
+            case "ETIL-BENCENO":
+                return "C8H10";
             default:
                 return null;
         }
