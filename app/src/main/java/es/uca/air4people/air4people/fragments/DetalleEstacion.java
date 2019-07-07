@@ -61,10 +61,10 @@ public class DetalleEstacion extends Fragment {
 
         final EncolarEstacionDia encolarEstacionDia=new EncolarEstacionDia(view,view.getContext());
 
-        ImageView icono1=view.findViewById(R.id.imageView);
-        ImageView icono2=view.findViewById(R.id.imageView2);
-        ImageView icono3=view.findViewById(R.id.imageView3);
-        ImageView icono4=view.findViewById(R.id.imageView4);
+        ImageView icono1=view.findViewById(R.id.imageView3);
+        ImageView icono2=view.findViewById(R.id.imageView4);
+        ImageView icono3=view.findViewById(R.id.imageView2);
+        ImageView icono4=view.findViewById(R.id.imageView);
 
         int[] niveles= ContaminacionHelper.getProblemas();
         switch (niveles[0])
@@ -84,46 +84,46 @@ public class DetalleEstacion extends Fragment {
         switch (niveles[1])
         {
             case 1:
-                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_gr);
+                icono2.setImageResource(R.drawable.ic_fitness_center_black_24dp_gr);
                 break;
             case 2:
-                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_y);
+                icono2.setImageResource(R.drawable.ic_fitness_center_black_24dp_y);
                 break;
             case 3:
-                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp_r);
+                icono2.setImageResource(R.drawable.ic_fitness_center_black_24dp_r);
                 break;
             default:
-                icono1.setImageResource(R.drawable.ic_fitness_center_black_24dp);
+                icono2.setImageResource(R.drawable.ic_fitness_center_black_24dp);
         }
 
         switch (niveles[2])
         {
             case 1:
-                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_gr);
+                icono3.setImageResource(R.drawable.ic_directions_run_black_24dp_gr);
                 break;
             case 2:
-                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_y);
+                icono3.setImageResource(R.drawable.ic_directions_run_black_24dp_y);
                 break;
             case 3:
-                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp_r);
+                icono3.setImageResource(R.drawable.ic_directions_run_black_24dp_r);
                 break;
             default:
-                icono1.setImageResource(R.drawable.ic_directions_run_black_24dp);
+                icono3.setImageResource(R.drawable.ic_directions_run_black_24dp);
         }
 
         switch (niveles[3])
         {
             case 1:
-                icono1.setImageResource(R.drawable.ic_grandfather_gr);
+                icono4.setImageResource(R.drawable.ic_grandfather_gr);
                 break;
             case 2:
-                icono1.setImageResource(R.drawable.ic_grandfather_y);
+                icono4.setImageResource(R.drawable.ic_grandfather_y);
                 break;
             case 3:
-                icono1.setImageResource(R.drawable.ic_grandfather_r);
+                icono4.setImageResource(R.drawable.ic_grandfather_r);
                 break;
             default:
-                icono1.setImageResource(R.drawable.ic_grandfather);
+                icono4.setImageResource(R.drawable.ic_grandfather);
         }
 
         recView = (RecyclerView) view.findViewById(R.id.recEst);
