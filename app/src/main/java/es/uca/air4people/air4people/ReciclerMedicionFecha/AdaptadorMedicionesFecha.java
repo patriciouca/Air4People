@@ -72,78 +72,84 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
 
         public void bindTitular(Mediciones a) {
             LinearLayout adjuntar = vista.findViewById(R.id.linear);
-            txtFecha.setText(a.getFecha());
+            try{
+                txtFecha.setText(a.getFecha());
 
-            for (Medicion t : a.getMediciones()) {
-                View hijo =vista.inflate(vista.getContext(),R.layout.prediccionvertical,null);
-                ConstraintLayout vertical = vista.findViewById(R.id.prediccionvertical);
-                txtFecha = (TextView)hijo.findViewById(R.id.fecha);
-                txtMote = (TextView)hijo.findViewById(R.id.tvT);
-                txtvalor = (TextView)hijo.findViewById(R.id.tvV);
-                barra= (ProgressBar)hijo.findViewById(R.id.pB);
-                botoncito=hijo.findViewById(R.id.btInf);
-                txtMote.setText(t.getDes_kind());
-                txtvalor.setText(String.valueOf(t.getValue()));
-                int comprobacion = ContaminacionHelper.comprobar(t.getDes_kind(), t.getValue());
+                for (Medicion t : a.getMediciones()) {
+                    View hijo =vista.inflate(vista.getContext(),R.layout.prediccionvertical,null);
+                    ConstraintLayout vertical = vista.findViewById(R.id.prediccionvertical);
+                    txtFecha = (TextView)hijo.findViewById(R.id.fecha);
+                    txtMote = (TextView)hijo.findViewById(R.id.tvT);
+                    txtvalor = (TextView)hijo.findViewById(R.id.tvV);
+                    barra= (ProgressBar)hijo.findViewById(R.id.pB);
+                    botoncito=hijo.findViewById(R.id.btInf);
+                    txtMote.setText(t.getDes_kind());
+                    txtvalor.setText(String.valueOf(t.getValue())+" "+t.getUnit());
+                    int comprobacion = ContaminacionHelper.comprobar(t.getDes_kind(), t.getValue());
 
-                switch (comprobacion) {
-                    case 1:
-                        barra.setProgress(25);
-                        barra.getProgressDrawable().setColorFilter(
-                                ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                        barra.setVisibility(View.VISIBLE);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.x1));
-                        }
-                        break;
-                    case 2:
-                        barra.setProgress(50);
-                        barra.getProgressDrawable().setColorFilter(
-                                ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                        barra.setVisibility(View.VISIBLE);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm102));
-                            else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co2));
-                            else
-                                botoncito.setVisibility(View.GONE);
-                        }
-                        break;
-                    case 3:
-                        barra.setProgress(75);
-                        barra.getProgressDrawable().setColorFilter(
-                                ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                        barra.setVisibility(View.VISIBLE);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm103));
-                            else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co3));
-                            else
-                                botoncito.setVisibility(View.GONE);
-                        }
-                        break;
-                    case 4:
-                        barra.getProgressDrawable().setColorFilter(
-                                ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
-                        barra.setProgress(100);
-                        barra.setVisibility(View.VISIBLE);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm104));
-                            else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co4));
-                            else
-                                botoncito.setVisibility(View.GONE);
-                        }
-                        break;
-                    default:
-                        botoncito.setVisibility(View.GONE);
-                        break;
+                    switch (comprobacion) {
+                        case 1:
+                            barra.setProgress(25);
+                            barra.getProgressDrawable().setColorFilter(
+                                    ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.x1));
+                            }
+                            break;
+                        case 2:
+                            barra.setProgress(50);
+                            barra.getProgressDrawable().setColorFilter(
+                                    ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm102));
+                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co2));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                        case 3:
+                            barra.setProgress(75);
+                            barra.getProgressDrawable().setColorFilter(
+                                    ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm103));
+                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co3));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                        case 4:
+                            barra.getProgressDrawable().setColorFilter(
+                                    ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
+                            barra.setProgress(100);
+                            barra.setVisibility(View.VISIBLE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm104));
+                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co4));
+                                else
+                                    botoncito.setVisibility(View.GONE);
+                            }
+                            break;
+                        default:
+                            botoncito.setVisibility(View.GONE);
+                            break;
+                    }
+                    adjuntar.addView(hijo);
                 }
-            adjuntar.addView(hijo);
+            }catch (Exception e)
+            {
+
             }
+
         }
     }
 

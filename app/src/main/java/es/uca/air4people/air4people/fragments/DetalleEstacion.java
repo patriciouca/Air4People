@@ -189,7 +189,7 @@ public class DetalleEstacion extends Fragment {
 
             final String titulo=bundle.getString("titulo");
             final int diaParametro=-dia;
-            Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate);
+            Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate+"T02:00:00");
             call.enqueue(new Callback<List<Medicion>>() {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
