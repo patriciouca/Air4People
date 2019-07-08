@@ -1,22 +1,27 @@
 package es.uca.air4people.air4people.fragments;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
@@ -42,6 +47,8 @@ public class DetalleEstacion extends Fragment {
     private ArrayList<Mediciones> datos;
     private AdaptadorMedicionesFecha adaptador;
     private int dias;
+
+
 
     public DetalleEstacion() {
         EstacionesActivity.setFuera2();
@@ -139,7 +146,6 @@ public class DetalleEstacion extends Fragment {
 
         recView.setItemAnimator(new DefaultItemAnimator());
 
-
         for (int i=0;i<=AVANCEDEFECTO;i++)
         {
             encolarEstacionDia.anadirPrediccion(dias);
@@ -152,6 +158,7 @@ public class DetalleEstacion extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)) {
+
                     encolarEstacionDia.anadirPrediccion(dias);
                     dias++;
                 }
@@ -174,35 +181,35 @@ public class DetalleEstacion extends Fragment {
         }
 
 
-        public void anadirPrediccion(int dia){
+        public void anadirPrediccion(final int dia){
 
             Bundle bundle = getArguments();
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl("http://airservices.uca.es/Air4People/").
                     addConverterFactory(GsonConverterFactory.create())
                     .build();
+            Log.d("Raro",String.valueOf(-dia));
             EstacionService estacionService = retrofit.create(EstacionService.class);
             Calendar c = Calendar.getInstance();
             c.add(Calendar.DAY_OF_MONTH, -dia);
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
             final String formattedDate = df.format(c.getTime());
-
             final String titulo=bundle.getString("titulo");
-            final int diaParametro=-dia;
+            int diaParametro=-dia;
             Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate+"T02:00:00");
-            call.enqueue(new Callback<List<Medicion>>() {
-                @Override
-                public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
-                    setDias(diaParametro);
-                    //estacion.addMedicion(new Mediciones(response.body(),formattedDate));
-                    //setLista();
-                    setLista(new Mediciones(response.body(),formattedDate));
-                }
 
-                @Override
-                public void onFailure(Call<List<Medicion>> call, Throwable t) {
-                }
-            });
+            try {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                Response<List<Medicion>> response=call.execute();
+                setDias(diaParametro);
+                Mediciones m=new Mediciones(response.body(),formattedDate);
+                setLista(m);
+            } catch (IOException e) {
+
+            }
+
         }
 
         public void setLista() {
@@ -213,6 +220,7 @@ public class DetalleEstacion extends Fragment {
         }
 
         public void setLista(Mediciones mediciones) {
+
 
             datos.add(mediciones);
             adaptador.notifyItemInserted(datos.size());

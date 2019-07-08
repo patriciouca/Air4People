@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,17 +74,19 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
         public void bindTitular(Mediciones a) {
             LinearLayout adjuntar = vista.findViewById(R.id.linear);
             try{
-                txtFecha.setText(a.getFecha());
 
+                txtFecha.setText(a.getFecha());
+                Log.d("EARO","        1   ");
                 for (Medicion t : a.getMediciones()) {
+
                     View hijo =vista.inflate(vista.getContext(),R.layout.prediccionvertical,null);
                     ConstraintLayout vertical = vista.findViewById(R.id.prediccionvertical);
-                    txtFecha = (TextView)hijo.findViewById(R.id.fecha);
                     txtMote = (TextView)hijo.findViewById(R.id.tvT);
                     txtvalor = (TextView)hijo.findViewById(R.id.tvV);
                     barra= (ProgressBar)hijo.findViewById(R.id.pB);
                     botoncito=hijo.findViewById(R.id.btInf);
                     txtMote.setText(t.getDes_kind());
+                    Log.d("EARO",t.getDes_kind());
                     txtvalor.setText(String.valueOf(t.getValue())+" "+t.getUnit());
                     int comprobacion = ContaminacionHelper.comprobar(t.getDes_kind(), t.getValue());
 
