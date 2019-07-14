@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EstacionBD  extends SQLiteOpenHelper {
 
     //Sentencia SQL para crear la tabla de Estaciones
-    String sqlCreate = "CREATE TABLE Estaciones (nombre TEXT NOT NULL UNIQUE)";
+    String sqlCreate = "CREATE TABLE Estaciones (id INTEGER NOT NULL UNIQUE,nombre TEXT NOT NULL UNIQUE)";
 
     String sqlCreate2 = "CREATE TABLE Suscripciones (nombre TEXT NOT NULL,nivel INTEGER NOT NULL)";
 

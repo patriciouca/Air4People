@@ -25,10 +25,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
-            if (/* Check if data needs to be processed by long running job */ true) {
+            /*
+            if ( Check if data needs to be processed by long running job ttrue) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
                 Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-                Log.d(TAG, "Message Notification title: " + remoteMessage.getNotification().getTitle());
+                //Log.d(TAG, "Message Notification title: " + remoteMessage.getNotification().getTitle());
                 AndroidBaseDatos baseDatos=((MemoriaAplicacion) getApplicationContext()).getBase();
                 baseDatos.addNotificacion(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
             } else {
@@ -38,6 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 AndroidBaseDatos baseDatos=((MemoriaAplicacion) getApplicationContext()).getBase();
                 baseDatos.addNotificacion(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
             }
+            */
 
         }
 
