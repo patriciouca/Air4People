@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
+import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class ContaminacionHelper {
@@ -75,6 +76,24 @@ public class ContaminacionHelper {
             default:
                 return null;
         }
+    }
+
+    public static ArrayList<Estacion> quitarEstacion(ArrayList<Estacion> estaciones,String e){
+        for (int i=0;i<estaciones.size();i++)
+        {
+            if(estaciones.get(i).getMote_name().equals(e))
+                estaciones.remove(estaciones.get(i));
+        }
+        return estaciones;
+    }
+
+    public static boolean estaEstacion(ArrayList<Estacion> estaciones,String e){
+        for (int i=0;i<estaciones.size();i++)
+        {
+            if(estaciones.get(i).getMote_name().equals(e))
+                return true;
+        }
+        return false;
     }
 
     public static int[] getProblemas(){

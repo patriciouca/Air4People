@@ -21,6 +21,7 @@ import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
@@ -32,7 +33,7 @@ public class AdaptadorEstacionesMediciones
     private View.OnClickListener listener;
     static View v1;
     static boolean seleccionado;
-    static ArrayList<String> seleccionados;
+    static ArrayList<EstacionLista> seleccionados;
     Activity c;
 
     public AdaptadorEstacionesMediciones(ArrayList<EstacionLista> datos,Activity act) {
@@ -102,11 +103,11 @@ public class AdaptadorEstacionesMediciones
         AndroidBaseDatos baseDatos=((MemoriaAplicacion) c.getApplication()).getBase();
         int tam=seleccionados.size();
         for (int i = 0; i < tam; i++) {
-            String elementoDelalista=seleccionados.get(0);
+            EstacionLista elementoDelalista=seleccionados.get(0);
             int indice=-1;
             for (int j=0;j<datos.size();j++)
             {
-                if(datos.get(j).getTitulo().equals(elementoDelalista))
+                if(datos.get(j).getTitulo().equals(elementoDelalista.getTitulo()))
                     indice=j;
 
             }
@@ -116,7 +117,7 @@ public class AdaptadorEstacionesMediciones
                 this.notifyItemRemoved(indice);
             }
             seleccionados.remove(elementoDelalista);
-            baseDatos.deleteEstacion(elementoDelalista);
+            baseDatos.deleteEstacion(new Estacion(elementoDelalista.getId(),elementoDelalista.getTitulo()));
 
         }
 
@@ -139,7 +140,8 @@ public class AdaptadorEstacionesMediciones
             }
         });
         TextView titulo=(TextView)(v.findViewById(R.id.titulo));
-        String estacion=titulo.getText().toString();
+        TextView id=(TextView)(v.findViewById(R.id.idEstacion));
+        EstacionLista estacion=new EstacionLista(Integer.parseInt(id.getText().toString()),titulo.getText().toString());
         int indice=seleccionados.indexOf(estacion);
         Log.d("Raro",String.valueOf(indice));
         if(indice!=-1)
@@ -174,12 +176,14 @@ public class AdaptadorEstacionesMediciones
             extends RecyclerView.ViewHolder {
 
         private TextView txtTitulo;
+        private TextView txtid;
         private View v;
 
         public EstacionesViewHolder(View itemView) {
             super(itemView);
 
             txtTitulo = (TextView)itemView.findViewById(R.id.titulo);
+            txtid = (TextView)itemView.findViewById(R.id.idEstacion);
             v=itemView;
 
 
@@ -187,7 +191,7 @@ public class AdaptadorEstacionesMediciones
 
         public void bindTitular(EstacionLista t) {
             txtTitulo.setText(t.getTitulo());
-
+            txtid.setText(String.valueOf(t.getId()));
             LayoutInflater inflater = LayoutInflater.from(v.getContext());
             LinearLayout l=itemView.findViewById(R.id.anadir);
             LinearLayout vertical=null;

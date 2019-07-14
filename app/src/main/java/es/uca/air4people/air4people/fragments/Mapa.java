@@ -114,7 +114,8 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
                     MarkerOptions marcador=new MarkerOptions();
                     marcador.position(punto);
                     marcador.title(a.getMote_name());
-                    mMap.addMarker(marcador);
+                    Marker  m=mMap.addMarker(marcador);
+                    m.setTag(a.getMote_id());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(punto));
                     center=CameraUpdateFactory.newLatLng(punto);
 
@@ -153,6 +154,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
         ((MapaDetalle) detalle).setReglas(reglas);
         Bundle argumentos=new Bundle();
         argumentos.putString("titulo",marker.getTitle());
+        argumentos.putString("id",String.valueOf(marker.getTag()));
         detalle.setArguments(argumentos);
         general.beginTransaction().add(R.id.detalle, detalle).commit();
         hay=true;

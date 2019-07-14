@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacion;
@@ -40,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddEstacion extends Fragment {
 
-    ArrayList<String> lista;
+    ArrayList<Estacion> lista;
 
     public AddEstacion() {
         EstacionesActivity.setFuera2();
@@ -66,17 +67,19 @@ public class AddEstacion extends Fragment {
                 .build();
         final RecyclerView rec=vista.findViewById(R.id.addestacion);
         EstacionService estacionService = retrofit.create(EstacionService.class);
-        Call<List<String>> call = estacionService.getEstaciones();
-        call.enqueue(new Callback<List<String>>() {
+        Call<List<Estacion>> call = estacionService.getMapa();
+        call.enqueue(new Callback<List<Estacion>>() {
             @Override
-            public void onResponse(Call<List<String>> call, final Response<List<String>> response) {
+            public void onResponse(Call<List<Estacion>> call, final Response<List<Estacion>> response) {
+
 
                 rec.setHasFixedSize(true);
-                Collections.sort(response.body());
+                //Collections.sort(response.body());
                 lista=new ArrayList<>(response.body());
                 AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
+
                 for(String estacion:baseDatos.getEstaciones()){
-                    lista.remove(estacion);
+                    lista=ContaminacionHelper.quitarEstacion(lista,estacion);
                 }
                 AdaptadorEstacion adaptador=new AdaptadorEstacion(lista);
                 rec.setAdapter(adaptador);
@@ -132,7 +135,9 @@ public class AddEstacion extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
+            public void onFailure(Call<List<Estacion>> call, Throwable t) {
+
+                Log.d("RARO",t.getMessage());
             }
         });
         return vista;

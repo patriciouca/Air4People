@@ -34,12 +34,33 @@ public class AndroidBaseDatos extends Activity{
         SQLiteDatabase db = usdbh.getWritableDatabase();
         ArrayList<String> estaciones=new ArrayList<>();
         if(db != null) {
-            Cursor c = db.rawQuery("SELECT * FROM Estaciones", null);
+            Cursor c = db.rawQuery("SELECT nombre FROM Estaciones", null);
 
             if (c.moveToFirst()) {
                 do {
                     String nombre = c.getString(0);
                     estaciones.add(nombre);
+                } while (c.moveToNext());
+            }
+            db.close();
+        }
+
+        return estaciones;
+    }
+
+    public ArrayList<Estacion> getEstacionesE(){
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        ArrayList<Estacion> estaciones=new ArrayList<>();
+        if(db != null) {
+            Cursor c = db.rawQuery("SELECT * FROM Estaciones", null);
+
+            if (c.moveToFirst()) {
+                do {
+                    Estacion e=new Estacion(c.getInt(0),c.getString(1));
+                    estaciones.add(e);
                 } while (c.moveToNext());
             }
             db.close();
@@ -116,14 +137,14 @@ public class AndroidBaseDatos extends Activity{
         return suscripciones;
     }
 
-    public void deleteEstacion(String nombre)
+    public void deleteEstacion(Estacion estacion)
     {
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
 
         SQLiteDatabase db = usdbh.getWritableDatabase();
         if(db != null) {
-            db.execSQL("DELETE FROM Estaciones WHERE nombre='" + nombre + "' ");
+            db.execSQL("DELETE FROM Estaciones WHERE nombre='" + estacion.getMote_name() + "' ");
             db.close();
 
             ArrayList<Suscripcion> suscripciones=getSuscripciones();
@@ -131,21 +152,21 @@ public class AndroidBaseDatos extends Activity{
             {
                 Suscripcion suscripcion=suscripciones.get(i);
                 String cadena=procesarNombre(suscripcion.nombre,suscripcion.nivel);
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(nombre+"_"+cadena);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion.getMote_id()+"_"+cadena);
             }
 
         }
     }
 
-    public void addEstacion(String nombre)
+    public void addEstacion(Estacion estacion)
     {
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
         if(db != null)
         {
-            db.execSQL("INSERT INTO Estaciones (nombre) " +
-                    "VALUES ( '" + nombre +"')");
+            db.execSQL("INSERT INTO Estaciones (id,nombre) " +
+                    "VALUES ("+estacion.getMote_id()+",'" + estacion.getMote_name() +"')");
 
             db.close();
 
@@ -156,7 +177,7 @@ public class AndroidBaseDatos extends Activity{
                 String suscripcion=suscripciones.get(i).nombre;
                 int nivel=suscripciones.get(i).nivel;
                 suscripcion=procesarNombre(suscripcion,nivel);
-                FirebaseMessaging.getInstance().subscribeToTopic(nombre+"_"+suscripcion);
+                FirebaseMessaging.getInstance().subscribeToTopic(estacion.getMote_id()+"_"+suscripcion);
             }
 
         }

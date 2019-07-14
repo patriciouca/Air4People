@@ -8,7 +8,7 @@ import retrofit2.http.Path;
 public interface EstacionService {
 
         @GET("availableMotes")
-        Call<List<String>> getEstaciones();
+        Call<List<Estacion>> getEstaciones();
 
         @GET("locateAllMotes")
         Call<List<Estacion>> getMapa();

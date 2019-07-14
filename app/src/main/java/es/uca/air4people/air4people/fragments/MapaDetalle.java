@@ -24,6 +24,7 @@ import java.util.List;
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import retrofit2.Call;
@@ -36,11 +37,12 @@ public class MapaDetalle  extends Fragment  {
 
     TextView titulo;
     String texto;
+    String id;
     View general;
     ConstraintLayout reglas;
     GestosMapas mapas;
     Switch suscrito;
-    ArrayList<String> estacionesMias;
+    ArrayList<Estacion> estacionesMias;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,12 +56,14 @@ public class MapaDetalle  extends Fragment  {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
 
+
                 if (isChecked) {
-                    if (estacionesMias.indexOf(texto)==-1)
-                        baseDatos.addEstacion(texto);
+                    if (!ContaminacionHelper.estaEstacion(estacionesMias,texto))
+                        baseDatos.addEstacion(new Estacion(Integer.valueOf(id),texto));
                 } else {
-                    baseDatos.deleteEstacion(texto);
+                    baseDatos.deleteEstacion(new Estacion(Integer.valueOf(id),texto));
                 }
+
             }
         });
 
@@ -70,7 +74,7 @@ public class MapaDetalle  extends Fragment  {
             }
         });
         AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
-        estacionesMias=baseDatos.getEstaciones();
+        estacionesMias=baseDatos.getEstacionesE();
         return view;
     }
 
@@ -83,9 +87,10 @@ public class MapaDetalle  extends Fragment  {
 
         Bundle bundle = this.getArguments();
         texto=bundle.getString("titulo");
+        id=bundle.getString("id");
         titulo.setText(texto);
-
-        if(estacionesMias.indexOf(texto)>=0)
+        
+        if(ContaminacionHelper.estaEstacion(estacionesMias,texto))
             suscrito.setChecked(true);
 
         Retrofit retrofit = new Retrofit.Builder().

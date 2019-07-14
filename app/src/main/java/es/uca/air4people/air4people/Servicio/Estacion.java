@@ -9,6 +9,12 @@ public class Estacion {
     public Estacion() {
     }
 
+    public Estacion(int id, String mote_name) {
+        this.mote_id = id;
+        this.mote_name = mote_name;
+    }
+
+
     public Estacion(int id, float latitud, float longitud, String mote_name) {
         this.mote_id = id;
         this.latitude = latitud;

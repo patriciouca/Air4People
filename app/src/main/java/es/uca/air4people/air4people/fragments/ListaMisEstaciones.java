@@ -31,6 +31,7 @@ import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
+import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
@@ -43,7 +44,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListaMisEstaciones extends Fragment {
 
-    String misestaciones[]={"SanFernando","Centro","Mediterraneo"};
     public ListaMisEstaciones() {
     }
 
@@ -89,11 +89,12 @@ public class ListaMisEstaciones extends Fragment {
         AndroidBaseDatos baseDatos=new AndroidBaseDatos(getContext());
         ((MemoriaAplicacion) getActivity().getApplication()).setBase(baseDatos);
         baseDatos.getNotificaciones();
-        ArrayList<String> estacionesS=baseDatos.getEstaciones();
-        for (String nombre : estacionesS) {
-            EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(nombre);
+        ArrayList<Estacion> estacionesS=baseDatos.getEstacionesE();
+        for (Estacion e : estacionesS) {
+            EstacionLista lista=((MemoriaAplicacion) this.getActivity().getApplication()).getEstacion(e.getMote_name());
+
             if(lista==null)
-                encolarEstacion.anadirEstacion(nombre);
+                encolarEstacion.anadirEstacion(e.getMote_name(),e.getMote_id());
             else
             {
                 estaciones.add(lista);
@@ -162,7 +163,7 @@ public class ListaMisEstaciones extends Fragment {
             rec.setItemAnimator(new DefaultItemAnimator());
         }
 
-        public void anadirEstacion(final String nombre){
+        public void anadirEstacion(final String nombre,final int id){
             Retrofit retrofit = new Retrofit.Builder().
                     baseUrl("http://airservices.uca.es/Air4People/").
                     addConverterFactory(GsonConverterFactory.create())
@@ -171,13 +172,15 @@ public class ListaMisEstaciones extends Fragment {
             EstacionService estacionService = retrofit.create(EstacionService.class);
             Call<List<Medicion>> call = estacionService.getPredicciones(nombre);
             final String titulo=nombre;
+            final int ida=id;
             call.enqueue(new Callback<List<Medicion>>() {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
-                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,new EstacionLista(titulo, response.body()));
-                    estaciones.add(new EstacionLista(titulo, response.body()));
-                    anadirEstacionVista(titulo,new EstacionLista(titulo,response.body()));
+                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,new EstacionLista(ida,titulo,response.body()));
+                    Log.d("RARO",String.valueOf(ida));
+                    estaciones.add(new EstacionLista(ida,titulo, response.body()));
+                    anadirEstacionVista(titulo,new EstacionLista(ida,titulo,response.body()));
 
                 }
 
