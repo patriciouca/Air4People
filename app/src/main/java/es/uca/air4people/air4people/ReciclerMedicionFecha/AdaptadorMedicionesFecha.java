@@ -86,7 +86,7 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
                     barra= (ProgressBar)hijo.findViewById(R.id.pB);
                     botoncito=hijo.findViewById(R.id.btInf);
                     txtMote.setText(t.getDes_kind());
-                    Log.d("EARO",t.getDes_kind());
+
                     txtvalor.setText(String.valueOf(t.getValue())+" "+t.getUnit());
                     int comprobacion = ContaminacionHelper.comprobar(t.getDes_kind(), t.getValue());
 

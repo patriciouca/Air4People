@@ -143,6 +143,8 @@ public class ListaMisEstaciones extends Fragment {
                     final int position = rec.getChildAdapterPosition(v);
                     Fragment fragment = new DetalleEstacion();
                     Bundle bundle = new Bundle();
+
+                    Log.d("RARO","ESTA"+String.valueOf(estaciones.get(position).getHoy().size()));
                     bundle.putString("titulo",estaciones.get(position).getTitulo());
                     bundle.putSerializable("hoy",estaciones.get(position).getHoy());
 
@@ -180,8 +182,9 @@ public class ListaMisEstaciones extends Fragment {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
-                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,new EstacionLista(ida,titulo,response.body()));
                     EstacionLista estl=new EstacionLista(ida,titulo, response.body());
+                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,estl);
+
                     estl.setHoy(new ArrayList<Medicion>(response.body()));
                     estaciones.add(estl);
 

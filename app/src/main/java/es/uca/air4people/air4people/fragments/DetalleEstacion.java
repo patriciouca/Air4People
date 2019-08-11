@@ -231,7 +231,7 @@ public class DetalleEstacion extends Fragment {
                     while(response.body().size()==0 && i<=24)
                     {
                         String hora=String.format("%02d",i);
-                        Log.d("raro","Hora "+hora);
+
                         j=0;
 
                         while(response.body().size()==0 && j!=60)
@@ -241,7 +241,7 @@ public class DetalleEstacion extends Fragment {
                             response=call.execute();
                             j+=10;
 
-                            Log.d("RARO",String.valueOf(call.request().url()));
+
                         }
                         //call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+"00"+":00");
                         i+=2;

@@ -103,7 +103,7 @@ public class ContaminacionHelper {
         for(int i=0;i<mediciones.size();i++)
         {
             Medicion m=mediciones.get(i);
-            Log.d("Raro",m.getMote_name());
+
             if(contaminante==m.getMote_name())
                 return m.getValue();
         }
