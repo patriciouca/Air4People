@@ -220,30 +220,34 @@ public class DetalleEstacion extends Fragment {
             Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate+"T00:00:00");
 
             try {
-                int i=1;
+
                 int j;
                 int s;
                 Response<List<Medicion>> response=call.execute();
-                if(response.body().size()==0)
-                    Log.d("raro","NO GUAY");
-                while(response.body().size()==0 && i!=24)
+
+                if(c.get(Calendar.MONTH)!=7)
                 {
-                    String hora=String.format("%02d",i);
-                    Log.d("raro","Hora "+hora);
-                    j=0;
-
-                    while(response.body().size()==0 && j!=60)
+                    int i=0;
+                    while(response.body().size()==0 && i<=24)
                     {
-                        String minutos=String.format("%02d",j);
-                        call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+minutos+":00");
-                        call.execute();
-                        j+=30;
+                        String hora=String.format("%02d",i);
+                        Log.d("raro","Hora "+hora);
+                        j=0;
 
-                        Log.d("RARO",String.valueOf(call.request().url()));
+                        while(response.body().size()==0 && j!=60)
+                        {
+                            String minutos=String.format("%02d",j);
+                            call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+minutos+":00");
+                            response=call.execute();
+                            j+=10;
+
+                            Log.d("RARO",String.valueOf(call.request().url()));
+                        }
+                        //call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+"00"+":00");
+                        i+=2;
                     }
-                    //call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+"00"+":00");
-                    i++;
                 }
+
                 setDias(diaParametro);
                 Mediciones m=new Mediciones(response.body(),formattedDate);
                 setLista(m);
