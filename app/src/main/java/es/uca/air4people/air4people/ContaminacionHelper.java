@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.util.AndroidException;
 import android.util.Log;
 
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,12 +100,13 @@ public class ContaminacionHelper {
         return false;
     }
 
-    public static float getValorContaminante(String contaminante,List<Medicion> mediciones){
-        for(int i=0;i<mediciones.size();i++)
+    public static float getValorContaminante(String contaminante,List<Medicion> medicion){
+        for(int i=0;i<medicion.size();i++)
         {
-            Medicion m=mediciones.get(i);
 
-            if(contaminante==m.getMote_name())
+            Medicion m=medicion.get(i);
+            Log.d("CONTAMINANTE",m.getDes_kind());
+            if(contaminante.equals(m.getDes_kind()))
                 return m.getValue();
         }
         return -1;
@@ -112,8 +114,11 @@ public class ContaminacionHelper {
 
     public static int[] getProblemas(List<Medicion> medicion){
         int[] devolver=new int[4];
-
-
+        float o3=getValorContaminante("Ozono",medicion);
+        float pm10=getValorContaminante("Particulas en suspension de 10 micras",medicion);
+        float co=getValorContaminante("Monoxido de Carbono",medicion);
+        float no2=getValorContaminante("Dioxido de Nitrogeno",medicion);
+        float so2=getValorContaminante("Dioxido de Azufre",medicion);
         return devolver;
     }
 

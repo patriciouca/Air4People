@@ -94,13 +94,14 @@ public class DetalleEstacion extends Fragment {
 
         encolarEstacionDia.anadirPPrediccion(m);
 
+
         for (int i=0;i<=AVANCEDEFECTO;i++)
         {
             encolarEstacionDia.anadirPrediccion(dias);
             dias++;
         }
-        /*
-        int[] niveles= ContaminacionHelper.getProblemas(datos.get(0).getMediciones());
+
+        int[] niveles= ContaminacionHelper.getProblemas(m);
         Log.d("Raro","Valor "+String.valueOf(ContaminacionHelper.getValorContaminante("Ozono",datos.get(0).getMediciones())));
 
         switch (niveles[0])
@@ -161,7 +162,7 @@ public class DetalleEstacion extends Fragment {
             default:
                 icono4.setImageResource(R.drawable.ic_grandfather);
         }
-        */
+
         recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
