@@ -35,6 +35,7 @@ import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
+import es.uca.air4people.air4people.Servicio.Mediciones;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -143,6 +144,8 @@ public class ListaMisEstaciones extends Fragment {
                     Fragment fragment = new DetalleEstacion();
                     Bundle bundle = new Bundle();
                     bundle.putString("titulo",estaciones.get(position).getTitulo());
+                    bundle.putSerializable("hoy",estaciones.get(position).getHoy());
+
                     fragment.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_frame, fragment).addToBackStack("T")
@@ -169,7 +172,7 @@ public class ListaMisEstaciones extends Fragment {
                     addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            EstacionService estacionService = retrofit.create(EstacionService.class);
+            final EstacionService estacionService = retrofit.create(EstacionService.class);
             Call<List<Medicion>> call = estacionService.getPredicciones(nombre);
             final String titulo=nombre;
             final int ida=id;
@@ -178,8 +181,10 @@ public class ListaMisEstaciones extends Fragment {
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
                     ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,new EstacionLista(ida,titulo,response.body()));
-                    Log.d("RARO",String.valueOf(ida));
-                    estaciones.add(new EstacionLista(ida,titulo, response.body()));
+                    EstacionLista estl=new EstacionLista(ida,titulo, response.body());
+                    estl.setHoy(new ArrayList<Medicion>(response.body()));
+                    estaciones.add(estl);
+
                     anadirEstacionVista(titulo,new EstacionLista(ida,titulo,response.body()));
 
                 }

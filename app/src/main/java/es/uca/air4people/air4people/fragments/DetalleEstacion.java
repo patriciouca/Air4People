@@ -13,10 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,14 +68,41 @@ public class DetalleEstacion extends Fragment {
         tituloT.setText((String)bundle.getString("titulo"));
         datos=new ArrayList<Mediciones>();
 
+        ArrayList<Medicion> m= (ArrayList<Medicion>) bundle.getSerializable("hoy");
+
+
         final EncolarEstacionDia encolarEstacionDia=new EncolarEstacionDia(view,view.getContext());
+
 
         ImageView icono1=view.findViewById(R.id.imageView3);
         ImageView icono2=view.findViewById(R.id.imageView4);
         ImageView icono3=view.findViewById(R.id.imageView2);
         ImageView icono4=view.findViewById(R.id.imageView);
 
-        int[] niveles= ContaminacionHelper.getProblemas();
+        recView = (RecyclerView) view.findViewById(R.id.recEst);
+        recView.setHasFixedSize(true);
+        adaptador=new AdaptadorMedicionesFecha(datos);
+        recView.setAdapter(adaptador);
+
+        recView.setLayoutManager(
+                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
+
+        recView.addItemDecoration(
+                new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
+
+        recView.setItemAnimator(new DefaultItemAnimator());
+
+        encolarEstacionDia.anadirPPrediccion(m);
+
+        for (int i=0;i<=AVANCEDEFECTO;i++)
+        {
+            encolarEstacionDia.anadirPrediccion(dias);
+            dias++;
+        }
+        /*
+        int[] niveles= ContaminacionHelper.getProblemas(datos.get(0).getMediciones());
+        Log.d("Raro","Valor "+String.valueOf(ContaminacionHelper.getValorContaminante("Ozono",datos.get(0).getMediciones())));
+
         switch (niveles[0])
         {
             case 1:
@@ -132,26 +161,7 @@ public class DetalleEstacion extends Fragment {
             default:
                 icono4.setImageResource(R.drawable.ic_grandfather);
         }
-
-        recView = (RecyclerView) view.findViewById(R.id.recEst);
-        recView.setHasFixedSize(true);
-        adaptador=new AdaptadorMedicionesFecha(datos);
-        recView.setAdapter(adaptador);
-
-        recView.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
-
-        recView.addItemDecoration(
-                new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL));
-
-        recView.setItemAnimator(new DefaultItemAnimator());
-
-        for (int i=0;i<=AVANCEDEFECTO;i++)
-        {
-            encolarEstacionDia.anadirPrediccion(dias);
-            dias++;
-        }
-
+        */
         recView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -180,6 +190,16 @@ public class DetalleEstacion extends Fragment {
             this.contexto = contexto;
         }
 
+        public void anadirPPrediccion(ArrayList<Medicion> m){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            final String formattedDate = df.format(c.getTime());
+            setLista(new Mediciones(m,formattedDate));
+        }
+
+
 
         public void anadirPrediccion(final int dia){
 
@@ -188,7 +208,7 @@ public class DetalleEstacion extends Fragment {
                     baseUrl("http://airservices.uca.es/Air4People/").
                     addConverterFactory(GsonConverterFactory.create())
                     .build();
-            Log.d("Raro",String.valueOf(-dia));
+
             EstacionService estacionService = retrofit.create(EstacionService.class);
             Calendar c = Calendar.getInstance();
             c.add(Calendar.DAY_OF_MONTH, -dia);
@@ -197,12 +217,33 @@ public class DetalleEstacion extends Fragment {
             final String formattedDate = df.format(c.getTime());
             final String titulo=bundle.getString("titulo");
             int diaParametro=-dia;
-            Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate+"T02:00:00");
+            Call<List<Medicion>> call = estacionService.getPrediccionFecha(titulo,formattedDate+"T00:00:00");
 
             try {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
+                int i=1;
+                int j;
+                int s;
                 Response<List<Medicion>> response=call.execute();
+                if(response.body().size()==0)
+                    Log.d("raro","NO GUAY");
+                while(response.body().size()==0 && i!=24)
+                {
+                    String hora=String.format("%02d",i);
+                    Log.d("raro","Hora "+hora);
+                    j=0;
+
+                    while(response.body().size()==0 && j!=60)
+                    {
+                        String minutos=String.format("%02d",j);
+                        call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+minutos+":00");
+                        call.execute();
+                        j+=30;
+
+                        Log.d("RARO",String.valueOf(call.request().url()));
+                    }
+                    //call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+"00"+":00");
+                    i++;
+                }
                 setDias(diaParametro);
                 Mediciones m=new Mediciones(response.body(),formattedDate);
                 setLista(m);

@@ -13,6 +13,7 @@ public class EstacionLista {
     private String titulo;
     private int id;
     private ArrayList<Mediciones> mediciones;
+    private ArrayList<Medicion> hoy;
 
     public EstacionLista(String titulo) {
         super();
@@ -71,5 +72,13 @@ public class EstacionLista {
 
     public void setMediciones(ArrayList<Mediciones> mediciones) {
         this.mediciones = mediciones;
+    }
+
+    public ArrayList<Medicion> getHoy() {
+        return hoy;
+    }
+
+    public void setHoy(ArrayList<Medicion> hoy) {
+        this.hoy = hoy;
     }
 }

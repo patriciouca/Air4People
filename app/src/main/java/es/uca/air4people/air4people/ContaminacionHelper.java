@@ -6,9 +6,12 @@ import android.util.AndroidException;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.Servicio.Estacion;
+import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.Servicio.Mediciones;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class ContaminacionHelper {
@@ -96,12 +99,21 @@ public class ContaminacionHelper {
         return false;
     }
 
-    public static int[] getProblemas(){
-        int[] devolver=new int[4];
-        for (int i=0;i<4;i++)
+    public static float getValorContaminante(String contaminante,List<Medicion> mediciones){
+        for(int i=0;i<mediciones.size();i++)
         {
-            devolver[i]=2;
+            Medicion m=mediciones.get(i);
+            Log.d("Raro",m.getMote_name());
+            if(contaminante==m.getMote_name())
+                return m.getValue();
         }
+        return -1;
+    }
+
+    public static int[] getProblemas(List<Medicion> medicion){
+        int[] devolver=new int[4];
+
+
         return devolver;
     }
 
