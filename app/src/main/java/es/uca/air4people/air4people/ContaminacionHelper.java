@@ -105,7 +105,6 @@ public class ContaminacionHelper {
         {
 
             Medicion m=medicion.get(i);
-            Log.d("CONTAMINANTE",m.getDes_kind());
             if(contaminante.equals(m.getDes_kind()))
                 return m.getValue();
         }
