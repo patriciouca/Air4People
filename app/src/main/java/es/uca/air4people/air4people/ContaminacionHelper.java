@@ -118,6 +118,71 @@ public class ContaminacionHelper {
         float co=getValorContaminante("Monoxido de Carbono",medicion);
         float no2=getValorContaminante("Dioxido de Nitrogeno",medicion);
         float so2=getValorContaminante("Dioxido de Azufre",medicion);
+
+        //SenoresMayores
+        if((o3<60 && o3!=-1) && (pm10<25 || pm10!=-1))
+        {
+            devolver[3]=1;
+        }
+        else {
+            if((o3<120 || o3!=-1) && (pm10<50 || pm10!=-1))
+            {
+                devolver[3]=2;
+            }
+            else{
+                devolver[3]=3;
+            }
+
+        }
+
+        //NINOS
+        if(o3<120 || o3!=-1)
+        {
+            devolver[0]=1;
+        }
+        else {
+            if(o3<180 || o3!=-1)
+            {
+                devolver[0]=2;
+            }
+            else{
+                devolver[0]=3;
+            }
+
+        }
+
+        //AIRELIBRE
+        if((o3<60 || o3!=-1) && (pm10<25 || pm10!=-1) && (co<5000 || co!=-1))
+        {
+            devolver[2]=1;
+        }
+        else {
+            if((o3<180 || o3!=-1) && (pm10<75 || pm10!=-1) && (co<15000 || co!=-1))
+            {
+                devolver[2]=2;
+            }
+            else{
+                devolver[2]=3;
+            }
+
+        }
+
+        //CERRADO
+        if((pm10<50 || pm10!=-1) && (co<5000 || co!=-1))
+        {
+            devolver[1]=1;
+        }
+        else {
+            if((pm10<75 || pm10!=-1) && (co<15000 || co!=-1))
+            {
+                devolver[1]=2;
+            }
+            else{
+                devolver[1]=3;
+            }
+
+        }
+
         return devolver;
     }
 
