@@ -208,15 +208,33 @@ public class AndroidBaseDatos extends Activity{
                     "nivel="+nivel);
             db.close();
 
-            ArrayList<String> estaciones=getEstaciones();
-            nombre=procesarNombre(nombre,nivel);
-            for (int i=0;i<estaciones.size();i++)
+            if(enSuscripcion(nombre,nivel))
             {
-                String estacion=estaciones.get(i);
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
+                ArrayList<String> estaciones=getEstaciones();
+                nombre=procesarNombre(nombre,nivel);
+                for (int i=0;i<estaciones.size();i++)
+                {
+                    String estacion=estaciones.get(i);
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
+                }
             }
-
         }
+    }
+
+    public boolean enSuscripcion(String nombre,int nivel)
+    {
+        boolean condicion=false;
+        ArrayList<Suscripcion> suscripciones=getSuscripciones();
+
+        for (int i=0;i<suscripciones.size();i++)
+        {
+            if(suscripciones.get(i).nombre.equals(nombre) && suscripciones.get(i).nivel==nivel)
+                condicion=true;
+        }
+
+        return condicion;
+
+
     }
 
     public void addSuscripcion(String nombre,int nivel)
@@ -232,14 +250,17 @@ public class AndroidBaseDatos extends Activity{
             db.close();
         }
 
-        ArrayList<String> estaciones=getEstaciones();
-        nombre=procesarNombre(nombre,nivel);
-        for (int i=0;i<estaciones.size();i++)
-        {
-            String estacion=estaciones.get(i);
-            FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
-        }
 
+        if(!enSuscripcion(nombre,nivel))
+        {
+            ArrayList<String> estaciones=getEstaciones();
+            nombre=procesarNombre(nombre,nivel);
+            for (int i=0;i<estaciones.size();i++)
+            {
+                String estacion=estaciones.get(i);
+                FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
+            }
+        }
 
     }
 
