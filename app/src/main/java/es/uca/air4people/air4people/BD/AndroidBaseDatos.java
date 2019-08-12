@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people.BD;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -67,6 +68,46 @@ public class AndroidBaseDatos extends Activity{
         }
 
         return estaciones;
+    }
+
+    public void marcar(boolean marcar){
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        if(db != null) {
+            ContentValues valores = new ContentValues();
+            if(marcar)
+            {
+                valores.put("marcado","1");
+                db.update("Configuraciones", valores, "1=1", null);
+            }
+            else{
+                valores.put("marcado","0");
+                db.update("Configuraciones", valores, "1=1", null);
+            }
+            db.close();
+        }
+
+    }
+
+    public boolean isMarcado() {
+        EstacionBD usdbh =
+                new EstacionBD(contexto, "DBEstaciones", null, 1);
+        SQLiteDatabase db = usdbh.getWritableDatabase();
+        if (db != null) {
+            Cursor c = db.rawQuery("SELECT * FROM Configuraciones", null);
+
+            if (c.moveToFirst()) {
+                if (c.getInt(0) == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            db.close();
+        }
+        return false;
+
     }
 
     public ArrayList<Suscripcion> getSuscripciones(){

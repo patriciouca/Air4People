@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +32,20 @@ public class Configuracion extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.content_configuraciones, container, false);
-        ContaminacionHelper.inferir(getContext());
+        final AndroidBaseDatos bd=new AndroidBaseDatos(getContext());
 
+        Switch interruptor=view.findViewById(R.id.activoPatologias);
+
+        interruptor.setChecked(bd.isMarcado());
+
+        interruptor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                bd.marcar(isChecked);
+                if(isChecked)
+                    ContaminacionHelper.inferir(getContext());
+            }
+        });
         return view;
     }
 }
