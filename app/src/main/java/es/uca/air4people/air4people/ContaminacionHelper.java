@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.util.AndroidException;
 import android.util.Log;
@@ -235,5 +236,70 @@ public class ContaminacionHelper {
                 return Color.RED;
         }
         return 0;
+    }
+
+    public static void inferir(Context contexto){
+        AndroidBaseDatos baseDatos=new AndroidBaseDatos(contexto);
+        ArrayList<String> patologias=baseDatos.getPatologias();
+
+        if(ContaminacionHelper.enList(patologias,"Enfermedades del corazón")!=-1)
+        {
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",3);
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",4);
+
+            baseDatos.addSuscripcion("Monoxido de Carbono",4);
+            baseDatos.addSuscripcion("Monoxido de Carbono",3);
+            baseDatos.addSuscripcion("Monoxido de Carbono",2);
+        }
+
+        if(ContaminacionHelper.enList(patologias,"Enfermedades pulmonares")!=-1)
+        {
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",3);
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",4);
+
+            baseDatos.addSuscripcion("Ozono",4);
+            baseDatos.addSuscripcion("Ozono",3);
+            baseDatos.addSuscripcion("Ozono",2);
+        }
+
+        if(ContaminacionHelper.enList(patologias,"Asma")!=-1)
+        {
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",3);
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",4);
+
+            baseDatos.addSuscripcion("Ozono",4);
+            baseDatos.addSuscripcion("Ozono",3);
+            baseDatos.addSuscripcion("Ozono",2);
+        }
+
+        if(ContaminacionHelper.enList(patologias,",Menor de 19 años")!=-1)
+        {
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",4);
+
+            baseDatos.addSuscripcion("Ozono",4);
+            baseDatos.addSuscripcion("Ozono",3);
+            baseDatos.addSuscripcion("Ozono",2);
+        }
+
+        if(ContaminacionHelper.enList(patologias,"Mayor de 60 años")!=-1)
+        {
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",3);
+            baseDatos.addSuscripcion("Particulas en suspension de 10 micras",4);
+
+            baseDatos.addSuscripcion("Ozono",4);
+            baseDatos.addSuscripcion("Ozono",3);
+            baseDatos.addSuscripcion("Ozono",2);
+        }
+
+    }
+
+    public static int enList(ArrayList<String> vector,String esta)
+    {
+        for (int i=0;i<vector.size();i++)
+        {
+            if(vector.get(i).equals(esta))
+                return i;
+        }
+        return -1;
     }
 }
