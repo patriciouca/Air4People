@@ -22,8 +22,10 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
         private ArrayList<String> datos;
         private View.OnClickListener listener;
+        private AdaptadorSuscripciones esto;
 
         public AdaptadorSuscripciones(ArrayList<String> datos) {
+            esto=this;
             this.datos = datos;
         }
 
@@ -69,6 +71,8 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         private Switch suscrito1,suscrito2,suscrito3,suscrito4;
         private View v;
         AndroidBaseDatos baseDatos;
+        ArrayList<Suscripcion> suscripciones;
+        boolean primera;
 
         public ContaminantesViewHolder(final View itemView) {
             super(itemView);
@@ -79,31 +83,17 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscrito2 = (Switch)itemView.findViewById(R.id.suscrito2);
             suscrito3 = (Switch)itemView.findViewById(R.id.suscrito3);
             suscrito4 = (Switch)itemView.findViewById(R.id.suscrito4);
+            suscripciones=baseDatos.getSuscripciones();
             v=itemView;
-        }
 
-        public void bindTitular(String t) {
-            txtTitulo.setText(t);
-            ArrayList<Suscripcion> suscripciones=baseDatos.getSuscripciones();
-
-            for (int i=0;i<suscripciones.size();i++)
-            {
-                if(suscripciones.get(i).nombre.equals(t))
-                {
-                    if(suscripciones.get(i).nivel==1)
-                        suscrito1.setChecked(true);
-                    else if(suscripciones.get(i).nivel==2)
-                        suscrito2.setChecked(true);
-                    else if(suscripciones.get(i).nivel==3)
-                        suscrito3.setChecked(true);
-                    else if(suscripciones.get(i).nivel==4)
-                        suscrito4.setChecked(true);
-                }
-            }
+            primera=true;
 
             suscrito1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                     String titulo= (String) txtTitulo.getText();
+                    Log.d("CAMBIO EN",titulo);
+
                     if (isChecked) {
                         baseDatos.addSuscripcion(titulo,1);
                     } else {
@@ -114,6 +104,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscrito2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
+                    Log.d("CAMBIO EN",titulo);
                     if (isChecked) {
                         baseDatos.addSuscripcion(titulo,2);
                     } else {
@@ -124,6 +115,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscrito3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
+                    Log.d("CAMBIO EN",titulo);
                     if (isChecked) {
                         baseDatos.addSuscripcion(titulo,3);
                     } else {
@@ -134,6 +126,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscrito4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
+                    Log.d("CAMBIO EN",titulo);
                     if (isChecked) {
                         baseDatos.addSuscripcion(titulo,4);
                     } else {
@@ -142,5 +135,35 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
                 }
             });
 
+
+        }
+
+        public void bindTitular(final String t) {
+            txtTitulo.setText(t);
+            if (primera)
+            {
+                boolean marcado = false;
+                for (int i = 0; i < suscripciones.size(); i++) {
+                    if (suscripciones.get(i).nombre.equals(t)) {
+                        marcado = true;
+                        if (suscripciones.get(i).nivel == 1)
+                            suscrito1.setChecked(true);
+                        else if (suscripciones.get(i).nivel == 2)
+                            suscrito2.setChecked(true);
+                        else if (suscripciones.get(i).nivel == 3)
+                            suscrito3.setChecked(true);
+                        else if (suscripciones.get(i).nivel == 4)
+                            suscrito4.setChecked(true);
+                    }
+                }
+
+                if (!marcado) {
+                    suscrito1.setChecked(false);
+                    suscrito2.setChecked(false);
+                    suscrito3.setChecked(false);
+                    suscrito4.setChecked(false);
+                }
+                primera = false;
+        }
         }}
 }

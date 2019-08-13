@@ -20,6 +20,7 @@ import java.util.Arrays;
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
+import es.uca.air4people.air4people.ReciclerSuscripciones.Suscripcion;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class Configuracion extends Fragment {
@@ -37,6 +38,13 @@ public class Configuracion extends Fragment {
         Switch interruptor=view.findViewById(R.id.activoPatologias);
 
         interruptor.setChecked(bd.isMarcado());
+
+
+        ArrayList<Suscripcion> suscripcions=bd.getSuscripciones();
+        for (int i=0;i<suscripcions.size();i++)
+        {
+            Log.d("SUSCRIBIR ",suscripcions.get(i).nombre);
+        }
 
         interruptor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

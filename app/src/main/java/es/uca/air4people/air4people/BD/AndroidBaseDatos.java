@@ -290,7 +290,7 @@ public class AndroidBaseDatos extends Activity{
 
             db.close();
         }
-
+        Log.d("ME HE SUSCRITO DE ",nombre);
 
         if(!enSuscripcion(nombre,nivel))
         {
