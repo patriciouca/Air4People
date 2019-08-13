@@ -167,6 +167,17 @@ public class MapaDetalle  extends Fragment  {
                                             }
                                         });
                                     }
+                                    else if(a.getDes_kind().toUpperCase().equals("OZONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.o32), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
                                     else
                                         botoncito.setVisibility(View.GONE);
                                 }
@@ -200,6 +211,18 @@ public class MapaDetalle  extends Fragment  {
                                             }
                                         });
                                     }
+                                    else if(a.getDes_kind().toUpperCase().equals("OZONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.o33), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+
                                     else
                                         botoncito.setVisibility(View.GONE);
                                 }
@@ -232,6 +255,17 @@ public class MapaDetalle  extends Fragment  {
                                             }
                                         });
 
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("OZONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.o34), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
                                     }
                                     else
                                     {

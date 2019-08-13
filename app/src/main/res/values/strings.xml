@@ -45,15 +45,9 @@ dolor de pecho en personas con enfermedades de corazón."</string>
     <string name="co4">"Importantes empeoramientos de síntomas cardiovasculares, tal y como dolor pecho, en
 personas con enfermedades de corazón." </string>
 
-    <string name="o32">"Las personas sensibles deben plantearse reducir o prolongar esfuerzos
-        pesados en el exterior."</string>
-    <string name="o33">"Creciente probabilidad de síntomas respiratorios e incomodidad
-        respiratoria en personas con enfermedades de pulmón,
-        como asma, en niños, personas mayores y trabajos al aire libre."</string>
-    <string name="o34">"Síntomas cada vez más graves y posible daño respiratorio en
-        personas con enfermedades de pulmón, como asma,
-        en niños, personas mayores y trabajos al aire libre,
-        creciente probabilidad de efectos respiratorios en la población general." </string>
+    <string name="o32">"Las personas sensibles deben plantearse reducir o prolongar esfuerzos pesados en el exterior."</string>
+    <string name="o33">"Creciente probabilidad de síntomas respiratorios e incomodidad respiratoria en personas con enfermedades de pulmón, como asma, en niños, personas mayores y trabajos al aire libre."</string>
+    <string name="o34">"Síntomas cada vez más graves y posible daño respiratorio en personas con enfermedades de pulmón, como asma, en niños, personas mayores y trabajos al aire libre, creciente probabilidad de efectos respiratorios en la población general." </string>
 
     <string-array name="patologias">
         <item>Enfermedades pulmonares</item>

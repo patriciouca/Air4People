@@ -1,12 +1,19 @@
 package es.uca.air4people.air4people.ReciclerSuscripciones;
 
 import android.app.Activity;
+import android.os.Build;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -146,26 +153,27 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         @Override
         public void onClick(View view) {
 
-            Switch suscrito1 = (Switch)view.findViewById(R.id.suscrito);
-            Switch suscrito2 = (Switch)view.findViewById(R.id.suscrito2);
-            Switch suscrito3 = (Switch)view.findViewById(R.id.suscrito3);
-            Switch suscrito4 = (Switch)view.findViewById(R.id.suscrito4);
+            ConstraintLayout constraint=view.findViewById(R.id.ocultar);
 
-            suscrito1.setVisibility(View.VISIBLE);
-            suscrito2.setVisibility(View.VISIBLE);
-            suscrito3.setVisibility(View.VISIBLE);
-            suscrito4.setVisibility(View.VISIBLE);
+            ImageView flecha= view.findViewById(R.id.flecha);
+
+            Transition transition = new Fade();
+            transition.setDuration(400);
+            transition.addTarget(R.id.ocultar);
+            TransitionManager.beginDelayedTransition((ViewGroup) constraint.getParent(), transition);
+
+            constraint.setVisibility(View.VISIBLE);
+            flecha.setRotation(0);
 
             if(ultimaView!=null && view!=ultimaView)
             {
-                suscrito1 = (Switch)ultimaView.findViewById(R.id.suscrito);
-                suscrito2 = (Switch)ultimaView.findViewById(R.id.suscrito2);
-                suscrito3 = (Switch)ultimaView.findViewById(R.id.suscrito3);
-                suscrito4 = (Switch)ultimaView.findViewById(R.id.suscrito4);
-                suscrito1.setVisibility(View.GONE);
-                suscrito2.setVisibility(View.GONE);
-                suscrito3.setVisibility(View.GONE);
-                suscrito4.setVisibility(View.GONE);
+                constraint=ultimaView.findViewById(R.id.ocultar);
+                flecha= ultimaView.findViewById(R.id.flecha);
+                transition.addTarget(constraint.getId());
+                TransitionManager.beginDelayedTransition((ViewGroup) constraint.getParent(), transition);
+
+                constraint.setVisibility(View.GONE);
+                flecha.setRotation(270);
             }
             ultimaView=view;
 
