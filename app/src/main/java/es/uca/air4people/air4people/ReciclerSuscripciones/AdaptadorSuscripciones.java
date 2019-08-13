@@ -17,15 +17,19 @@ import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
+import static java.lang.Thread.sleep;
+
 public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscripciones.ContaminantesViewHolder>
         implements View.OnClickListener{
 
         private ArrayList<String> datos;
         private View.OnClickListener listener;
-        private AdaptadorSuscripciones esto;
+        AndroidBaseDatos baseDatos;
+        ArrayList<Suscripcion> suscripciones;
+        View ultimaView;
+        AdaptadorSuscripciones.ContaminantesViewHolder tvh;
 
         public AdaptadorSuscripciones(ArrayList<String> datos) {
-            esto=this;
             this.datos = datos;
         }
 
@@ -34,19 +38,87 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
             View itemView = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.itemlistacontaminantes, viewGroup, false);
-
-            AdaptadorSuscripciones.ContaminantesViewHolder tvh = new AdaptadorSuscripciones.ContaminantesViewHolder(itemView);
+            ultimaView=null;
+            Activity host = (Activity) itemView.getContext();
+            baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
+            suscripciones=baseDatos.getSuscripciones();
+            tvh = new AdaptadorSuscripciones.ContaminantesViewHolder(itemView);
             itemView.setOnClickListener(this);
 
             return tvh;
         }
 
-
     @Override
         public void onBindViewHolder(final AdaptadorSuscripciones.ContaminantesViewHolder viewHolder, final int pos) {
             String item = datos.get(pos);
-
             viewHolder.bindTitular(item);
+
+        for (int i = 0; i < suscripciones.size(); i++) {
+            if (suscripciones.get(i).nombre.equals(item)) {
+
+                if (suscripciones.get(i).nivel == 1)
+                    viewHolder.suscrito1.setChecked(true);
+                else if (suscripciones.get(i).nivel == 2)
+                    viewHolder.suscrito2.setChecked(true);
+                else if (suscripciones.get(i).nivel == 3)
+                    viewHolder.suscrito3.setChecked(true);
+                else if (suscripciones.get(i).nivel == 4)
+                    viewHolder.suscrito4.setChecked(true);
+            }
+        }
+
+            viewHolder.suscrito1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    String titulo= (String) viewHolder.txtTitulo.getText();
+                    Log.d("CAMBIO EN",titulo);
+
+                    if (isChecked) {
+                        baseDatos.addSuscripcion(titulo,1);
+                    } else {
+                        baseDatos.deleteSuscripcion(titulo,1);
+                    }
+                }
+            });
+
+        viewHolder.suscrito2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String titulo= (String) viewHolder.txtTitulo.getText();
+                Log.d("CAMBIO EN",titulo);
+
+                if (isChecked) {
+                    baseDatos.addSuscripcion(titulo,2);
+                } else {
+                    baseDatos.deleteSuscripcion(titulo,2);
+                }
+            }
+        });
+
+        viewHolder.suscrito3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String titulo= (String) viewHolder.txtTitulo.getText();
+                Log.d("CAMBIO EN",titulo);
+                if (isChecked) {
+                    baseDatos.addSuscripcion(titulo,3);
+                } else {
+                    baseDatos.deleteSuscripcion(titulo,3);
+                }
+
+            }
+        });
+        viewHolder.suscrito4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String titulo= (String) viewHolder.txtTitulo.getText();
+
+                Log.d("CAMBIO EN",titulo);
+                if (isChecked) {
+                    baseDatos.addSuscripcion(titulo,4);
+                } else {
+                    baseDatos.deleteSuscripcion(titulo,4);
+                }
+
+            }
+        });
 
         }
 
@@ -57,12 +129,51 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
         public void setOnClickListener(View.OnClickListener listener) {
             this.listener = listener;
+            Log.d("Raro ","CLOCK");
+            /*
+            Log.d("Raro ",view.toString());
+            Switch suscrito1 = (Switch)view.findViewById(R.id.suscrito);
+            Switch suscrito2 = (Switch)view.findViewById(R.id.suscrito2);
+            Switch suscrito3 = (Switch)view.findViewById(R.id.suscrito3);
+            Switch suscrito4 = (Switch)view.findViewById(R.id.suscrito4);
+            suscrito1.setVisibility(View.VISIBLE);
+            suscrito2.setVisibility(View.VISIBLE);
+            suscrito3.setVisibility(View.VISIBLE);
+            suscrito4.setVisibility(View.VISIBLE);
+            */
         }
 
         @Override
         public void onClick(View view) {
+
+            Switch suscrito1 = (Switch)view.findViewById(R.id.suscrito);
+            Switch suscrito2 = (Switch)view.findViewById(R.id.suscrito2);
+            Switch suscrito3 = (Switch)view.findViewById(R.id.suscrito3);
+            Switch suscrito4 = (Switch)view.findViewById(R.id.suscrito4);
+
+            suscrito1.setVisibility(View.VISIBLE);
+            suscrito2.setVisibility(View.VISIBLE);
+            suscrito3.setVisibility(View.VISIBLE);
+            suscrito4.setVisibility(View.VISIBLE);
+
+            if(ultimaView!=null && view!=ultimaView)
+            {
+                suscrito1 = (Switch)ultimaView.findViewById(R.id.suscrito);
+                suscrito2 = (Switch)ultimaView.findViewById(R.id.suscrito2);
+                suscrito3 = (Switch)ultimaView.findViewById(R.id.suscrito3);
+                suscrito4 = (Switch)ultimaView.findViewById(R.id.suscrito4);
+                suscrito1.setVisibility(View.GONE);
+                suscrito2.setVisibility(View.GONE);
+                suscrito3.setVisibility(View.GONE);
+                suscrito4.setVisibility(View.GONE);
+            }
+            ultimaView=view;
+
             if(listener != null)
+            {
                 listener.onClick(view);
+            }
+
         }
 
     public static class ContaminantesViewHolder extends RecyclerView.ViewHolder {
@@ -72,7 +183,6 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         private View v;
         AndroidBaseDatos baseDatos;
         ArrayList<Suscripcion> suscripciones;
-        boolean primera;
 
         public ContaminantesViewHolder(final View itemView) {
             super(itemView);
@@ -86,84 +196,10 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             suscripciones=baseDatos.getSuscripciones();
             v=itemView;
 
-            primera=true;
-
-            suscrito1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    String titulo= (String) txtTitulo.getText();
-                    Log.d("CAMBIO EN",titulo);
-
-                    if (isChecked) {
-                        baseDatos.addSuscripcion(titulo,1);
-                    } else {
-                        baseDatos.deleteSuscripcion(titulo,1);
-                    }
-                }
-            });
-            suscrito2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    String titulo= (String) txtTitulo.getText();
-                    Log.d("CAMBIO EN",titulo);
-                    if (isChecked) {
-                        baseDatos.addSuscripcion(titulo,2);
-                    } else {
-                        baseDatos.deleteSuscripcion(titulo,2);
-                    }
-                }
-            });
-            suscrito3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    String titulo= (String) txtTitulo.getText();
-                    Log.d("CAMBIO EN",titulo);
-                    if (isChecked) {
-                        baseDatos.addSuscripcion(titulo,3);
-                    } else {
-                        baseDatos.deleteSuscripcion(titulo,3);
-                    }
-                }
-            });
-            suscrito4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    String titulo= (String) txtTitulo.getText();
-                    Log.d("CAMBIO EN",titulo);
-                    if (isChecked) {
-                        baseDatos.addSuscripcion(titulo,4);
-                    } else {
-                        baseDatos.deleteSuscripcion(titulo,4);
-                    }
-                }
-            });
-
-
         }
 
         public void bindTitular(final String t) {
             txtTitulo.setText(t);
-            if (primera)
-            {
-                boolean marcado = false;
-                for (int i = 0; i < suscripciones.size(); i++) {
-                    if (suscripciones.get(i).nombre.equals(t)) {
-                        marcado = true;
-                        if (suscripciones.get(i).nivel == 1)
-                            suscrito1.setChecked(true);
-                        else if (suscripciones.get(i).nivel == 2)
-                            suscrito2.setChecked(true);
-                        else if (suscripciones.get(i).nivel == 3)
-                            suscrito3.setChecked(true);
-                        else if (suscripciones.get(i).nivel == 4)
-                            suscrito4.setChecked(true);
-                    }
-                }
-
-                if (!marcado) {
-                    suscrito1.setChecked(false);
-                    suscrito2.setChecked(false);
-                    suscrito3.setChecked(false);
-                    suscrito4.setChecked(false);
-                }
-                primera = false;
-        }
         }}
+
 }
