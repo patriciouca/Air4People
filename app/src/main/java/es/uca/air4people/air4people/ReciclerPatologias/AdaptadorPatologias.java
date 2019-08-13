@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
+import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
@@ -69,11 +70,12 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
         private TextView txtTitulo;
         private Switch suscrito;
         private View v;
+        Activity host;
         AndroidBaseDatos baseDatos;
 
         public ContaminantesViewHolder(final View itemView) {
             super(itemView);
-            Activity host = (Activity) itemView.getContext();
+            host = (Activity) itemView.getContext();
             baseDatos=((MemoriaAplicacion) host.getApplication()).getBase();
             txtTitulo = (TextView)itemView.findViewById(R.id.txtContaminante);
             suscrito = (Switch)itemView.findViewById(R.id.suscrito);
@@ -105,8 +107,10 @@ public class AdaptadorPatologias extends RecyclerView.Adapter<AdaptadorPatologia
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     String titulo= (String) txtTitulo.getText();
                     if (isChecked) {
-
                         baseDatos.addPatologia(titulo);
+
+                        if(baseDatos.isMarcado())
+                            ContaminacionHelper.inferir(host);
                     } else {
                         baseDatos.deletePatologia(titulo);
                     }
