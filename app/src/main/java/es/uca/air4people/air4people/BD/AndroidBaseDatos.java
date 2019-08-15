@@ -244,22 +244,24 @@ public class AndroidBaseDatos extends Activity{
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
 
         SQLiteDatabase db = usdbh.getWritableDatabase();
-        if(db != null) {
-            db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' AND " +
-                    "nivel="+nivel);
-            db.close();
 
-            if(enSuscripcion(nombre,nivel))
+        if(enSuscripcion(nombre,nivel))
+        {
+            if(db != null) {
+                db.execSQL("DELETE FROM Suscripciones WHERE nombre='" + nombre + "' AND " +
+                        "nivel="+nivel);
+                db.close();
+            }
+
+            ArrayList<String> estaciones=getEstaciones();
+            nombre=procesarNombre(nombre,nivel);
+            for (int i=0;i<estaciones.size();i++)
             {
-                ArrayList<String> estaciones=getEstaciones();
-                nombre=procesarNombre(nombre,nivel);
-                for (int i=0;i<estaciones.size();i++)
-                {
-                    String estacion=estaciones.get(i);
-                    FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
-                }
+                String estacion=estaciones.get(i);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
             }
         }
+
     }
 
     public boolean enSuscripcion(String nombre,int nivel)
@@ -283,22 +285,24 @@ public class AndroidBaseDatos extends Activity{
         EstacionBD usdbh =
                 new EstacionBD(contexto, "DBEstaciones", null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
-        if(db != null)
-        {
-            db.execSQL("INSERT INTO Suscripciones (nombre,nivel) " +
-                    "VALUES ( '" + nombre +"',"+nivel+")");
-
-            db.close();
-        }
-        Log.d("ME HE SUSCRITO DE ",nombre);
 
         if(!enSuscripcion(nombre,nivel))
         {
+            if(db != null)
+            {
+                db.execSQL("INSERT INTO Suscripciones (nombre,nivel) " +
+                        "VALUES ( '" + nombre +"',"+nivel+")");
+
+                db.close();
+            }
+
             ArrayList<String> estaciones=getEstaciones();
+            Log.d("Suscripcion","ok");
             nombre=procesarNombre(nombre,nivel);
             for (int i=0;i<estaciones.size();i++)
             {
                 String estacion=estaciones.get(i);
+                Log.d("Suscripcion",estacion+"_"+nombre);
                 FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
             }
         }

@@ -44,6 +44,15 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
 
     }
 
+    private void arriba2(){
+        if(marca<2000)
+        {
+            marca=2000;
+            cambiar();
+        }
+
+    }
+
     private void cambiar(){
 
 
@@ -88,7 +97,10 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         {
             if(deltaY > 0)
             {
-                arriba();
+                if(marca<1500)
+                    arriba();
+                else if(marca==1500)
+                    arriba2();
                 Log.d("RARO","Swipe to UP");
             }else
             {

@@ -78,7 +78,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                     String titulo= (String) viewHolder.txtTitulo.getText();
-                    Log.d("CAMBIO EN",titulo);
+
 
                     if (isChecked) {
                         baseDatos.addSuscripcion(titulo,1);
@@ -91,7 +91,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         viewHolder.suscrito2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String titulo= (String) viewHolder.txtTitulo.getText();
-                Log.d("CAMBIO EN",titulo);
+
 
                 if (isChecked) {
                     baseDatos.addSuscripcion(titulo,2);
@@ -104,7 +104,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
         viewHolder.suscrito3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String titulo= (String) viewHolder.txtTitulo.getText();
-                Log.d("CAMBIO EN",titulo);
+
                 if (isChecked) {
                     baseDatos.addSuscripcion(titulo,3);
                 } else {
@@ -117,7 +117,7 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String titulo= (String) viewHolder.txtTitulo.getText();
 
-                Log.d("CAMBIO EN",titulo);
+
                 if (isChecked) {
                     baseDatos.addSuscripcion(titulo,4);
                 } else {
