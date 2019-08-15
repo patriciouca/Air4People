@@ -297,12 +297,11 @@ public class AndroidBaseDatos extends Activity{
             }
 
             ArrayList<String> estaciones=getEstaciones();
-            Log.d("Suscripcion","ok");
             nombre=procesarNombre(nombre,nivel);
             for (int i=0;i<estaciones.size();i++)
             {
                 String estacion=estaciones.get(i);
-                Log.d("Suscripcion",estacion+"_"+nombre);
+
                 FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
             }
         }
