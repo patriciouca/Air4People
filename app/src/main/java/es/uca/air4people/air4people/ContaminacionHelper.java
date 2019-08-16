@@ -121,12 +121,12 @@ public class ContaminacionHelper {
         float so2=getValorContaminante("Dioxido de Azufre",medicion);
 
         //SenoresMayores
-        if((o3<60 && o3!=-1) && (pm10<25 || pm10!=-1))
+        if((o3<60 && o3!=-1) && (pm10<25 || pm10!=-1) && (so2<63 || so2!=-1) && (no2<100 || no2!=-1))
         {
             devolver[3]=1;
         }
         else {
-            if((o3<120 || o3!=-1) && (pm10<50 || pm10!=-1))
+            if((o3<120 || o3!=-1) && (pm10<50 || pm10!=-1) && (so2<125 || so2!=-1) && (no2<200 || no2!=-1))
             {
                 devolver[3]=2;
             }
@@ -137,12 +137,12 @@ public class ContaminacionHelper {
         }
 
         //NINOS
-        if(o3<120 || o3!=-1)
+        if((o3<120 || o3!=-1) && (so2<125 || so2!=-1))
         {
             devolver[0]=1;
         }
         else {
-            if(o3<180 || o3!=-1)
+            if((o3<180 || o3!=-1) && (so2<188 || so2!=-1))
             {
                 devolver[0]=2;
             }
@@ -153,12 +153,12 @@ public class ContaminacionHelper {
         }
 
         //AIRELIBRE
-        if((o3<60 || o3!=-1) && (pm10<25 || pm10!=-1) && (co<5000 || co!=-1))
+        if((o3<60 || o3!=-1) && (pm10<25 || pm10!=-1) && (co<5000 || co!=-1) && (so2<125 || so2!=-1) && (no2<200 || no2!=-1))
         {
             devolver[2]=1;
         }
         else {
-            if((o3<180 || o3!=-1) && (pm10<75 || pm10!=-1) && (co<15000 || co!=-1))
+            if((o3<180 || o3!=-1) && (pm10<75 || pm10!=-1) && (co<15000 || co!=-1) && (so2<188 || so2!=-1) && (no2<300 || no2!=-1))
             {
                 devolver[2]=2;
             }
