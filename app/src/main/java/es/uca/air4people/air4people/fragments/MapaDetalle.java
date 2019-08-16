@@ -178,6 +178,28 @@ public class MapaDetalle  extends Fragment  {
                                             }
                                         });
                                     }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.so22), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.no22), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
                                     else
                                         botoncito.setVisibility(View.GONE);
                                 }
@@ -222,7 +244,28 @@ public class MapaDetalle  extends Fragment  {
                                             }
                                         });
                                     }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.so23), Toast.LENGTH_LONG).show();
 
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.no23), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
                                     else
                                         botoncito.setVisibility(View.GONE);
                                 }
@@ -263,6 +306,28 @@ public class MapaDetalle  extends Fragment  {
                                             public void onClick(View view)
                                             {
                                                 Toast.makeText(view.getContext(), getString(R.string.o34), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.so24), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(a.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), getString(R.string.no24), Toast.LENGTH_LONG).show();
 
                                             }
                                         });
