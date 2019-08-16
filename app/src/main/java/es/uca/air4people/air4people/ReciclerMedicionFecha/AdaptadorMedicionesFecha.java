@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -97,7 +98,14 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
                                     ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.x1));
+                                botoncito.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view)
+                                    {
+                                        Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.x1), Toast.LENGTH_LONG).show();
+
+                                    }
+                                });
                             }
                             break;
                         case 2:
@@ -106,13 +114,64 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
                                     ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm102));
-                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co2));
-                                else
-                                    botoncito.setVisibility(View.GONE);
-                            }
+                                    if(t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.pm102), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.co2), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(t.getDes_kind().toUpperCase().equals("OZONO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.o32), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.so22), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                    {
+                                        botoncito.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view)
+                                            {
+                                                Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.no22), Toast.LENGTH_LONG).show();
+
+                                            }
+                                        });
+                                    }
+                                    else
+                                        botoncito.setVisibility(View.GONE);
+                                }
                             break;
                         case 3:
                             barra.setProgress(75);
@@ -120,10 +179,62 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
                                     ContaminacionHelper.getColor(comprobacion), PorterDuff.Mode.SRC_IN);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm103));
-                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co3));
+                                if(t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS")){
+
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.pm103), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                {
+
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.co3), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("OZONO"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.o33), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.so23), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.no23), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else
                                     botoncito.setVisibility(View.GONE);
                             }
@@ -134,12 +245,66 @@ public class AdaptadorMedicionesFecha extends RecyclerView.Adapter<AdaptadorMedi
                             barra.setProgress(100);
                             barra.setVisibility(View.VISIBLE);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                if (t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.pm104));
-                                else if (t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
-                                    botoncito.setTooltipText(vista.getContext().getResources().getString(R.string.co4));
+                                if(t.getDes_kind().toUpperCase().equals("PARTICULAS EN SUSPENSION DE 10 MICRAS"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.pm104), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("MONOXIDO DE CARBONO"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.co4), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("OZONO"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.o34), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE AZUFRE"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.so24), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
+                                else if(t.getDes_kind().toUpperCase().equals("DIOXIDO DE NITROGENO"))
+                                {
+                                    botoncito.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Toast.makeText(view.getContext(), itemView.getContext().getString(R.string.no24), Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+                                }
                                 else
+                                {
                                     botoncito.setVisibility(View.GONE);
+                                }
                             }
                             break;
                         default:
