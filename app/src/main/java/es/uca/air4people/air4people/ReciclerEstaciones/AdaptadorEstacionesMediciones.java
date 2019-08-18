@@ -26,6 +26,7 @@ import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 
 public class AdaptadorEstacionesMediciones
@@ -140,6 +141,7 @@ public class AdaptadorEstacionesMediciones
                 seleccionado=false;
                 tb.setText("Inicio");
                 b.setVisibility(View.GONE);
+                ListaMisEstaciones.permitido=true;
             }
         });
         TextView titulo=(TextView)(v.findViewById(R.id.titulo));
@@ -161,12 +163,13 @@ public class AdaptadorEstacionesMediciones
 
         if(seleccionado && seleccionados.size()==0)
         {
+            ListaMisEstaciones.permitido=true;
             seleccionado=false;
             EstacionesActivity.setTitulo("Inicio");
             b.setVisibility(View.GONE);
         }
         else{
-
+            ListaMisEstaciones.permitido=false;
             EstacionesActivity.setTitulo("Editar");
             b.setVisibility(View.VISIBLE);
             seleccionado=true;

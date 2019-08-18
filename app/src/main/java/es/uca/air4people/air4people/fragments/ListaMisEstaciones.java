@@ -45,13 +45,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListaMisEstaciones extends Fragment {
 
+    static public boolean permitido;
+
     public ListaMisEstaciones() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ListaMisEstaciones.permitido=true;
         View view = inflater.inflate(R.layout.content_listaestaciones, container, false);
 
         final ArrayList<EstacionLista> estaciones = new ArrayList<EstacionLista>();
@@ -108,13 +111,16 @@ public class ListaMisEstaciones extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ListaMisEstaciones.permitido)
+                {
+                    Fragment anadir=new AddEstacion();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_frame, anadir)
+                            .commit();
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estacion");
+                    EstacionesActivity.setTitulo("Añadir estacion");
+                }
 
-                Fragment anadir=new AddEstacion();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, anadir)
-                        .commit();
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estacion");
-                EstacionesActivity.setTitulo("Añadir estacion");
             }
         });
 
@@ -140,23 +146,25 @@ public class ListaMisEstaciones extends Fragment {
             adaptador.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final int position = rec.getChildAdapterPosition(v);
-                    Fragment fragment = new DetalleEstacion();
-                    Bundle bundle = new Bundle();
 
-                    Log.d("RARO","ESTA"+String.valueOf(estaciones.get(position).getHoy().size()));
-                    bundle.putString("titulo",estaciones.get(position).getTitulo());
-                    bundle.putSerializable("hoy",estaciones.get(position).getHoy());
+                    Log.d("IMPORTANTE",String.valueOf(ListaMisEstaciones.permitido));
 
-                    fragment.setArguments(bundle);
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_frame, fragment).addToBackStack("T")
-                            .commit();
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
-                    EstacionesActivity.setTitulo(estaciones.get(position).getTitulo());
+                    if(ListaMisEstaciones.permitido) {
+                        final int position = rec.getChildAdapterPosition(v);
+                        Fragment fragment = new DetalleEstacion();
+                        Bundle bundle = new Bundle();
 
+                        Log.d("RARO", "ESTA" + String.valueOf(estaciones.get(position).getHoy().size()));
+                        bundle.putString("titulo", estaciones.get(position).getTitulo());
+                        bundle.putSerializable("hoy", estaciones.get(position).getHoy());
 
-
+                        fragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.content_frame, fragment).addToBackStack("T")
+                                .commit();
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(estaciones.get(position).getTitulo());
+                        EstacionesActivity.setTitulo(estaciones.get(position).getTitulo());
+                    }
                 }
             });
 

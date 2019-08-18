@@ -202,6 +202,7 @@ public class EstacionesActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
+        Log.d("Raro","TRIEEE");
         getSupportActionBar().setTitle("Inicio");
         fuera=false;
     }
@@ -212,6 +213,8 @@ public class EstacionesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -230,6 +233,7 @@ public class EstacionesActivity extends AppCompatActivity {
             }
             else if(AdaptadorEstacionesMediciones.esSeleccionado()){
                 AdaptadorEstacionesMediciones.pulsarAtras();
+                ListaMisEstaciones.permitido=true;
             }
             else{
                 if(fuera || fuera2){
