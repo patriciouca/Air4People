@@ -99,9 +99,6 @@ public class EstacionesActivity extends AppCompatActivity {
                                 fuera=true;
                                 fragmentTransaction = true;
                                 break;
-                            case R.id.menu_opcion_3:
-                                Log.i("NavigationView", "Pulsada opción 2");
-                                break;
                             case R.id.menu_opcion_4:
                                 fragment = new Configuracion();
                                 etiqueta="Configuracion";

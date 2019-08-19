@@ -19,9 +19,6 @@
                 android:id="@+id/menu_opcion_2"
                 android:title="Patologias"/>
             <item
-                android:id="@+id/menu_opcion_3"
-                android:title="Notificaciones"/>
-            <item
                 android:id="@+id/menu_opcion_4"
                 android:title="Configuración"/>
             <item
