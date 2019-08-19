@@ -133,18 +133,6 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
 
         public void setOnClickListener(View.OnClickListener listener) {
             this.listener = listener;
-            Log.d("Raro ","CLOCK");
-            /*
-            Log.d("Raro ",view.toString());
-            Switch suscrito1 = (Switch)view.findViewById(R.id.suscrito);
-            Switch suscrito2 = (Switch)view.findViewById(R.id.suscrito2);
-            Switch suscrito3 = (Switch)view.findViewById(R.id.suscrito3);
-            Switch suscrito4 = (Switch)view.findViewById(R.id.suscrito4);
-            suscrito1.setVisibility(View.VISIBLE);
-            suscrito2.setVisibility(View.VISIBLE);
-            suscrito3.setVisibility(View.VISIBLE);
-            suscrito4.setVisibility(View.VISIBLE);
-            */
         }
 
         @Override
