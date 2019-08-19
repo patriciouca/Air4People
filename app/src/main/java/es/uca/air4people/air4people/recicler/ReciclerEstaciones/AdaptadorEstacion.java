@@ -1,4 +1,4 @@
-package es.uca.air4people.air4people.ReciclerEstaciones;
+package es.uca.air4people.air4people.recicler.ReciclerEstaciones;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

@@ -5,19 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.uca.air4people.air4people.ContaminacionHelper;
-import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerSuscripciones.Suscripcion;
+import es.uca.air4people.air4people.recicler.ReciclerSuscripciones.Suscripcion;
 import es.uca.air4people.air4people.Servicio.Estacion;
 
 public class AndroidBaseDatos extends Activity{

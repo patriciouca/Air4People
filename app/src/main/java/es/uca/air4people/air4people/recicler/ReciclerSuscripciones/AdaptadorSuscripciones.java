@@ -1,9 +1,7 @@
-package es.uca.air4people.air4people.ReciclerSuscripciones;
+package es.uca.air4people.air4people.recicler.ReciclerSuscripciones;
 
 import android.app.Activity;
-import android.os.Build;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -16,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package es.uca.air4people.air4people.ReciclerEstaciones;
+package es.uca.air4people.air4people.recicler.ReciclerEstaciones;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

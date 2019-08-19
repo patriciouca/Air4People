@@ -2,59 +2,29 @@ package es.uca.air4people.air4people;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import es.uca.air4people.air4people.BD.AndroidBaseDatos;
-import es.uca.air4people.air4people.BD.EstacionBD;
-import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
-import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
-import es.uca.air4people.air4people.Servicio.Estacion;
-import es.uca.air4people.air4people.Servicio.EstacionService;
-import es.uca.air4people.air4people.fragments.AddEstacion;
+import es.uca.air4people.air4people.recicler.ReciclerEstaciones.AdaptadorEstacionesMediciones;
 import es.uca.air4people.air4people.fragments.Configuracion;
-import es.uca.air4people.air4people.fragments.Fragment1;
 import es.uca.air4people.air4people.fragments.ListaMisEstaciones;
 import es.uca.air4people.air4people.fragments.Mapa;
-import es.uca.air4people.air4people.fragments.MapaDetalle;
 import es.uca.air4people.air4people.fragments.MasInformacion;
 import es.uca.air4people.air4people.fragments.Patologias;
 import es.uca.air4people.air4people.fragments.Suscripciones;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EstacionesActivity extends AppCompatActivity {
 

@@ -12,17 +12,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerPatologias.AdaptadorPatologias;
-import es.uca.air4people.air4people.ReciclerSuscripciones.AdaptadorSuscripciones;
-import es.uca.air4people.air4people.Servicio.EstacionService;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import es.uca.air4people.air4people.recicler.ReciclerPatologias.AdaptadorPatologias;
 
 public class Patologias extends Fragment {
 

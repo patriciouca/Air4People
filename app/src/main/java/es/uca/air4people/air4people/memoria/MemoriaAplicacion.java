@@ -2,14 +2,10 @@ package es.uca.air4people.air4people.memoria;
 
 import android.app.Application;
 
-import java.util.Calendar;
 import java.util.Hashtable;
-import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
-import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
-import es.uca.air4people.air4people.Servicio.Estacion;
-import es.uca.air4people.air4people.Servicio.Medicion;
+import es.uca.air4people.air4people.recicler.ReciclerEstaciones.EstacionLista;
 import es.uca.air4people.air4people.Servicio.Mediciones;
 
 public class MemoriaAplicacion extends Application {

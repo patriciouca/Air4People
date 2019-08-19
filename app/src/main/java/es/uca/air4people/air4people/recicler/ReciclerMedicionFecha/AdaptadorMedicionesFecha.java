@@ -1,4 +1,4 @@
-package es.uca.air4people.air4people.ReciclerMedicionFecha;
+package es.uca.air4people.air4people.recicler.ReciclerMedicionFecha;
 
 import android.graphics.PorterDuff;
 import android.os.Build;

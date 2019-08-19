@@ -1,6 +1,5 @@
 package es.uca.air4people.air4people.fragments;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -13,29 +12,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 import es.uca.air4people.air4people.ContaminacionHelper;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
-import es.uca.air4people.air4people.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
+import es.uca.air4people.air4people.recicler.ReciclerEstaciones.EstacionLista;
+import es.uca.air4people.air4people.recicler.ReciclerMedicionFecha.AdaptadorMedicionesFecha;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
 import es.uca.air4people.air4people.Servicio.Mediciones;
-import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

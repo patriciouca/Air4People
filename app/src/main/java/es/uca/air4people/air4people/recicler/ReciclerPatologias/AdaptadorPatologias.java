@@ -1,15 +1,13 @@
-package es.uca.air4people.air4people.ReciclerPatologias;
+package es.uca.air4people.air4people.recicler.ReciclerPatologias;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 

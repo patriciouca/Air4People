@@ -1,4 +1,4 @@
-package es.uca.air4people.air4people.ReciclerSuscripciones;
+package es.uca.air4people.air4people.recicler.ReciclerSuscripciones;
 
 public class Suscripcion {
     public String nombre;

@@ -1,28 +1,17 @@
 package es.uca.air4people.air4people.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +19,11 @@ import java.util.List;
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
 import es.uca.air4people.air4people.EstacionesActivity;
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerEstaciones.AdaptadorEstacionesMediciones;
+import es.uca.air4people.air4people.recicler.ReciclerEstaciones.AdaptadorEstacionesMediciones;
 import es.uca.air4people.air4people.Servicio.Estacion;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import es.uca.air4people.air4people.Servicio.Medicion;
-import es.uca.air4people.air4people.ReciclerEstaciones.EstacionLista;
-import es.uca.air4people.air4people.Servicio.Mediciones;
+import es.uca.air4people.air4people.recicler.ReciclerEstaciones.EstacionLista;
 import es.uca.air4people.air4people.memoria.MemoriaAplicacion;
 import retrofit2.Call;
 import retrofit2.Callback;

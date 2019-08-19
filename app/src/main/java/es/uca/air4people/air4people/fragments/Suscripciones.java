@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uca.air4people.air4people.R;
-import es.uca.air4people.air4people.ReciclerSuscripciones.AdaptadorSuscripciones;
+import es.uca.air4people.air4people.recicler.ReciclerSuscripciones.AdaptadorSuscripciones;
 import es.uca.air4people.air4people.Servicio.EstacionService;
 import retrofit2.Call;
 import retrofit2.Callback;
