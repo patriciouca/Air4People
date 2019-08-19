@@ -1,6 +1,7 @@
 package es.uca.air4people.air4people.recicler.ReciclerSuscripciones;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
@@ -145,8 +146,9 @@ public class AdaptadorSuscripciones extends RecyclerView.Adapter<AdaptadorSuscri
             Transition transition = new Fade();
             transition.setDuration(400);
             transition.addTarget(R.id.ocultar);
-            TransitionManager.beginDelayedTransition((ViewGroup) constraint.getParent(), transition);
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                TransitionManager.beginDelayedTransition((ViewGroup) constraint.getParent(), transition);
+            }
             constraint.setVisibility(View.VISIBLE);
             flecha.setRotation(0);
 

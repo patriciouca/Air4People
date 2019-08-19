@@ -54,13 +54,9 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
     }
 
     private void cambiar(){
-
-
         ConstraintSet set=new ConstraintSet();
-
         set.clone(reglas);
         set.setMargin(R.id.principal,ConstraintSet.BOTTOM,marca);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             TransitionManager.beginDelayedTransition(reglas);
         }
