@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -153,6 +154,14 @@ public class EstacionesActivity extends AppCompatActivity {
                         }
 
                         if(fragmentTransaction) {
+
+                            final ImageButton b=findViewById(R.id.btnDelete);
+                            if(!ListaMisEstaciones.permitido)
+                            {
+                                ListaMisEstaciones.permitido=true;
+                                b.setVisibility(View.INVISIBLE);
+                            }
+
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.content_frame, fragment,etiqueta).
                                     addToBackStack(null)

@@ -21,40 +21,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!--
+       <activity
+           android:name=".RegisterActivity"
+           android:label="@string/title_activity_register"
+           android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+           <activity
+           android:name=".LoginActivity"
+           android:label="@string/title_activity_main">
+       </activity>
+        -->
+       <meta-data
+           android:name="com.google.android.geo.API_KEY"
+           android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".EstacionesActivity"
-            android:label="@string/title_activity_estaciones"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+       <activity
+           android:name=".EstacionesActivity"
+           android:label="@string/title_activity_estaciones"
+           android:theme="@style/AppTheme.NoActionBar">
+           <intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+               <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+       </activity>
 
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_main">
-        </activity>
-
-        <service android:name=".firebase.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name=".firebase.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-    </application>
+       <service android:name=".firebase.MyFirebaseMessagingService">
+           <intent-filter>
+               <action android:name="com.google.firebase.MESSAGING_EVENT" />
+           </intent-filter>
+       </service>
+       <service android:name=".firebase.MyFirebaseInstanceIDService">
+           <intent-filter>
+               <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+           </intent-filter>
+       </service>
+   </application>
 
 </manifest>
