@@ -172,18 +172,17 @@ public class ListaMisEstaciones extends Fragment {
 
             final EstacionService estacionService = retrofit.create(EstacionService.class);
             Call<List<Medicion>> call = estacionService.getPredicciones(nombre);
-            final String titulo=nombre;
             call.enqueue(new Callback<List<Medicion>>() {
                 @Override
                 public void onResponse(Call<List<Medicion>> call, final Response<List<Medicion>> response) {
 
-                    EstacionLista estl=new EstacionLista(id,titulo, response.body());
-                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(titulo,estl);
+                    EstacionLista estl=new EstacionLista(id,nombre, response.body());
+                    ((MemoriaAplicacion) getActivity().getApplication()).setEstacion(nombre,estl);
 
                     estl.setHoy(new ArrayList<Medicion>(response.body()));
                     estaciones.add(estl);
 
-                    anadirEstacionVista(titulo,new EstacionLista(id,titulo,response.body()));
+                    anadirEstacionVista(nombre,new EstacionLista(id,nombre,response.body()));
 
                 }
 
