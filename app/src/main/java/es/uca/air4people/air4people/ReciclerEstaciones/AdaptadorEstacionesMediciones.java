@@ -147,10 +147,16 @@ public class AdaptadorEstacionesMediciones
         TextView titulo=(TextView)(v.findViewById(R.id.titulo));
         TextView id=(TextView)(v.findViewById(R.id.idEstacion));
         EstacionLista estacion=new EstacionLista(Integer.parseInt(id.getText().toString()),titulo.getText().toString());
-        int indice=seleccionados.indexOf(estacion);
-        Log.d("Raro",String.valueOf(indice));
+        int indice=-1;
+        for(int i=0;i<seleccionados.size();i++)
+        {
+            if(seleccionados.get(i).getTitulo().equals(titulo.getText()))
+                indice=i;
+        }
+
         if(indice!=-1)
         {
+
             seleccionados.remove(indice);
             v.setBackgroundColor(Color.WHITE);
 
