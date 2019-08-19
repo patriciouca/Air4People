@@ -181,7 +181,7 @@ public class EstacionesActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new ListaMisEstaciones())
                 .commit();
-        Log.d("Raro","TRIEEE");
+        nav.getMenu().getItem(0).setChecked(true);
         getSupportActionBar().setTitle("Inicio");
         fuera=false;
     }
