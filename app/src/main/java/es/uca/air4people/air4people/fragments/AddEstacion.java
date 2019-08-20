@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import es.uca.air4people.air4people.BD.AndroidBaseDatos;
@@ -63,6 +65,14 @@ public class AddEstacion extends Fragment {
             @Override
             public void onResponse(Call<List<Estacion>> call, final Response<List<Estacion>> response) {
 
+                Collections.sort(response.body(), new Comparator<Estacion>()
+                {
+                    @Override
+                    public int compare(Estacion es1, Estacion es2)
+                    {
+                        return es1.getMote_name().compareToIgnoreCase(es2.getMote_name());
+                    }
+                });
 
                 rec.setHasFixedSize(true);
                 //Collections.sort(response.body());
