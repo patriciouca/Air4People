@@ -105,8 +105,8 @@ public class ListaMisEstaciones extends Fragment {
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_frame, anadir)
                             .commit();
-                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estacion");
-                    EstacionesActivity.setTitulo("Añadir estacion");
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Añadir estación");
+                    EstacionesActivity.setTitulo("Añadir estación");
                 }
 
             }
