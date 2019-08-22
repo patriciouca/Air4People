@@ -17,7 +17,7 @@
                 android:title="Suscripciones"/>
             <item
                 android:id="@+id/menu_opcion_2"
-                android:title="Patologias"/>
+                android:title="Patologías"/>
             <item
                 android:id="@+id/menu_opcion_4"
                 android:title="Configuración"/>

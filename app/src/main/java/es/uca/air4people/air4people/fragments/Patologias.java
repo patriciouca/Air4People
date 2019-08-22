@@ -19,7 +19,6 @@ import es.uca.air4people.air4people.recicler.ReciclerPatologias.AdaptadorPatolog
 public class Patologias extends Fragment {
 
     public Patologias() {
-        // Required empty public constructor
     }
 
     @Override
