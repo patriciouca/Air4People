@@ -2,6 +2,8 @@ package es.uca.air4people.air4people;
 
 import android.app.Activity;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.contrib.DrawerActions;
+import android.support.test.espresso.contrib.NavigationViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -91,14 +93,78 @@ public class EstacionesActivityTest {
     @Test
     public void suscripciones(){
 
-        onView(withId(R.id.)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.tituloTool)).check(matches(withText(containsString(titulo))));
-
-        onView(withId(R.id.textView5)).check(matches(withText(containsString("Recomendaciones"))));
-        onView(withId(R.id.textView6)).check(matches(withText(containsString("Mediciones"))));
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_opcion_1));
 
 
-        Espresso.pressBack();
-        onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Inicio"))));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito))
+                .check(matches(not(isDisplayed())));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito2))
+                .check(matches(not(isDisplayed())));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito3))
+                .check(matches(not(isDisplayed())));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito4))
+                .check(matches(not(isDisplayed())));
+
+
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.txtContaminante))
+                .check(matches(withText("Ozono")));
+
+
+        onView(withId(R.id.recCon
+        )).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+
+
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito))
+                .check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito2))
+                .check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito3))
+                .check(matches(isDisplayed()));
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.suscrito4))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
+    }
+
+    @Test
+    public void patologias(){
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_opcion_2));
+
+
+        onView(withRecyclerView(R.id.recCon)
+                .atPositionOnView(0, R.id.txtContaminante))
+                .check(matches(withText("Enfermedades pulmonares")));
+
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
+    }
+
+    @Test
+    public void configuracion(){
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_opcion_4));
+
+        onView(withId(R.id.txt1)).check(matches(withText(R.string.configuraciones1)));
+        onView(withId(R.id.txt2)).check(matches(withText(R.string.configuraciones2)));
+        onView(withId(R.id.txt3)).check(matches(withText(R.string.configuraciones3)));
+
+
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
     }
 }
