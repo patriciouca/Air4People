@@ -12,18 +12,20 @@
         android:id="@+id/navigation_subheader"
         android:title="Usuario">
         <menu>
-            <item
-                android:id="@+id/menu_opcion_1"
-                android:title="Suscripciones"/>
-            <item
-                android:id="@+id/menu_opcion_2"
-                android:title="Patologías"/>
-            <item
-                android:id="@+id/menu_opcion_4"
-                android:title="Configuración"/>
-            <item
-                android:id="@+id/menu_opcion_5"
-                android:title="Más información"/>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/menu_opcion_1"
+                    android:title="Suscripciones"/>
+                <item
+                    android:id="@+id/menu_opcion_2"
+                    android:title="Patologías"/>
+                <item
+                    android:id="@+id/menu_opcion_4"
+                    android:title="Configuración"/>
+                <item
+                    android:id="@+id/menu_opcion_5"
+                    android:title="Más información"/>
+            </group>
         </menu>
     </item>
 </menu>
