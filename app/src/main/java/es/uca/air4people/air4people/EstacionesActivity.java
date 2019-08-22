@@ -81,12 +81,14 @@ public class EstacionesActivity extends AppCompatActivity {
                             case R.id.menu_seccion_1:
                                 fuera=true;
                                 fragment = new ListaMisEstaciones();
+                                menuItem.setChecked(true);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
                                 fragment = new Mapa();
                                 etiqueta="Mapa";
                                 fuera=true;
+                                menuItem.setChecked(true);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_opcion_1:
@@ -97,17 +99,20 @@ public class EstacionesActivity extends AppCompatActivity {
                             case R.id.menu_opcion_2:
                                 fragment = new Patologias();
                                 fuera=true;
+                                menuItem.setChecked(false);
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_opcion_4:
                                 fragment = new Configuracion();
                                 etiqueta="Configuracion";
+                                menuItem.setChecked(false);
                                 fuera=true;
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_opcion_5:
                                 fragment = new MasInformacion();
                                 fuera=true;
+                                menuItem.setChecked(false);
                                 fragmentTransaction = true;
                                 break;
                         }
@@ -134,7 +139,6 @@ public class EstacionesActivity extends AppCompatActivity {
                                     addToBackStack(null)
                                     .commit();
 
-                            menuItem.setChecked(true);
                             getSupportActionBar().setTitle(menuItem.getTitle());
                             EstacionesActivity.setTitulo(menuItem.getTitle().toString());
 
