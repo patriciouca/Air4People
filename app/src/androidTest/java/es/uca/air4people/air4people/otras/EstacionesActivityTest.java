@@ -1,10 +1,11 @@
-package es.uca.air4people.air4people;
+package es.uca.air4people.air4people.otras;
 
 import android.app.Activity;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.NavigationViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
@@ -17,10 +18,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.w3c.dom.Text;
 
+import es.uca.air4people.air4people.EstacionesActivity;
+import es.uca.air4people.air4people.R;
 import es.uca.air4people.air4people.recicler.ReciclerEstaciones.AdaptadorEstacion;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -38,7 +42,7 @@ public class EstacionesActivityTest {
 
     @Test
     public void revisarEsta(){
-        onView(withId(R.id.tituloTool)).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.tituloTool)).check(matches(isDisplayed()));
         onView(withId(R.id.btnDelete)).check(matches(not(isDisplayed())));
     }
 
@@ -166,5 +170,36 @@ public class EstacionesActivityTest {
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
+    }
+
+    /*Eliminar el primer elemento*/
+    @Test
+    public void borrarElemento(){
+
+        /*Nombre primer elemento*/
+        Activity activity = mActivityRule.getActivity();
+        RecyclerView r=activity.findViewById(R.id.rec);
+        View vista=r.getLayoutManager().findViewByPosition(0);
+        /*Tiempo de carga de la vista*/
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String titulo=((TextView)(vista.findViewById(R.id.titulo))).getText().toString();
+
+        /*Borrar*/
+        onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).perform(longClick());
+        onView(withId(R.id.btnDelete)).perform(click());
+
+        /*Comprobar que no está*/
+        try{
+            onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).check(matches(not(withText(containsString(titulo)))));
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+
     }
 }
