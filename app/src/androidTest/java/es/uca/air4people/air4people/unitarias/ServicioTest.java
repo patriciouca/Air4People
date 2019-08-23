@@ -23,10 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServicioTest {
 
     @Test
-    public void getEstaciones() {
-    }
-
-    @Test
     public void getMapa() {
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("http://airservices.uca.es/Air4People/").
