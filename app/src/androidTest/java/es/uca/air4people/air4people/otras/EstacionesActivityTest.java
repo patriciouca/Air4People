@@ -6,6 +6,7 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.NavigationViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -17,9 +18,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.w3c.dom.Text;
 
 import es.uca.air4people.air4people.EstacionesActivity;
@@ -40,6 +43,7 @@ import static es.uca.air4people.air4people.dannyroa.TestUtils.withRecyclerView;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringContains.containsString;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 public class EstacionesActivityTest {
 
@@ -47,7 +51,7 @@ public class EstacionesActivityTest {
     public ActivityTestRule<EstacionesActivity> mActivityRule = new ActivityTestRule<>(EstacionesActivity.class);
 
     @Test
-    public void revisarPrincipal(){
+    public void A_revisarPrincipal(){
         /*Comprobar titulo*/
         onView(ViewMatchers.withId(R.id.tituloTool)).check(matches(isDisplayed()));
         onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Inicio"))));
@@ -56,9 +60,14 @@ public class EstacionesActivityTest {
     }
 
     @Test
-    public void anadir(){
+    public void B_anadir(){
         /*Pulsar mas*/
         onView(withId(R.id.fab)).perform(click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         /*Comprobar titulo*/
         onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Añadir estación"))));
         /*Comprobar primer elemento AlcalaDeGuadaira*/
@@ -82,26 +91,86 @@ public class EstacionesActivityTest {
     }
 
     @Test
-    public void detalle(){
+    public void C_detalle(){
 
         Activity activity = mActivityRule.getActivity();
         RecyclerView r=activity.findViewById(R.id.rec);
         View vista=r.getLayoutManager().findViewByPosition(0);
         String titulo=((TextView)(vista.findViewById(R.id.titulo))).getText().toString();
 
+        /*Pulsar primer elemento*/
         onView(withId(R.id.rec)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+        /*Comprobar titulo*/
         onView(withId(R.id.tituloTool)).check(matches(withText(containsString(titulo))));
-
+        /*Comprobar interfaz*/
         onView(withId(R.id.textView5)).check(matches(withText(containsString("Recomendaciones"))));
         onView(withId(R.id.textView6)).check(matches(withText(containsString("Mediciones"))));
 
-
+        /*Comprobar pulsar atras lleva inicio*/
         Espresso.pressBack();
         onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Inicio"))));
     }
 
+    /*Eliminar el primer elemento*/
     @Test
-    public void suscripciones(){
+    public void D_borrarElemento(){
+
+        /*Nombre primer elemento*/
+        Activity activity = mActivityRule.getActivity();
+        RecyclerView r=activity.findViewById(R.id.rec);
+        View vista=r.getLayoutManager().findViewByPosition(0);
+        /*Tiempo de carga de la vista*/
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String titulo=((TextView)(vista.findViewById(R.id.titulo))).getText().toString();
+
+        /*Borrar*/
+        onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).perform(longClick());
+        onView(withId(R.id.btnDelete)).perform(click());
+
+        /*Comprobar que no está*/
+        try{
+            onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).check(matches(not(withText(containsString(titulo)))));
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+
+    }
+
+    @Test
+    public void E_mapas(){
+        /*Ir mapas*/
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_2));
+        /*Titulo*/
+        onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Mapas"))));
+        /*Pulsar cartuja*/
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+        UiObject marker = device.findObject(new UiSelector().descriptionContains("Cartuja"));
+        try {
+            marker.click();
+            Thread.sleep(1000);
+            /*La vista que se despliega tiene de titulo cartuja*/
+            onView(withId(R.id.titulo)).check(matches(withText(containsString("Cartuja"))));
+        }catch (UiObjectNotFoundException e)
+        {
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*Volver inicio*/
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
+
+    }
+
+    @Test
+    public void F_suscripciones(){
 
         /*Ir suscripciones*/
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
@@ -152,7 +221,7 @@ public class EstacionesActivityTest {
     }
 
     @Test
-    public void patologias(){
+    public void G_patologias(){
 
         /*Ir patologias*/
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
@@ -169,7 +238,7 @@ public class EstacionesActivityTest {
     }
 
     @Test
-    public void configuracion(){
+    public void H_configuracion(){
 
         /*Ir configuracion*/
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
@@ -185,64 +254,5 @@ public class EstacionesActivityTest {
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
         onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
     }
-
-    /*Eliminar el primer elemento*/
-    @Test
-    public void borrarElemento(){
-
-        /*Nombre primer elemento*/
-        Activity activity = mActivityRule.getActivity();
-        RecyclerView r=activity.findViewById(R.id.rec);
-        View vista=r.getLayoutManager().findViewByPosition(0);
-        /*Tiempo de carga de la vista*/
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String titulo=((TextView)(vista.findViewById(R.id.titulo))).getText().toString();
-
-        /*Borrar*/
-        onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).perform(longClick());
-        onView(withId(R.id.btnDelete)).perform(click());
-
-        /*Comprobar que no está*/
-        try{
-            onView(withRecyclerView(R.id.rec).atPositionOnView(0,R.id.titulo)).check(matches(not(withText(containsString(titulo)))));
-        }
-        catch (NullPointerException e)
-        {
-
-        }
-
-    }
-
-    @Test
-    public void mapas(){
-        /*Ir mapas*/
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_2));
-        /*Titulo*/
-        onView(withId(R.id.tituloTool)).check(matches(withText(containsString("Mapas"))));
-        /*Pulsar cartuja*/
-        UiDevice device = UiDevice.getInstance(getInstrumentation());
-        UiObject marker = device.findObject(new UiSelector().descriptionContains("Cartuja"));
-        try {
-            marker.click();
-            Thread.sleep(1000);
-            /*La vista que se despliega tiene de titulo cartuja*/
-            onView(withId(R.id.titulo)).check(matches(withText(containsString("Cartuja"))));
-        }catch (UiObjectNotFoundException e)
-        {
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        /*Volver inicio*/
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withId(R.id.navview)).perform(NavigationViewActions.navigateTo(R.id.menu_seccion_1));
-
-    }
-
 
 }
