@@ -96,7 +96,6 @@ public class DetalleEstacion extends Fragment {
         }
 
         int[] niveles= ContaminacionHelper.getProblemas(m);
-        Log.d("Raro","Valor "+String.valueOf(ContaminacionHelper.getValorContaminante("Ozono",datos.get(0).getMediciones())));
 
         switch (niveles[0])
         {

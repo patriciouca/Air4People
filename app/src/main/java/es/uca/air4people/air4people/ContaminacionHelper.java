@@ -120,13 +120,19 @@ public class ContaminacionHelper {
         float no2=getValorContaminante("Dioxido de Nitrogeno",medicion);
         float so2=getValorContaminante("Dioxido de Azufre",medicion);
 
+        Log.d("senores O3","O3 "+String.valueOf(o3));
+        Log.d("senores PM","PM "+String.valueOf(pm10));
+        Log.d("senores SO","SO "+String.valueOf(so2));
+        Log.d("senores NO2","NO "+String.valueOf(no2));
+
+
         //SenoresMayores
-        if((o3<60 && o3!=-1) && (pm10<25 || pm10!=-1) && (so2<63 || so2!=-1) && (no2<100 || no2!=-1))
+        if((o3<60 || o3==-1) && (pm10<25 || pm10==-1) && (so2<63 || so2==-1) && (no2<100 || no2==-1))
         {
             devolver[3]=1;
         }
         else {
-            if((o3<120 || o3!=-1) && (pm10<50 || pm10!=-1) && (so2<125 || so2!=-1) && (no2<200 || no2!=-1))
+            if((o3<120 || o3==-1) && (pm10<50 || pm10==-1) && (so2<125 || so2==-1) && (no2<200 || no2==-1))
             {
                 devolver[3]=2;
             }
@@ -136,13 +142,16 @@ public class ContaminacionHelper {
 
         }
 
+        Log.d("senores",String.valueOf(devolver[3]));
+        Log.d("senores",String.valueOf((o3<60 || o3==-1) && (pm10<25 || pm10==-1) && (so2<63 || so2==-1) && (no2<100 || no2==-1)));
+
         //NINOS
-        if((o3<120 || o3!=-1) && (so2<125 || so2!=-1))
+        if((o3<120 || o3==-1) && (so2<125 || so2==-1))
         {
             devolver[0]=1;
         }
         else {
-            if((o3<180 || o3!=-1) && (so2<188 || so2!=-1))
+            if((o3<180 || o3==-1) && (so2<188 || so2==-1))
             {
                 devolver[0]=2;
             }
@@ -153,12 +162,12 @@ public class ContaminacionHelper {
         }
 
         //AIRELIBRE
-        if((o3<60 || o3!=-1) && (pm10<25 || pm10!=-1) && (co<5000 || co!=-1) && (so2<125 || so2!=-1) && (no2<200 || no2!=-1))
+        if((o3<60 || o3==-1) && (pm10<25 || pm10==-1) && (co<5000 || co==-1) && (so2<125 || so2==-1) && (no2<200 || no2==-1))
         {
             devolver[2]=1;
         }
         else {
-            if((o3<180 || o3!=-1) && (pm10<75 || pm10!=-1) && (co<15000 || co!=-1) && (so2<188 || so2!=-1) && (no2<300 || no2!=-1))
+            if((o3<180 || o3==-1) && (pm10<75 || pm10==-1) && (co<15000 || co==-1) && (so2<188 || so2==-1) && (no2<300 || no2==-1))
             {
                 devolver[2]=2;
             }
@@ -169,12 +178,12 @@ public class ContaminacionHelper {
         }
 
         //CERRADO
-        if((pm10<50 || pm10!=-1) && (co<5000 || co!=-1))
+        if((pm10<50 || pm10==-1) && (co<5000 || co==-1))
         {
             devolver[1]=1;
         }
         else {
-            if((pm10<75 || pm10!=-1) && (co<15000 || co!=-1))
+            if((pm10<75 || pm10==-1) && (co<15000 || co==-1))
             {
                 devolver[1]=2;
             }

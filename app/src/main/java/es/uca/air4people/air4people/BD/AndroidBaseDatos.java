@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -187,6 +188,7 @@ public class AndroidBaseDatos extends Activity{
             {
                 Suscripcion suscripcion=suscripciones.get(i);
                 String cadena=procesarNombre(suscripcion.nombre,suscripcion.nivel);
+                Log.d("Suscrito","deSuscrito a "+estacion.getMote_id()+"_"+cadena);
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion.getMote_id()+"_"+cadena);
             }
 
@@ -212,6 +214,7 @@ public class AndroidBaseDatos extends Activity{
                 String suscripcion=suscripciones.get(i).nombre;
                 int nivel=suscripciones.get(i).nivel;
                 suscripcion=procesarNombre(suscripcion,nivel);
+                Log.d("Suscrito","Suscrito a "+estacion.getMote_id()+"_"+suscripcion);
                 FirebaseMessaging.getInstance().subscribeToTopic(estacion.getMote_id()+"_"+suscripcion);
             }
 
@@ -247,12 +250,13 @@ public class AndroidBaseDatos extends Activity{
                 db.close();
             }
 
-            ArrayList<String> estaciones=getEstaciones();
+            ArrayList<Estacion> estaciones=getEstacionesE();
             nombre=procesarNombre(nombre,nivel);
             for (int i=0;i<estaciones.size();i++)
             {
-                String estacion=estaciones.get(i);
-                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion+"_"+nombre);
+                Estacion estacion=estaciones.get(i);
+                Log.d("Suscrito","DeSuscrito a "+estacion.getMote_id()+"_"+nombre);
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(estacion.getMote_id()+"_"+nombre);
             }
         }
 
@@ -290,13 +294,13 @@ public class AndroidBaseDatos extends Activity{
                 db.close();
             }
 
-            ArrayList<String> estaciones=getEstaciones();
+            ArrayList<Estacion> estaciones=getEstacionesE();
             nombre=procesarNombre(nombre,nivel);
             for (int i=0;i<estaciones.size();i++)
             {
-                String estacion=estaciones.get(i);
-
-                FirebaseMessaging.getInstance().subscribeToTopic(estacion+"_"+nombre);
+                Estacion estacion=estaciones.get(i);
+                Log.d("Suscrito","Suscrito a "+estacion.getMote_id()+"_"+nombre);
+                FirebaseMessaging.getInstance().subscribeToTopic(estacion.getMote_id()+"_"+nombre);
             }
         }
 
