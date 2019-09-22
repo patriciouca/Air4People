@@ -27,7 +27,7 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
 
     public GestosMapas(ConstraintLayout reglas) {
         this.reglas = reglas;
-        marca=1200;
+        marca=700;
     }
 
     public void abajo(){
@@ -36,18 +36,18 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
     }
 
     private void arriba(){
-        if(marca<1500)
+        if(marca<1000)
         {
-            marca=1500;
+            marca=1000;
             cambiar();
         }
 
     }
 
     private void arriba2(){
-        if(marca<2000)
+        if(marca<1500)
         {
-            marca=2000;
+            marca=1500;
             cambiar();
         }
 
@@ -93,9 +93,9 @@ public class GestosMapas extends  GestureDetector.SimpleOnGestureListener{
         {
             if(deltaY > 0)
             {
-                if(marca<1500)
+                if(marca<1000)
                     arriba();
-                else if(marca==1500)
+                else if(marca==1000)
                     arriba2();
                 Log.d("RARO","Swipe to UP");
             }else

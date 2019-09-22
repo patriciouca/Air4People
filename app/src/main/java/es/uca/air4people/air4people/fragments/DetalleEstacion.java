@@ -222,6 +222,8 @@ public class DetalleEstacion extends Fragment {
 
                 if(c.get(Calendar.MONTH)!=7)
                 {
+
+
                     int i=0;
                     while(response.body().size()==0 && i<=24)
                     {
@@ -234,7 +236,7 @@ public class DetalleEstacion extends Fragment {
                             String minutos=String.format("%02d",j);
                             call = estacionService.getPrediccionFecha(titulo,formattedDate+"T"+hora+":"+minutos+":00");
                             response=call.execute();
-                            j+=10;
+                            j+=20;
 
 
                         }

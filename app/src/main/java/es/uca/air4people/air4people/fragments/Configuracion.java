@@ -34,11 +34,6 @@ public class Configuracion extends Fragment {
 
 
         ArrayList<Suscripcion> suscripcions=bd.getSuscripciones();
-        for (int i=0;i<suscripcions.size();i++)
-        {
-            Log.d("SUSCRIBIR ",suscripcions.get(i).nombre);
-        }
-
         interruptor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

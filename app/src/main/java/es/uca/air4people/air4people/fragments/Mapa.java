@@ -141,7 +141,7 @@ public class Mapa extends Fragment implements OnMapReadyCallback, GoogleMap.OnMa
 
         set.clone(reglas);
 
-        set.setMargin(R.id.principal,ConstraintSet.BOTTOM,1000);
+        set.setMargin(R.id.principal,ConstraintSet.BOTTOM,700);
         set.applyTo(reglas);
 
         if(hay)

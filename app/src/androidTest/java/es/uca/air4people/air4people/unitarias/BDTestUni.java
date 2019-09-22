@@ -51,5 +51,4 @@ public class BDTestUni {
         assertTrue(bd.getPatologias()!=null);
     }
 
-
 }
