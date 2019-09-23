@@ -259,6 +259,11 @@ public class ContaminacionHelper {
             baseDatos.addSuscripcion("Monoxido de Carbono",4);
             baseDatos.addSuscripcion("Monoxido de Carbono",3);
             baseDatos.addSuscripcion("Monoxido de Carbono",2);
+
+            baseDatos.addSuscripcion("Dioxido de Azufre",2);
+            baseDatos.addSuscripcion("Dioxido de Azufre",3);
+            baseDatos.addSuscripcion("Dioxido de Azufre",4);
+
         }
 
         if(ContaminacionHelper.enList(patologias,"Enfermedades pulmonares")!=-1)
@@ -269,6 +274,16 @@ public class ContaminacionHelper {
             baseDatos.addSuscripcion("Ozono",4);
             baseDatos.addSuscripcion("Ozono",3);
             baseDatos.addSuscripcion("Ozono",2);
+
+            baseDatos.addSuscripcion("Dioxido de Azufre",1);
+            baseDatos.addSuscripcion("Dioxido de Azufre",2);
+            baseDatos.addSuscripcion("Dioxido de Azufre",3);
+            baseDatos.addSuscripcion("Dioxido de Azufre",4);
+
+
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",2);
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",3);
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",4);
         }
 
         if(ContaminacionHelper.enList(patologias,"Asma")!=-1)
@@ -279,6 +294,15 @@ public class ContaminacionHelper {
             baseDatos.addSuscripcion("Ozono",4);
             baseDatos.addSuscripcion("Ozono",3);
             baseDatos.addSuscripcion("Ozono",2);
+
+            baseDatos.addSuscripcion("Dioxido de Azufre",1);
+            baseDatos.addSuscripcion("Dioxido de Azufre",2);
+            baseDatos.addSuscripcion("Dioxido de Azufre",3);
+            baseDatos.addSuscripcion("Dioxido de Azufre",4);
+
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",2);
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",3);
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",4);
         }
 
         if(ContaminacionHelper.enList(patologias,",Menor de 19 años")!=-1)
@@ -288,6 +312,10 @@ public class ContaminacionHelper {
             baseDatos.addSuscripcion("Ozono",4);
             baseDatos.addSuscripcion("Ozono",3);
             baseDatos.addSuscripcion("Ozono",2);
+
+            baseDatos.addSuscripcion("Dioxido de Azufre",2);
+            baseDatos.addSuscripcion("Dioxido de Azufre",3);
+            baseDatos.addSuscripcion("Dioxido de Azufre",4);
         }
 
         if(ContaminacionHelper.enList(patologias,"Mayor de 60 años")!=-1)
@@ -298,6 +326,14 @@ public class ContaminacionHelper {
             baseDatos.addSuscripcion("Ozono",4);
             baseDatos.addSuscripcion("Ozono",3);
             baseDatos.addSuscripcion("Ozono",2);
+
+            baseDatos.addSuscripcion("Dioxido de Azufre",1);
+            baseDatos.addSuscripcion("Dioxido de Azufre",2);
+            baseDatos.addSuscripcion("Dioxido de Azufre",3);
+            baseDatos.addSuscripcion("Dioxido de Azufre",4);
+
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",3);
+            baseDatos.addSuscripcion("Dioxido de Nitrogeno",4);
         }
 
     }
